@@ -20,10 +20,37 @@ public class ProceduralCableInspector : Editor {
 
         EditorGUI.BeginChangeCheck();
         float newCurvature = EditorGUILayout.FloatField("Curvature", proceduralCable.curvature);
+        proceduralCable.aTransform = (Transform)EditorGUILayout.ObjectField("A Transform", proceduralCable.aTransform, typeof(Transform), true);
+        if (proceduralCable.aTransform != null)
+        {
+            proceduralCable.a = proceduralCable.aTransform.position;
+        }
+
+        // a field for the b position transform
+        proceduralCable.bTransform = (Transform)EditorGUILayout.ObjectField("B Transform", proceduralCable.bTransform, typeof(Transform), true);
+        if (proceduralCable.bTransform != null)
+        {
+            proceduralCable.b = proceduralCable.bTransform.position;
+        }
+
         int newStep = EditorGUILayout.IntField("Step",proceduralCable.step);
         int newRadiusStep = EditorGUILayout.IntField("Radius step", proceduralCable.radiusStep);
         float newRadius = EditorGUILayout.FloatField("Radius", proceduralCable.radius);
         Vector2 newUvMultiply = EditorGUILayout.Vector2Field("UV Multiply", proceduralCable.uvMultiply);
+
+        // a button to update transform positions
+        if (GUILayout.Button("Update Transform Positions"))
+        {
+            if (proceduralCable.aTransform != null)
+            {
+                proceduralCable.a = proceduralCable.aTransform.position;
+            }
+            if (proceduralCable.bTransform != null)
+            {
+                proceduralCable.b = proceduralCable.bTransform.position;
+            }
+        }
+
         if (EditorGUI.EndChangeCheck())
         {
             Undo.RecordObject(proceduralCable, "Change parameter");
@@ -62,6 +89,16 @@ public class ProceduralCableInspector : Editor {
 
         Vector3 newAposition = Handles.DoPositionHandle(proceduralCable.a, Quaternion.identity);
         Vector3 newBposition = Handles.DoPositionHandle(proceduralCable.b, Quaternion.identity);
+
+        if (proceduralCable.aTransform != null)
+        {
+            proceduralCable.aTransform.position = newAposition;
+        }
+        if (proceduralCable.bTransform != null)
+        {
+            proceduralCable.bTransform.position = newBposition;
+        }
+
 
         if (EditorGUI.EndChangeCheck())
         {

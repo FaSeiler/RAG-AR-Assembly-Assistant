@@ -13,6 +13,8 @@ public class ProceduralCable : MonoBehaviour {
     public Vector2 uvMultiply = Vector2.one;
     public GameObject endSphereA;
     public GameObject endSphereB;
+    public Transform aTransform;
+    public Transform bTransform;
 
     public bool drawEditorLines = false;
 
@@ -28,7 +30,13 @@ public class ProceduralCable : MonoBehaviour {
     }
 
 	void Update () {
-		
+        if (aTransform != null && aTransform.hasChanged &&
+            bTransform != null && bTransform.hasChanged)
+        {
+            a = aTransform.position;
+            b = bTransform.position;
+            UpdateObject();
+        }
 	}
 
     public float CurveHeight(int i)
@@ -73,6 +81,16 @@ public class ProceduralCable : MonoBehaviour {
     public void UpdateObject()
     {
         meshFilter.sharedMesh = GenerateMesh();
+    }
+
+    public void Connect(Transform a, Transform b)
+    {
+        this.aTransform = a;
+        this.bTransform = b;
+        this.a = a.position;
+        this.b = b.position;
+
+        UpdateObject();
     }
 
     public Mesh GenerateMesh()
@@ -122,7 +140,7 @@ public class ProceduralCable : MonoBehaviour {
         mesh.RecalculateTangents();
 
 
-        // if there are already end spheres update their position and scale
+        // If there are already end spheres update their position and scale
         if (endSphereA != null && endSphereB != null)
         {
             endSphereA.transform.position = a;
