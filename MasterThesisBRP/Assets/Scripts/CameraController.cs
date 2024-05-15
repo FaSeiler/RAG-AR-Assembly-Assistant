@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private float mainSpeed = 40.0f; // Regular speed
-    [SerializeField] private float shiftAdd = 70.0f; // Multiplied speed by how long shift is held
-    [SerializeField] private float maxShift = 150.0f; // Maximum speed when holding shift
-    [SerializeField] private float camSens = 0.12f; // How sensitive is the mouse
+    [SerializeField] private float mainSpeed = 2.0f; // Regular speed
+    [SerializeField] private float shiftAdd = 5.0f; // Multiplied speed by how long shift is held
+    [SerializeField] private float maxShift = 10.0f; // Maximum speed when holding shift
+    [SerializeField] private float camSens = 0.1f; // How sensitive is the mouse
     private Vector3 lastMouse = new Vector3(255, 255, 255); // Kind of in the middle of the screen, rather than at the top
     private float totalRun = 1.0f;
 
