@@ -20,6 +20,11 @@ public class ProceduralCableInspector : Editor {
 
         EditorGUI.BeginChangeCheck();
         float newCurvature = EditorGUILayout.FloatField("Curvature", proceduralCable.curvature);
+
+        // a field for the proceduralCable.connectorA and B GameObject
+        proceduralCable.connectorA = (GameObject)EditorGUILayout.ObjectField("Connector A", proceduralCable.connectorA, typeof(GameObject), true);
+        proceduralCable.connectorB = (GameObject)EditorGUILayout.ObjectField("Connector B", proceduralCable.connectorB, typeof(GameObject), true);
+
         proceduralCable.aTransform = (Transform)EditorGUILayout.ObjectField("A Transform", proceduralCable.aTransform, typeof(Transform), true);
         if (proceduralCable.aTransform != null)
         {
