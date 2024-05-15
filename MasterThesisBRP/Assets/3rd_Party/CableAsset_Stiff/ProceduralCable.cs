@@ -18,6 +18,7 @@ public class ProceduralCable : MonoBehaviour {
     public GameObject connectorA;
     public GameObject connectorB;
     public Vector3 cableVector; // The vector from a to b
+    public Vector3 upVector; // The up vector for the connector
 
     public bool drawEditorLines = false;
 
@@ -157,14 +158,19 @@ public class ProceduralCable : MonoBehaviour {
             endSphereB = CreateSphere(b, radius, meshRenderer.material);
         }
 
+
+
         if (connectorA != null && connectorB != null)
         {
-            connectorA.transform.rotation = Quaternion.LookRotation(cableVector, Vector3.Cross(Vector3.down, b - a));
-            connectorB.transform.rotation = Quaternion.LookRotation(-cableVector, Vector3.Cross(Vector3.down, b - a));
+            cableVector = b - a;
+            cableVector = cableVector.normalized;
+
+            Quaternion newRotationA = Quaternion.LookRotation(cableVector, upVector);
+            Quaternion newRotationB = Quaternion.LookRotation(-cableVector, upVector);
+            connectorA.transform.rotation = newRotationA;
+            connectorB.transform.rotation = newRotationB;
         }
 
-        cableVector = b - a;
-        
         return mesh;
     }
 
