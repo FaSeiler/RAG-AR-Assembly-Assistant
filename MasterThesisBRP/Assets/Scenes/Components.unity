@@ -20,12 +20,12 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.6827169, g: 0.6827169, b: 0.6827169, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SubtractiveShadowColor: {r: 0.7830189, g: 0.09233712, b: 0.15906788, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -145,17 +145,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 681c18869048b0545907b8688121d422,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.218
+      value: -0.1807
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 681c18869048b0545907b8688121d422,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.117
+      value: 0.0803
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 681c18869048b0545907b8688121d422,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.0192
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 681c18869048b0545907b8688121d422,
         type: 3}
@@ -200,7 +200,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 681c18869048b0545907b8688121d422,
         type: 3}
       propertyPath: m_Name
-      value: 6ES7590-1AF30-0AA0_G_ST70_XX_98227V
+      value: Stand.sectional Rail 35mm, Length 530mm
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -326,7 +326,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a9605d3c15cb1f541bca7b3dc796cef4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0319
+      value: 0.0725
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a9605d3c15cb1f541bca7b3dc796cef4,
         type: 3}
@@ -381,7 +381,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a9605d3c15cb1f541bca7b3dc796cef4,
         type: 3}
       propertyPath: m_Name
-      value: 6ES7193-6BP00-0DA0_G_ST70_XX_97956V
+      value: BaseUnit Type A0, BU15-P16+A0+2D
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a9605d3c15cb1f541bca7b3dc796cef4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -482,17 +487,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d389a7c232575e84f9c6dff9f9cd2e77,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.2444
+      value: 0.0577
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d389a7c232575e84f9c6dff9f9cd2e77,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.117
+      value: 0.1618
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d389a7c232575e84f9c6dff9f9cd2e77,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.0204
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d389a7c232575e84f9c6dff9f9cd2e77,
         type: 3}
@@ -537,7 +542,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d389a7c232575e84f9c6dff9f9cd2e77,
         type: 3}
       propertyPath: m_Name
-      value: 6ES7134-6HB00-0CA1_G_ST70_XX_98978V
+      value: ET 200SP, AI 2xU Standard, PU 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -580,7 +585,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.53733534, g: 0.6509434, b: 0.59590435, a: 0}
+  m_BackGroundColor: {r: 0.8443396, g: 0.9950305, b: 1, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -629,8 +634,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 785886977}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000009357697, y: 0.9999235, z: -0.0030016678, w: 0.011999979}
-  m_LocalPosition: {x: -0.35443044, y: 0.21318245, z: 0.3698547}
+  m_LocalRotation: {x: -0.005499736, y: 0.9931223, z: -0.104663044, w: -0.052186683}
+  m_LocalPosition: {x: -0.009782918, y: 0.22923957, z: 0.281278}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -662,17 +667,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 322348043d19fb04e8286cadef965de9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.552
+      value: -0.18640001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 322348043d19fb04e8286cadef965de9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.117
+      value: 0.082
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 322348043d19fb04e8286cadef965de9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.012
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 322348043d19fb04e8286cadef965de9,
         type: 3}
@@ -714,10 +719,35 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -8098395335620786928, guid: 322348043d19fb04e8286cadef965de9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7736611462439561612, guid: 322348043d19fb04e8286cadef965de9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1480175333179745493, guid: 322348043d19fb04e8286cadef965de9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 322348043d19fb04e8286cadef965de9,
         type: 3}
       propertyPath: m_Name
-      value: G_ST70_XX_04908V
+      value: SIMATIC OPC UA S7-1500 Small
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284748349949259844, guid: 322348043d19fb04e8286cadef965de9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8168752951008635545, guid: 322348043d19fb04e8286cadef965de9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -750,7 +780,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a570e6aeb40f2824eab73a73713fdf7d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.36
+      value: 0.011
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a570e6aeb40f2824eab73a73713fdf7d,
         type: 3}
@@ -805,7 +835,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a570e6aeb40f2824eab73a73713fdf7d,
         type: 3}
       propertyPath: m_Name
-      value: 6EP7133-6AE00-0BN0_G_KT01_XX_01421V
+      value: SIMATIC ET 200SP PS1AC24VDC10A
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -838,17 +868,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a895efdeb817d5e4781d03c32566011e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.668
+      value: 0.3577
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a895efdeb817d5e4781d03c32566011e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.117
+      value: 0.0845
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a895efdeb817d5e4781d03c32566011e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.0199
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a895efdeb817d5e4781d03c32566011e,
         type: 3}
@@ -893,7 +923,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a895efdeb817d5e4781d03c32566011e,
         type: 3}
       propertyPath: m_Name
-      value: 6ES7193-6MR00-0BA0_G_ST70_XX_04897V
+      value: SIMATIC system rail, length 530mm
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a895efdeb817d5e4781d03c32566011e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -926,17 +961,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 40c41bde27a93484a9016bca73a96bfa,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.065
+      value: 0.0425
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 40c41bde27a93484a9016bca73a96bfa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.117
+      value: 0.093
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 40c41bde27a93484a9016bca73a96bfa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 40c41bde27a93484a9016bca73a96bfa,
         type: 3}
@@ -981,7 +1016,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 40c41bde27a93484a9016bca73a96bfa,
         type: 3}
       propertyPath: m_Name
-      value: 6ES7193-6BP20-0BA0_G_ST70_XX_97958V
+      value: BaseUnit Type A0, BU15-P16+A10+2B
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 40c41bde27a93484a9016bca73a96bfa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1006,7 +1046,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1299094782
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1122,17 +1162,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4c283aabb4cb76f49aeed170aaa6756a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.285
+      value: 0.0426
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c283aabb4cb76f49aeed170aaa6756a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.117
+      value: 0.1618
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c283aabb4cb76f49aeed170aaa6756a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.0204
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4c283aabb4cb76f49aeed170aaa6756a,
         type: 3}
@@ -1177,7 +1217,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4c283aabb4cb76f49aeed170aaa6756a,
         type: 3}
       propertyPath: m_Name
-      value: 6ES7134-6GD01-0BA1_G_ST70_XX_02154V
+      value: ET 200SP, AI 4XI 2-4-Wire ST, PU 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1210,7 +1250,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 6e53f6a42cbde33469a33aa1e283e076,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0923
+      value: 0.173
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6e53f6a42cbde33469a33aa1e283e076,
         type: 3}
@@ -1262,10 +1302,25 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -6371405896493946277, guid: 6e53f6a42cbde33469a33aa1e283e076,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6e53f6a42cbde33469a33aa1e283e076,
         type: 3}
       propertyPath: m_Name
-      value: 6ES7512-1DM03-0AB0_G_ST70_XX_04911V
+      value: CPU 1512SP-1 PN, 400KB Prog., 2MB Data
+      objectReference: {fileID: 0}
+    - target: {fileID: 2289270867315302491, guid: 6e53f6a42cbde33469a33aa1e283e076,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -45.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666663974242200246, guid: 6e53f6a42cbde33469a33aa1e283e076,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -45.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1298,17 +1353,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 34f74ec14d4f0b6489b5a7143bf42857,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.2137
+      value: 0.0729
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34f74ec14d4f0b6489b5a7143bf42857,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.117
+      value: 0.1622
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34f74ec14d4f0b6489b5a7143bf42857,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.0204
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34f74ec14d4f0b6489b5a7143bf42857,
         type: 3}
@@ -1353,7 +1408,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 34f74ec14d4f0b6489b5a7143bf42857,
         type: 3}
       propertyPath: m_Name
-      value: 6ES7134-6GB00-0BA1_G_ST70_XX_91820V
+      value: ET 200SP, AI 2xI 2-4-Wire ST, PU 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 34f74ec14d4f0b6489b5a7143bf42857,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1386,17 +1446,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 39f97a69e1d7c4241bf782b1ae152b5a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.319
+      value: 0.1498
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39f97a69e1d7c4241bf782b1ae152b5a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.117
+      value: 0.1616
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39f97a69e1d7c4241bf782b1ae152b5a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.0142
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39f97a69e1d7c4241bf782b1ae152b5a,
         type: 3}
@@ -1441,7 +1501,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 39f97a69e1d7c4241bf782b1ae152b5a,
         type: 3}
       propertyPath: m_Name
-      value: 6ES7193-6AR00-0AA0_G_ST70_XX_97953V
+      value: ET 200SP, Busadapter BA 2xRJ45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1576,7 +1636,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 77f33a8ba04e8f048a3d6abd6fe7549d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0.0575
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 77f33a8ba04e8f048a3d6abd6fe7549d,
         type: 3}
@@ -1631,7 +1691,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 77f33a8ba04e8f048a3d6abd6fe7549d,
         type: 3}
       propertyPath: m_Name
-      value: 6ES7193-6BP00-0BA0_G_ST70_XX_97954V
+      value: BaseUnit Type A0, BU15-P16+A0+2B
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 77f33a8ba04e8f048a3d6abd6fe7549d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1664,7 +1729,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4b8b6129b0a71794494d22a32dc4f459,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.618
+      value: 0.1179
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4b8b6129b0a71794494d22a32dc4f459,
         type: 3}
@@ -1674,7 +1739,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4b8b6129b0a71794494d22a32dc4f459,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.0699
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4b8b6129b0a71794494d22a32dc4f459,
         type: 3}
@@ -1719,7 +1784,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4b8b6129b0a71794494d22a32dc4f459,
         type: 3}
       propertyPath: m_Name
-      value: G_ST70_XX_04829V
+      value: SIMATIC Memory Card
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1883,14 +1948,14 @@ SceneRoots:
   - {fileID: 395300134}
   - {fileID: 1958897207}
   - {fileID: 662460278}
-  - {fileID: 1990167178}
-  - {fileID: 504723754}
-  - {fileID: 1234450874}
   - {fileID: 1415439094}
+  - {fileID: 1763389688}
+  - {fileID: 504723754}
+  - {fileID: 1990167178}
+  - {fileID: 1234450874}
   - {fileID: 1685164656}
   - {fileID: 745502525}
   - {fileID: 1299846594}
-  - {fileID: 1763389688}
   - {fileID: 1155630838}
   - {fileID: 843741151}
   - {fileID: 1990872564}
