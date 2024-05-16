@@ -11,14 +11,17 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/ARScene.unity
     guid: 1f8563be9f6c72848b0e0aca536bd13d
-  - enabled: 1
+  - enabled: 0
     path: Assets/3rd_Party/QRCode_Samples/Boot.unity
     guid: e0a52783a8802784296549d34db8f6d6
-  - enabled: 1
+  - enabled: 0
     path: Assets/3rd_Party/QRCode_Samples/Continuous/ContinuousDemo.unity
     guid: 744a9a2b17efe6e48b5b541a2e5c70c1
-  - enabled: 1
+  - enabled: 0
     path: Assets/3rd_Party/QRCode_Samples/Simple/SimpleDemo.unity
     guid: 93c1548587961484cb231b7f9c4a0734
+  - enabled: 1
+    path: Assets/Scenes/Components.unity
+    guid: 9fabc0bf50e5c074f991275fb8fc7142
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
