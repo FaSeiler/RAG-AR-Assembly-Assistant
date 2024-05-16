@@ -8,17 +8,19 @@ public class WebScraperSIMATIC : MonoBehaviour
 {
     private static readonly HttpClient client = new HttpClient();
 
-    void Start()
-    {
-        // You can start the scraping process with a default URL or set it using the method
-        //string url = "https://mall.industry.siemens.com/mall/en/ww/Catalog/Product/6ES7155-6AR00-0AN0";
-        string url = "https://mall.industry.siemens.com/mall/en/ww/Catalog/Product/6AG1212-1AE31-2XB0";
-        StartCoroutine(ScrapeData(url));
-    }
+    //void Start()
+    //{
+    //    // You can start the scraping process with a default URL or set it using the method
+    //    //string url = "https://mall.industry.siemens.com/mall/en/ww/Catalog/Product/6ES7155-6AR00-0AN0";
+    //    string url = "https://mall.industry.siemens.com/mall/en/ww/Catalog/Product/6AG1212-1AE31-2XB0";
+    //    StartCoroutine(ScrapeData(url));
+    //}
 
-    // Method to start the scraping process with a given URL
-    public void StartScraping(string url)
+    // Method to start the scraping process with a given article number
+    public void StartScraping(string articleNumber)
     {
+        string url = $"https://mall.industry.siemens.com/mall/en/ww/Catalog/Product/{articleNumber}";
+
         StartCoroutine(ScrapeData(url));
     }
 
