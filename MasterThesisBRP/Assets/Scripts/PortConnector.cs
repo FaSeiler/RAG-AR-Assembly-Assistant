@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PortConnector : MonoBehaviour
 {
-    public ComponentSIMATIC componentSIMATIC_A;
-    public ComponentSIMATIC componentSIMATIC_B;
+    public ComponentPortSIMATIC componentSIMATIC_A;
+    public ComponentPortSIMATIC componentSIMATIC_B;
     public GameObject cablePrefab;
 
     public string portNameA = "1";

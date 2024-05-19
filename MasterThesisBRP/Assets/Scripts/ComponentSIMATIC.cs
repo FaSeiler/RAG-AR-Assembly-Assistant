@@ -1,49 +1,42 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class ComponentSIMATIC : MonoBehaviour
+public class ComponentSIMATIC
 {
-    public string componentName;
-    public string articleNumber;
+    public GameObject model;
+    public Dictionary<string, string> dataDictionary;
 
-    public GameObject portReferencePoints_Inner;
-    public GameObject portReferencePoints_Outer;
-    public List<Port> ports = new List<Port>();
+    public UnityEvent<ComponentSIMATIC> OnComponentInitialized = new UnityEvent<ComponentSIMATIC>();
 
-    private void Start()
+    public ComponentSIMATIC(string articleNumber)
     {
-        InitPortReferencePoints();
+        Init(articleNumber);
     }
 
-    private void InitPortReferencePoints()
+    // Get the component information from the web scraper
+    private void Init(string articleNumber)
     {
-        // init the list of ports. Every port has an inner and an outer reference point with the same name under portReferencePoint_Inner and portReferencePoint_Outer
-        foreach (Transform innerTransform in portReferencePoints_Inner.transform)
-        {
-            Transform outerTransform = portReferencePoints_Outer.transform.Find(innerTransform.name);
-            if (outerTransform != null)
-            {
-                Port port = new Port();
-                port.portName = innerTransform.name;
-                port.innerTransform = innerTransform;
-                port.outerTransform = outerTransform;
-                ports.Add(port);
-            }
-        }
+        WebScraperSIMATIC.instance.StartScraping(articleNumber, OnComponentDataReceived);
+        model = ModelDatabase.instance.GetModel(articleNumber);
     }
 
-    public Port GetPortByName(string portName)
+    private void OnComponentDataReceived(Dictionary<string, string> dataDictionary)
     {
-        foreach (Port port in ports)
-        {
-            if (port.portName == portName)
-            {
-                return port;
-            }
-        }
+        this.dataDictionary = dataDictionary;
+        OnComponentInitialized.Invoke(this);
+    }
 
-        return null;
+    public void PrintDataDictionary()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        
+        foreach (KeyValuePair<string, string> kvp in dataDictionary)
+        {
+            stringBuilder.Append(kvp.Key + ": " + kvp.Value + "\n");
+        }
     }
 }
