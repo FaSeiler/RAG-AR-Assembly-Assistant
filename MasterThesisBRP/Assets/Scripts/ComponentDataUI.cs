@@ -10,7 +10,7 @@ public class ComponentDataUI : MonoBehaviour
     public GameObject valueTextEntryPrefab;
     public GameObject placeholderPrefab;
 
-    public GameObject activePreviewComponentParent;
+    public RotatingPreviewComponent activePreviewComponentParent;
     public GameObject activePreviewComponent;
 
     public ComponentSIMATIC activeComponent;
@@ -56,7 +56,10 @@ public class ComponentDataUI : MonoBehaviour
             Destroy(activePreviewComponent);
         }
 
-        GameObject previewComponent = Instantiate(component.model, activePreviewComponentParent.transform);
+        GameObject previewComponent = Instantiate(component.model);
+
+        activePreviewComponentParent.UpdatePreviewComponent(previewComponent);
+
         activePreviewComponent = previewComponent;
     }
 

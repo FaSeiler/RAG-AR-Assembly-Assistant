@@ -4,35 +4,31 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class RotatingObject : MonoBehaviour
+public class RotatingPreviewComponent : MonoBehaviour
 {
     public Vector3 rotationAxis = Vector3.up;
     public float rotationSpeed = 10f;
+    public bool pivotSet = false;
+    public ComponentPreviewCamera previewCamera;
+
 
     private void Update()
     {
-        //RotateObject();
-        RotateObjectAroundCenter();
+        if (pivotSet)
+        {
+            RotateObject();
+        }
     }
 
-    // Rotate the object around a give axis over time
     private void RotateObject()
     {
         transform.Rotate(rotationAxis, rotationSpeed * Time.deltaTime);
     }
 
-    // Rotate the object around its own pivot center over time
-    private void RotateObjectAroundPivot()
+    public void UpdatePreviewComponent(GameObject model)
     {
-        transform.RotateAround(transform.position, rotationAxis, rotationSpeed * Time.deltaTime);
-    }
-
-    private void RotateObjectAroundCenter()
-    {
-
-
         // Step 1: Calculate the bounds of all child renderers
-        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        Renderer[] renderers = model.GetComponentsInChildren<Renderer>();
         if (renderers.Length == 0) return; // No child renderers found
 
         Bounds bounds = renderers[0].bounds;
@@ -41,11 +37,10 @@ public class RotatingObject : MonoBehaviour
             bounds.Encapsulate(renderers[i].bounds);
         }
 
-        Vector3 pivot = bounds.center;
+        transform.position = bounds.center;
+        model.transform.parent = transform;
+        previewCamera.SetPivot(bounds.center);
 
-        // Step 2: Perform the rotation around the pivot
-        transform.RotateAround(pivot, rotationAxis, rotationSpeed * Time.deltaTime);
+        pivotSet = true;
     }
-
-
 }
