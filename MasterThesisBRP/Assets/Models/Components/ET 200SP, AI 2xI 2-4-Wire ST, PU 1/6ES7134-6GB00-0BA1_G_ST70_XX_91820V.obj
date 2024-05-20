@@ -5,7 +5,7 @@
 # Originating system: SIEMENS PLM Software NX 8.5
 # Organization: Siemens
 # Comments:
-mtllib 6ES7134-6GB00-0BA1_G_ST70_XX_91820V_gltf.mtl
+mtllib 6ES7134-6GB00-0BA1_G_ST70_XX_91820V.mtl
 g A5E36842025A_001/A5E36834596A_001
 usemtl mat_1
 v 0.000000 53.007404 -61.480293
