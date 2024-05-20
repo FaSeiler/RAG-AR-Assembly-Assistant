@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4537367340511238378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7896404775990498652}
+  - component: {fileID: 780890917281134430}
+  m_Layer: 0
+  m_Name: ModelDatabase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7896404775990498652
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4537367340511238378}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &780890917281134430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4537367340511238378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69998b37aab27f547b7241ae1e45c6d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  models:
+  - articleNumber: 6ES7193-6BP00-0BA0
+    prefab: {fileID: 919132149155446097, guid: 77f33a8ba04e8f048a3d6abd6fe7549d, type: 3}
+  - articleNumber: 6ES7193-6BP00-0DA0
+    prefab: {fileID: 919132149155446097, guid: a9605d3c15cb1f541bca7b3dc796cef4, type: 3}
+  - articleNumber: 6ES7193-6BP20-0BA0
+    prefab: {fileID: 919132149155446097, guid: 40c41bde27a93484a9016bca73a96bfa, type: 3}
+  - articleNumber: 6ES7512-1DM03-0AB0
+    prefab: {fileID: 919132149155446097, guid: 6e53f6a42cbde33469a33aa1e283e076, type: 3}
+  - articleNumber: 6ES7134-6GB00-0BA1
+    prefab: {fileID: 919132149155446097, guid: 34f74ec14d4f0b6489b5a7143bf42857, type: 3}
+  - articleNumber: 6ES7134-6HB00-0CA1
+    prefab: {fileID: 919132149155446097, guid: d389a7c232575e84f9c6dff9f9cd2e77, type: 3}
+  - articleNumber: 6ES7134-6GD01-0BA1
+    prefab: {fileID: 919132149155446097, guid: 4c283aabb4cb76f49aeed170aaa6756a, type: 3}
+  - articleNumber: 6ES7193-6AR00-0AA0
+    prefab: {fileID: 919132149155446097, guid: 39f97a69e1d7c4241bf782b1ae152b5a, type: 3}
+  - articleNumber: 6EP7133-6AE00-0BN0
+    prefab: {fileID: 919132149155446097, guid: a570e6aeb40f2824eab73a73713fdf7d, type: 3}
+  - articleNumber: 6ES7511-1UL03-0AB0
+    prefab: {fileID: 919132149155446097, guid: 322348043d19fb04e8286cadef965de9, type: 3}
+  - articleNumber: 6ES7954-8LC02-0AA0
+    prefab: {fileID: 919132149155446097, guid: 4b8b6129b0a71794494d22a32dc4f459, type: 3}
+  - articleNumber: 6ES7590-1AF30-0AA0
+    prefab: {fileID: 919132149155446097, guid: 681c18869048b0545907b8688121d422, type: 3}
+  - articleNumber: 6ES7193-6MR00-0BA0
+    prefab: {fileID: 919132149155446097, guid: a895efdeb817d5e4781d03c32566011e, type: 3}
