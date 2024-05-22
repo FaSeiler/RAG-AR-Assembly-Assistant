@@ -6,6 +6,6 @@ def get_embedding_function():
     # embeddings = BedrockEmbeddings(
     #     credentials_profile_name="default", region_name="us-east-1"
     # )
-    # embeddings = OllamaEmbeddings(model="nomic-embed-text")
-    embeddings = OllamaEmbeddings(model = "llama3")
+    # embeddings = OllamaEmbeddings(model="nomic-embed-text", show_progress=True)
+    embeddings = OllamaEmbeddings(model="mxbai-embed-large", show_progress=True)
     return embeddings

@@ -9,17 +9,17 @@ Actual Response: {actual_response}
 """
 
 
-def test_website_fabian():
+def test_monopoly_rules():
     assert query_and_validate(
-        question="What is Fabian Seiler's Website?",
-        expected_response="https://sites.google.com/view/seilerfabian/homepage",
+        question="How much total money does a player start with in Monopoly? (Answer with the number only)",
+        expected_response="$1500",
     )
 
 
-def test_positions_fabian():
-    assert not query_and_validate(
-        question="Which positions did Fabian Seiler have ",
-        expected_response="Festangestellter, Werkstudent, Ferienarbeiter",
+def test_ticket_to_ride_rules():
+    assert query_and_validate(
+        question="How many points does the longest continuous train get in Ticket to Ride? (Answer with the number only)",
+        expected_response="10 points",
     )
 
 
@@ -29,7 +29,7 @@ def query_and_validate(question: str, expected_response: str):
         expected_response=expected_response, actual_response=response_text
     )
 
-    model = Ollama(model="llama3")
+    model = Ollama(model="mistral")
     evaluation_results_str = model.invoke(prompt)
     evaluation_results_str_cleaned = evaluation_results_str.strip().lower()
 
