@@ -6,14 +6,11 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.schema.document import Document
 from get_embedding_function import get_embedding_function
 from langchain.vectorstores.chroma import Chroma
-import logging
 
 
 CHROMA_PATH = "chroma"
 DATA_PATH = "data"
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
 
 def main():
 
@@ -37,11 +34,9 @@ def load_documents():
 
 
 def split_documents(documents: list[Document]):
-    logging.info('Splitting documents...')
-
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=166,
-        chunk_overlap=30,
+        chunk_size=800,
+        chunk_overlap=80,
         length_function=len,
         is_separator_regex=False,
     )
@@ -49,8 +44,6 @@ def split_documents(documents: list[Document]):
 
 
 def add_to_chroma(chunks: list[Document]):
-    logging.info('Adding to Chroma...')
-
     # Load the existing database.
     db = Chroma(
         persist_directory=CHROMA_PATH, embedding_function=get_embedding_function()
@@ -70,18 +63,23 @@ def add_to_chroma(chunks: list[Document]):
         if chunk.metadata["id"] not in existing_ids:
             new_chunks.append(chunk)
 
-    if len(new_chunks):
-        print(f"👉 Adding new documents: {len(new_chunks)}")
-        new_chunk_ids = [chunk.metadata["id"] for chunk in new_chunks]
-        db.add_documents(new_chunks, ids=new_chunk_ids)
-        db.persist()
-    else:
-        print("✅ No new documents to add")
+    # Maximum batch size
+    MAX_BATCH_SIZE = 166
 
+    # Split new_chunks into smaller batches
+    batches = [new_chunks[i:i + MAX_BATCH_SIZE] for i in range(0, len(new_chunks), MAX_BATCH_SIZE)]
+
+    for batch in batches:
+        if len(batch):
+            print(f"👉 Adding new documents: {len(batch)}")
+            new_chunk_ids = [chunk.metadata["id"] for chunk in batch]
+            db.add_documents(batch, ids=new_chunk_ids)
+            db.persist()
+        else:
+            print("✅ No new documents to add")
 
 def calculate_chunk_ids(chunks):
-    logging.info('Calculating chunk IDs...')
-    
+
     # This will create IDs like "data/monopoly.pdf:6:2"
     # Page Source : Page Number : Chunk Index
 
