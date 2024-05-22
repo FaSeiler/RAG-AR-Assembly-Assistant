@@ -8,7 +8,13 @@ from get_embedding_function import get_embedding_function
 from langchain.vectorstores.chroma import Chroma
 
 
-CHROMA_PATH = "chroma"
+# CHROMA_PATH = "chroma_s71500_system_manual_en-US_en-US"
+# CHROMA_PATH = "chroma_et200sp_system_manual_en-US_en-US"
+
+# Stripped down version of the PDF
+CHROMA_PATH = "et200sp_system_manual_en-US_en-US_stripped"
+
+
 DATA_PATH = "data"
 
 
