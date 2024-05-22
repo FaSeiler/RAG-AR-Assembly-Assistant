@@ -5,7 +5,12 @@ from langchain_community.llms.ollama import Ollama
 
 from get_embedding_function import get_embedding_function
 
-CHROMA_PATH = "chroma"
+# CHROMA_PATH = "chroma_s71500_system_manual_en-US_en-US"
+# CHROMA_PATH = "chroma_et200sp_system_manual_en-US_en-US"
+
+# Stripped down version of the PDF
+CHROMA_PATH = "et200sp_system_manual_en-US_en-US_stripped"
+
 
 # PROMPT_TEMPLATE = """
 # Answer the question based only on the following context:
@@ -27,12 +32,16 @@ CHROMA_PATH = "chroma"
 #     Answer: <|eot_id|><|start_header_id|>assistant<|end_header_id|>""",
 #     input_variables=["question", "document"],
 # )
-PROMPT_TEMPLATE = """<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are an assistant for question-answering tasks. 
-    Use the following pieces of retrieved context to answer the question. If you don't know the answer, just say that you don't know. 
-    Keep the answer concise <|eot_id|><|start_header_id|>user<|end_header_id|>
-    Question: {question} 
-    Context: {context} 
-    Answer: <|eot_id|><|start_header_id|>assistant<|end_header_id|>"""
+
+PROMPT_TEMPLATE = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know the answer, just say that you don't know. Keep the answer concise and don't mention the context you are given in your response. <|eot_id|>
+<|start_header_id|>user<|end_header_id|>
+
+Question: {question} 
+Context: {context} 
+Answer: <|eot_id|>
+<|start_header_id|>assistant<|end_header_id|>"""
 
 def main():
     # Create CLI.
@@ -53,7 +62,7 @@ def query_rag(query_text: str, useContext: bool = True):
         db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
 
         # Search the DB.
-        results = db.similarity_search_with_score(query_text, k=10)
+        results = db.similarity_search_with_score(query_text, k=5)
 
         context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
         prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
