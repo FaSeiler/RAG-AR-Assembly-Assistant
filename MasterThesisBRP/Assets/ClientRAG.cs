@@ -1,25 +1,38 @@
+using Newtonsoft.Json;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class ClientRAG : MonoBehaviour
+public class ClientRAG : Singleton<ClientRAG>
 {
-    private string url = "http://127.0.0.1:5000/query";
+    public string url = "http://localhost:5000/query"; // Replace with your Flask server URL
+    public string request = "Give me sample questions I can ask you.";
+    public bool useContext = true;
+    public string database = "et200sp_system_manual_en-US_en-US_stripped";
+    public int k_context = 5;
+    public bool isProcessing = false;
+    public string response;
 
-    private void Start()
+    // A function that takes in a request string and sends it to the server
+    public void SendRequest(string request, Action<string> callback, 
+        bool useContext = true, string database = "et200sp_system_manual_en-US_en-US_stripped", int k_context = 5)
     {
-        SendQuery("What is the birthday of Fabian Seiler?");
+        this.request = request;
+        this.useContext = useContext;
+        this.database = database;
+        this.k_context = k_context;
+        StartCoroutine(SendRAGRequest(callback));
     }
 
-    public void SendQuery(string queryText)
+    public IEnumerator SendRAGRequest(Action<string> callback)
     {
-        StartCoroutine(PostRequest(queryText));
-    }
-
-    private IEnumerator PostRequest(string queryText)
-    {
+        isProcessing = true;
         var request = new UnityWebRequest(url, "POST");
-        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes("{\"query_text\": \"" + queryText + "\"}");
+        var jsonBody = new { question = request, useContext = true, database = "et200sp_system_manual_en-US_en-US_stripped", k_context = 5 };
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(jsonBody));
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
@@ -29,10 +42,14 @@ public class ClientRAG : MonoBehaviour
         if (request.result != UnityWebRequest.Result.Success)
         {
             Debug.Log(request.error);
+            callback("Error: " + request.error);
         }
         else
         {
             Debug.Log("Received: " + request.downloadHandler.text);
+            callback(request.downloadHandler.text);
         }
+
+        isProcessing = false;
     }
 }
