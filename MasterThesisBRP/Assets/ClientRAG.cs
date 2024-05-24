@@ -8,48 +8,54 @@ using UnityEngine.Networking;
 
 public class ClientRAG : Singleton<ClientRAG>
 {
-    public string url = "http://localhost:5000/query"; // Replace with your Flask server URL
-    public string request = "Give me sample questions I can ask you.";
-    public bool useContext = true;
-    public string database = "et200sp_system_manual_en-US_en-US_stripped";
-    public int k_context = 5;
-    public bool isProcessing = false;
-    public string response;
+    string BASE_URL = "http://192.168.0.110:5000";
 
-    // A function that takes in a request string and sends it to the server
-    public void SendRequest(string request, Action<string> callback, 
-        bool useContext = true, string database = "et200sp_system_manual_en-US_en-US_stripped", int k_context = 5)
+    IEnumerator SayHello()
     {
-        this.request = request;
-        this.useContext = useContext;
-        this.database = database;
-        this.k_context = k_context;
-        StartCoroutine(SendRAGRequest(callback));
+        using (UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "/hello"))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log(request.downloadHandler.text); // prints "Hello Fabian"
+            }
+            else
+            {
+                Debug.LogError("Error: " + request.error);
+            }
+        }
     }
 
-    public IEnumerator SendRAGRequest(Action<string> callback)
+    IEnumerator SendQuery(string question, string database, bool useContext = true, int kContext = 5)
     {
-        isProcessing = true;
-        var request = new UnityWebRequest(url, "POST");
-        var jsonBody = new { question = request, useContext = true, database = "et200sp_system_manual_en-US_en-US_stripped", k_context = 5 };
-        byte[] bodyRaw = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(jsonBody));
-        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-        request.downloadHandler = new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
+        string url = BASE_URL + "/query";
+        string jsonData = "{\"question\": \"" + question + "\", \"useContext\": " + useContext.ToString().ToLower() + ", \"database\": \"" + database + "\", \"k_context\": " + kContext + "}";
 
-        yield return request.SendWebRequest();
-
-        if (request.result != UnityWebRequest.Result.Success)
+        using (UnityWebRequest request = UnityWebRequest.Post(url, "POST"))
         {
-            Debug.Log(request.error);
-            callback("Error: " + request.error);
-        }
-        else
-        {
-            Debug.Log("Received: " + request.downloadHandler.text);
-            callback(request.downloadHandler.text);
-        }
+            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+            request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
 
-        isProcessing = false;
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log(request.downloadHandler.text);
+            }
+            else
+            {
+                Debug.LogError("Error: " + request.error);
+            }
+        }
+    }
+
+    void Start()
+    {
+        StartCoroutine(SayHello());
+        StartCoroutine(SendQuery("What cables can I use to connect the base unit?", "et200sp_system_manual_en-US_en-US_stripped"));
     }
 }
