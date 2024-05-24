@@ -395,6 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d08ec1e48883a234e9ec40da6d6c5a4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBusy: 0
 --- !u!4 &319050116
 Transform:
   m_ObjectHideFlags: 0
@@ -1114,8 +1115,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 1093.1, y: -636.12}
+  m_SizeDelta: {x: 178.5857, y: 178.5857}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &785280941
 MonoBehaviour:
@@ -1130,7 +1131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.18823531, g: 0.20392159, b: 0.24705884, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1139,7 +1140,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 185e86c46006fcd40996604ca84d7295, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1164,9 +1165,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 785280939}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2ffdacf367dc5b46b2ec5c23386d7b4, type: 3}
+  m_Script: {fileID: 11500000, guid: bcc0164d6fffdda4bb149e0ee63efb61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: -100
 --- !u!1 &795111752
 GameObject:
   m_ObjectHideFlags: 0
@@ -1198,12 +1200,12 @@ RectTransform:
   m_Children:
   - {fileID: 748864035}
   - {fileID: 866707504}
-  - {fileID: 785280940}
   - {fileID: 1381666242}
   - {fileID: 2109410873}
   - {fileID: 1971962323}
   - {fileID: 1148572038}
   - {fileID: 593820214}
+  - {fileID: 785280940}
   m_Father: {fileID: 1958897207}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1223,12 +1225,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0793238689a12f64d87b8c53acf62f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speechText: {fileID: 1480534524}
+  questionInputField: {fileID: 2109410874}
   startSpeechToTextButton: {fileID: 1148572039}
   stopSpeechToTextButton: {fileID: 0}
   sendRequestButton: {fileID: 593820217}
   voiceLevelSlider: {fileID: 1971962322}
   preferOfflineRecognition: 0
+  loadingRing: {fileID: 785280939}
   chatEntriesParent: {fileID: 1381666244}
   chatEntryPrefab: {fileID: 1591752957736971041, guid: 905fddff1e5249049b3dac1ef04ff1ff,
     type: 3}
