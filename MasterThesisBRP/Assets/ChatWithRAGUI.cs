@@ -4,10 +4,12 @@ using TMPro;
 
 public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
 {
-    public TextMeshProUGUI speechText;
+    // TMPRO input field
+    public TMP_InputField questionInputField;
     public Button startSpeechToTextButton, stopSpeechToTextButton, sendRequestButton;
     public Slider voiceLevelSlider;
     public bool preferOfflineRecognition;
+    public GameObject loadingRing;
 
     private float normalizedVoiceLevel;
 
@@ -40,6 +42,17 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
         if (stopSpeechToTextButton != null)
             stopSpeechToTextButton.interactable = SpeechToText.IsBusy();
 
+        if (ClientRAG.instance.isBusy)
+        {
+            sendRequestButton.interactable = false;
+            loadingRing.SetActive(true);
+        }
+        else
+        {
+            sendRequestButton.interactable = !string.IsNullOrEmpty(questionInputField.text);
+            loadingRing.SetActive(false);
+        }
+
         // You may also apply some noise to the voice level for a more fluid animation (e.g. via Mathf.PerlinNoise)
         voiceLevelSlider.value = Mathf.Lerp(voiceLevelSlider.value, normalizedVoiceLevel, 15f * Time.unscaledDeltaTime);
     }
@@ -47,7 +60,7 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
     public void ChangeLanguage(string preferredLanguage)
     {
         if (!SpeechToText.Initialize(preferredLanguage))
-            speechText.text = "Couldn't initialize with language: " + preferredLanguage;
+            questionInputField.text = "Couldn't initialize with language: " + preferredLanguage;
     }
 
     public void StartSpeechToText()
@@ -57,12 +70,12 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
             if (permission == SpeechToText.Permission.Granted)
             {
                 if (SpeechToText.Start(this, preferOfflineRecognition: preferOfflineRecognition))
-                    speechText.text = "";
+                    questionInputField.text = "";
                 else
-                    speechText.text = "Couldn't start speech recognition session!";
+                    questionInputField.text = "Couldn't start speech recognition session!";
             }
             else
-                speechText.text = "Permission is denied!";
+                questionInputField.text = "Permission is denied!";
         });
     }
 
@@ -90,13 +103,13 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
     void ISpeechToTextListener.OnPartialResultReceived(string spokenText)
     {
         Debug.Log("OnPartialResultReceived: " + spokenText);
-        speechText.text = spokenText;
+        questionInputField.text = spokenText;
     }
 
     void ISpeechToTextListener.OnResultReceived(string spokenText, int? errorCode)
     {
         Debug.Log("OnResultReceived: " + spokenText + (errorCode.HasValue ? (" --- Error: " + errorCode) : ""));
-        speechText.text = spokenText;
+        questionInputField.text = spokenText;
         normalizedVoiceLevel = 0f;
 
         // Recommended approach:
@@ -108,14 +121,15 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
 
     public void SendRAGRequest()
     {
-        string request = speechText.text;
+        string request = questionInputField.text;
         AddChatEntry(request, true);
+        questionInputField.text = "";
 
 
-        //ClientRAG.instance.SendRequest(request, (response) =>
-        //{
-        //    AddChatEntry(response, false);
-        //});
+        ClientRAG.instance.SendRequest(request, (response) =>
+        {
+            AddChatEntry(response, false);
+        });
     }
 
     public void AddChatEntry(string text, bool isUser)
