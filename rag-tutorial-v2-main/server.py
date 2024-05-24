@@ -3,6 +3,10 @@ import query_data
 
 app = Flask(__name__)
 
+@app.route('/hello', methods=['GET'])
+def hello():
+    return "Hello Fabian"
+
 @app.route('/query', methods=['POST'])
 def query():
     data = request.get_json()
@@ -18,4 +22,5 @@ def query():
     return jsonify(result)
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    app.run(host='192.168.0.110', port=5000, debug=True)
+    # app.run(host='127.0.0.1', port=5000, debug=True)

@@ -35,7 +35,7 @@ CHROMA_PATH = "et200sp_system_manual_en-US_en-US_stripped"
 
 PROMPT_TEMPLATE = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
-You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know the answer, just say that you don't know. Keep the answer concise and don't mention the context you are given in your response. <|eot_id|>
+You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know the answer, just say that you don't know. Keep the answer concise and don't mention the context you are given in your response.<|eot_id|>
 <|start_header_id|>user<|end_header_id|>
 
 Question: {question} 
@@ -56,6 +56,7 @@ def main():
 
 
 def query_rag(query_text: str, useContext: bool = True, database: str = CHROMA_PATH, k_context: int = 5):
+    print(f"Database used for query: {database}")
     if useContext:
         # Prepare the DB.
         embedding_function = get_embedding_function()
