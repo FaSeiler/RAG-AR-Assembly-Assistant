@@ -102,13 +102,13 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
 
     void ISpeechToTextListener.OnPartialResultReceived(string spokenText)
     {
-        Debug.Log("OnPartialResultReceived: " + spokenText);
+        //Debug.Log("OnPartialResultReceived: " + spokenText);
         questionInputField.text = spokenText;
     }
 
     void ISpeechToTextListener.OnResultReceived(string spokenText, int? errorCode)
     {
-        Debug.Log("OnResultReceived: " + spokenText + (errorCode.HasValue ? (" --- Error: " + errorCode) : ""));
+        //Debug.Log("OnResultReceived: " + spokenText + (errorCode.HasValue ? (" --- Error: " + errorCode) : ""));
         questionInputField.text = spokenText;
         normalizedVoiceLevel = 0f;
 
