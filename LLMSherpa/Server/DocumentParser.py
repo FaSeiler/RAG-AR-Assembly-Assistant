@@ -6,12 +6,9 @@ from IPython.core.display import display, HTML
 # sys.path.insert(0, directory_path)
 
 llmsherpa_api_url = "http://localhost:5001/api/parseDocument?renderFormat=all&useNewIndentParser=true"
-pdf_file = "et200sp_system_manual_en-US_en-US_stripped.pdf"
-# pdf_file = "Lebenslauf_Fabian_Seiler.pdf"
 
-pdf_url = "../data/" + pdf_file
 
-def ParsePDF():
+def ParsePDF(pdf_url):
     """
     Parses a PDF document and returns the parsed document.
 

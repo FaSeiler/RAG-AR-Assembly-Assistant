@@ -88,3 +88,9 @@ MasterThesisBRP/QCAR/
 MasterThesisBRP/Logs/
 MasterThesisBRP/Packages/com.ptc.vuforia.engine-10.22.5.tgz
 MasterThesisBRP/Temp/
+LLMSherpa/Server/__pycache__/
+LLMSherpa/Server/chroma_db/
+LLMSherpa/Server/Logs/
+LLMSherpa/data/et200sp_system_manual_en-US_en-US_stripped_images/
+LLMSherpa/chroma_db/bdc955f1-5ffc-493f-9b45-f6f0083d5b5e/length.bin
+LLMSherpa/chroma_db/
