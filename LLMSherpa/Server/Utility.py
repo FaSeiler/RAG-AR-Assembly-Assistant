@@ -24,7 +24,7 @@ def SaveAsHTML(dataFrame, filename="nodes.html"):
     if not os.path.exists(directory):
         os.makedirs(directory)
     filepath = os.path.join(directory, filename)
-    with open(filepath, "w") as file:
+    with open(filepath, "w", encoding="utf-8") as file:
         file.write(html_content)
 
 def VisualizeRetrievedNodesToFile(nodes) -> None:
@@ -52,6 +52,7 @@ def ExtractPageNumbers(text):
         r'page numbers: ([\d, ]+)|'     # "page numbers: <int>, <int>, ..."
         r'page numbers are (\d+)|'      # "page numbers are <int>"
         r'page_number: (\d+)'           # "page_number: <int>"
+        r'page_number: (\d+)-(\d+)'     # "page_number: <int>-<int>"
     )
     
     # Find all matches in the text
@@ -88,6 +89,9 @@ def ExtractPageNumbers(text):
             page_numbers.add(int(match[11]))
         elif match[12]:  # single page number, matched by "page_number: <int>"
             page_numbers.add(int(match[12]))
+        elif match[13] and match[14]:  # page range, matched by "page_number: <int>-<int>"
+            start, end = int(match[13]), int(match[14])
+            page_numbers.update(range(start, end + 1))
     
     # Convert the set to a sorted list
     page_numbers = sorted(page_numbers)

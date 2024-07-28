@@ -5,40 +5,40 @@ from llama_index.core.storage.storage_context import StorageContext
 from llama_index.core import Document
 from tqdm import tqdm
 
-def CreateChromaDB():
+def CreateChromaDB(pdf_name):
     """
     Creates a ChromaDB and returns the chroma_collection.
 
     Returns:
         chroma_collection: The collection object representing the ChromaDB.
     """
-    db = chromadb.PersistentClient(path="./chroma_db")
-    chroma_collection = db.get_or_create_collection("MyCollection")
+    db = chromadb.PersistentClient(path="./chroma_db_" + pdf_name)
+    chroma_collection = db.get_or_create_collection(pdf_name) # For every PDF we create a new database
     return chroma_collection
 
-def CreateVectorStore():
+def CreateVectorStore(pdf_name):
     """
     Creates a vector store and returns it.
 
     Returns:
         vector_store: The created vector store.
     """
-    chroma_collection = CreateChromaDB()
+    chroma_collection = CreateChromaDB(pdf_name)
     vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
     return vector_store
 
-def CreateStorageContext():
+def CreateStorageContext(pdf_name):
     """
     Creates a storage context for the vector store.
 
     Returns:
         storage_context (StorageContext): The created storage context.
     """
-    vector_store = CreateVectorStore()
+    vector_store = CreateVectorStore(pdf_name)
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
     return storage_context
 
-def CreateIndex(custom_chunks):
+def CreateIndex(pdf_name, custom_chunks):
     """
     Creates a vector store index from a list of custom chunks.
 
@@ -49,7 +49,7 @@ def CreateIndex(custom_chunks):
         VectorStoreIndex: The created vector store index.
     """
     # If there is no existing vector store create a new one and assign it to the index
-    storage_context = CreateStorageContext()
+    storage_context = CreateStorageContext(pdf_name)
     index = VectorStoreIndex([], storage_context=storage_context)
 
     documents = []
@@ -76,7 +76,7 @@ def CreateIndex(custom_chunks):
     
     return index
 
-def LoadIndex():
+def LoadIndex(pdf_name):
     """
     Load the index from stored vectors on the disc.
 
@@ -84,6 +84,6 @@ def LoadIndex():
         VectorStoreIndex: The loaded index.
     """
     index = VectorStoreIndex.from_vector_store(
-        vector_store=CreateVectorStore(), storage_context=CreateStorageContext()
+        vector_store=CreateVectorStore(pdf_name), storage_context=CreateStorageContext(pdf_name)
     )
     return index
