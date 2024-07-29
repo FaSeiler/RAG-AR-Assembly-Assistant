@@ -5,10 +5,13 @@ from llama_index.core import Settings
 from llama_index.core.query_engine import RetrieverQueryEngine
 from Retriever import GetRetriever
 from ResponseSynthesizer import GetResponseSynthesizer
-from RetrieverPostprocessor import GetNodePostprocessors
 from CustomPromptTemplates import *
+from DocumentParser import *
+from ParserPostprocessor import *
+from VectorStoreChromaDB import CreateIndex, LoadIndex
+from RetrieverPostprocessor import *
 from Utility import *
-from PDFImageParser import *
+from PDFImageParser import ExtractImagesFromPDF, LoadImagesFromDirectory, GetImageFilePaths
 
 def InitializeLlamaIndex():
     llm = Ollama(model="llama3", request_timeout=120.0) #, output_parser=output_parser)
@@ -59,11 +62,8 @@ def GetFormattedJSONQueryResponse(response, image_dict, pdf_file_name, print_con
 
     # print(image_file_paths)
 
-
     # for file_path in image_file_paths:
     #     Show_Image(pdf_name=pdf_name, file_path=file_path)
-
-
 
     # convert dictionary to JSON object
     json_object = json.dumps(parsed_dict)
@@ -72,6 +72,89 @@ def GetFormattedJSONQueryResponse(response, image_dict, pdf_file_name, print_con
     #     visualize_retrieved_nodes(response.source_nodes)
 
     return json_object
+
+
+# =================================================================================================
+
+data_dir = "../data/"
+
+def InitPDFData(pdf_url, load_index=False):
+    pdf_file_name = os.path.basename(pdf_url)
+    pdf_name = os.path.splitext(pdf_file_name)[0]
+
+    if load_index:
+        index = LoadIndex(pdf_name)
+        image_dict = LoadImagesFromDirectory(pdf_url)
+        print(f"Index for {pdf_url} loaded.")
+    else:
+        doc = ParsePDF(pdf_url=pdf_url)
+        # PrintChunks(doc)
+        custom_chunks = MergeChunks(doc)
+        for chunk in custom_chunks:
+            PrintCustomChunk(chunk)
+        index = CreateIndex(pdf_name, custom_chunks)
+        image_dict = ExtractImagesFromPDF(pdf_url)
+        print(f"Index for {pdf_url} created.")
+
+    
+    query_engine = GetQueryEngine(index)
+
+    return query_engine, image_dict
+
+def Init(load_index=False):
+    InitializeLlamaIndex()
+
+    pdf_files = [file for file in os.listdir(data_dir) if file.endswith(".pdf")] # Find all PDF files in the data directory
+    pdf_urls = [os.path.join(data_dir, pdf_file) for pdf_file in pdf_files] # Create a list of full paths to the PDF files
+    pdf_data = {} # Dictionary to hold the query engine and image dictionary for each PDF file
+
+    for pdf_url in pdf_urls:
+        # Get a query engine and image dictionary for each PDF file
+        query_engine, image_dict = InitPDFData(pdf_url, load_index)
+        pdf_data[pdf_url] = {'query_engine': query_engine, 'image_dict': image_dict}
+        
+        print("-"*150)
+        print()
+
+    return pdf_data
+    
+def SendQueryForPDF(query, pdf_file_name, pdf_data):
+    pdf_url = data_dir + pdf_file_name
+
+    # Check if the PDF data exists
+    if pdf_url in pdf_data: 
+        query_engine = pdf_data[pdf_url]['query_engine']
+        image_dict = pdf_data[pdf_url]['image_dict']
+    else:
+        print("PDF data does not exist.")
+
+    print()
+    print("="*150)
+
+    print(f"User Query:\n {query}") # Print the user query
+    print("="*150)
+
+    print()
+    print("Querying the index...")
+    print()
+
+    response = query_engine.query(query) # Query the index
+    VisualizeRetrievedNodesToFile(nodes=response.source_nodes) # Save the retrieved nodes to a file
+
+    print("Response:")
+    print(response)
+    print()
+    print("-"*150)
+
+    # Format response to JSON
+    json_response = GetFormattedJSONQueryResponse(response, image_dict, pdf_file_name)
+    # print(json_response)
+    key_values = json.loads(json_response).items()
+    for key, value in key_values:
+        print("<KEY> ", key)
+        print("<VALUE> ", value)
+    return json_response
+
 
 
 
