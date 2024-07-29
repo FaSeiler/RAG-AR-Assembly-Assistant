@@ -14,6 +14,9 @@ def send_query(query, pdf_file_name):
     if response.status_code == 200:
         print("Response from server:")
         print(response.json())
+        # Save the response to a file
+        with open('RESPONSE.json', 'w') as file:
+            json.dump(response.json(), file)
     else:
         print(f"Failed to get a response. Status code: {response.status_code}")
         print(response.text)

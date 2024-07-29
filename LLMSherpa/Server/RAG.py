@@ -11,7 +11,7 @@ from ParserPostprocessor import *
 from VectorStoreChromaDB import CreateIndex, LoadIndex
 from RetrieverPostprocessor import *
 from Utility import *
-from PDFImageParser import ExtractImagesFromPDF, LoadImagesFromDirectory, GetImageFilePaths
+from PDFImageParser import *
 
 def InitializeLlamaIndex():
     llm = Ollama(model="llama3", request_timeout=120.0) #, output_parser=output_parser)
@@ -42,7 +42,6 @@ def GetQueryEngine(index):
     return query_engine
 
 
-
 def GetFormattedJSONQueryResponse(response, image_dict, pdf_file_name, print_context_nodes=False):
     text = response.response
     page_numbers = ExtractPageNumbers(response.response)
@@ -55,10 +54,20 @@ def GetFormattedJSONQueryResponse(response, image_dict, pdf_file_name, print_con
     pdf_name = os.path.splitext(pdf_file_name)[0]
     image_file_paths = []
 
+    # Get image file paths for each page number
     for page_nr in parsed_dict["page_numbers"]:
         image_file_paths.extend(GetImageFilePaths(image_dict=image_dict, pdf_name=pdf_name, page_idx=page_nr))
         
-    parsed_dict["image_file_paths"] = image_file_paths
+    # parsed_dict["image_file_paths"] = image_file_paths
+
+    # Encode images to base64
+    encoded_images = {}
+    for image_file_path in image_file_paths:
+        if os.path.exists(image_file_path):
+            encoded_images[image_file_path] = GetBase64Image(image_file_path)
+
+    # Add encoded images to the parsed_dict
+    parsed_dict["encoded_images"] = encoded_images
 
     # print(image_file_paths)
 
