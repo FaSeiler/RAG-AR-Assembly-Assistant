@@ -1,5 +1,6 @@
 import os
 import fitz  
+import base64
 import glob
 from tqdm import tqdm # pip install tqdm
 
@@ -88,3 +89,8 @@ def PrintImageDict(image_dict):
     for key, value in image_dict.items():
         print(key, value)
         print("-"*80)
+
+def GetBase64Image(image_path):
+    """Encode an image to base64."""
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode('utf-8')
