@@ -94,3 +94,5 @@ LLMSherpa/Server/Logs/
 LLMSherpa/data/et200sp_system_manual_en-US_en-US_stripped_images/
 LLMSherpa/chroma_db/bdc955f1-5ffc-493f-9b45-f6f0083d5b5e/length.bin
 LLMSherpa/chroma_db/
+LLMSherpa/data/Images/
+LLMSherpa/Server/chroma_db_Lebenslauf_Fabian_Seiler/

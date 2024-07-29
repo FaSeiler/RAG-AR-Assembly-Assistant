@@ -53,6 +53,7 @@ def ExtractPageNumbers(text):
         r'page numbers are (\d+)|'      # "page numbers are <int>"
         r'page_number: (\d+)'           # "page_number: <int>"
         r'page_number: (\d+)-(\d+)'     # "page_number: <int>-<int>"
+        r'Page Number: (\d+)-(\d+)'     # "Page Number: <int>-<int>"
     )
     
     # Find all matches in the text
@@ -91,6 +92,9 @@ def ExtractPageNumbers(text):
             page_numbers.add(int(match[12]))
         elif match[13] and match[14]:  # page range, matched by "page_number: <int>-<int>"
             start, end = int(match[13]), int(match[14])
+            page_numbers.update(range(start, end + 1))
+        elif match[15] and match[16]:  # page range, matched by "Page Number: <int>-<int>"
+            start, end = int(match[15]), int(match[16])
             page_numbers.update(range(start, end + 1))
     
     # Convert the set to a sorted list
