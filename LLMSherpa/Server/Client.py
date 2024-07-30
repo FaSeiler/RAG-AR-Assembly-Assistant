@@ -1,5 +1,7 @@
 import requests
 import json
+import sys
+
 
 def send_query(query, pdf_file_name):
     url = 'http://localhost:5000/query'
@@ -22,6 +24,11 @@ def send_query(query, pdf_file_name):
         print(response.text)
 
 if __name__ == "__main__":
-    query = "What are the steps for installing/mounting a BaseUnit? Include the page_numbers but no introductory sentences."
     pdf_file_name = "et200sp_system_manual_en-US_en-US_stripped.pdf"
+    query = "Which tools are required to install a system rail? Include the page_numbers but no introductory sentences."
+
+    if len(sys.argv) >= 2:
+        query = sys.argv[1]
+
     send_query(query, pdf_file_name)
+    
