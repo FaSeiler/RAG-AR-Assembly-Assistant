@@ -54,7 +54,7 @@ def GetPromptTemplateQA():
     templateQA = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
     You are an assistant for answering questions about a technical manual. Use the following pieces of retrieved context from the manual to answer the question. \
-    If you don't know the answer, just say that you don't know. Be as detailed as possible. Always include the 'page_number' and 'parent_hierarchy_section' from the metadata.<|eot_id|>
+    If you don't know the answer, just say that you don't know. Be as detailed and concise as possible. For every piece of information you provide include the 'page_number' and 'parent_hierarchy_section' from the metadata where you found this.<|eot_id|>
     <|start_header_id|>user<|end_header_id|>
 
     Question: {query_str}

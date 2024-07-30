@@ -12,6 +12,7 @@ from VectorStoreChromaDB import CreateIndex, LoadIndex
 from RetrieverPostprocessor import *
 from Utility import *
 from PDFImageParser import *
+from LLMDataExtractor import PageNumberExtractor
 
 def InitializeLlamaIndex():
     llm = Ollama(model="llama3", request_timeout=120.0) #, output_parser=output_parser)
@@ -44,7 +45,8 @@ def GetQueryEngine(index):
 
 def GetFormattedJSONQueryResponse(response, image_dict, pdf_file_name, print_context_nodes=False):
     text = response.response
-    page_numbers = ExtractPageNumbers(response.response)
+    # page_numbers = ExtractPageNumbers(text) # Keyword matching for page number extraction
+    page_numbers = PageNumberExtractor(text) # LLM model for page number extraction
 
     # Initialize parsed_dict
     parsed_dict = {}
@@ -160,8 +162,13 @@ def SendQueryForPDF(query, pdf_file_name, pdf_data):
     # print(json_response)
     key_values = json.loads(json_response).items()
     for key, value in key_values:
-        print("<KEY> ", key)
-        print("<VALUE> ", value)
+        if key != "encoded_images":
+            print("<KEY> ", key)
+            print("<VALUE> ", value)
+        else: # Don't print the encoded images (too long)
+            print("<KEY> ", key)
+            print("<VALUE> ", len(value), " images")
+            
     return json_response
 
 

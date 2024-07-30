@@ -5,21 +5,29 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 using System.Text;
+using System;
 
 public class Testing : MonoBehaviour
 {
+    string BASE_URL = "http://192.168.0.110:5000";
+    public bool isBusy;
+    //string query = "What are the steps for installing/mounting a BaseUnit? Include the page_numbers but no introductory sentences.";
+    string pdfFileName = "et200sp_system_manual_en-US_en-US_stripped.pdf";
+
+
     public Transform imageContainer; // Reference to the container for the images
 
-    private void Start()
+
+    public void SendRequest(string query, Action<string> callback)
     {
-        string query = "What are the steps for installing/mounting a BaseUnit? Include the page_numbers but no introductory sentences.";
-        string pdfFileName = "et200sp_system_manual_en-US_en-US_stripped.pdf";
-        StartCoroutine(SendQuery(query, pdfFileName));
+        StartCoroutine(SendQuery(query, pdfFileName, callback));
     }
 
-    private IEnumerator SendQuery(string query, string pdfFileName)
+    private IEnumerator SendQuery(string query, string pdfFileName, Action<string> callback)
     {
-        string url = "http://localhost:5000/query";
+        isBusy = true;
+        string url = BASE_URL + "/query";
+
         Dictionary<string, string> payload = new Dictionary<string, string>
         {
             { "query", query },

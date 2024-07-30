@@ -621,6 +621,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClientRAG
       objectReference: {fileID: 0}
+    - target: {fileID: 5542513911117295856, guid: 1a413b1c8b938a44ea43eae237145a3d,
+        type: 3}
+      propertyPath: imageContainer
+      value: 
+      objectReference: {fileID: 1958897207}
+    - target: {fileID: 5542513911117295856, guid: 1a413b1c8b938a44ea43eae237145a3d,
+        type: 3}
+      propertyPath: rawImagePrefab
+      value: 
+      objectReference: {fileID: 7178425096656583907, guid: 2688fd173d92c9840bfdae03d14e27af,
+        type: 3}
     - target: {fileID: 7421594943138612058, guid: 1a413b1c8b938a44ea43eae237145a3d,
         type: 3}
       propertyPath: m_LocalPosition.x

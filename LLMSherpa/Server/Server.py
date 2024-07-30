@@ -1,6 +1,3 @@
-import os
-import base64
-import json
 from flask import Flask, request, jsonify
 from RAG import SendQueryForPDF, Init
 
@@ -9,8 +6,6 @@ app = Flask(__name__)
 # Initialize load_index and pdf_data on startup
 load_index = True
 pdf_data = Init(load_index)
-
-
 
 
 @app.route('/query', methods=['POST'])
