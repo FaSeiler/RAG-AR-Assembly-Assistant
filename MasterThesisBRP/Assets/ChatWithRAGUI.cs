@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using NUnit.Framework;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
 {
@@ -16,6 +19,8 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
     public GameObject chatEntriesParent;
     public GameObject chatEntryPrefab;
     public GameObject placeHolderPrefab;
+    public GameObject fullscreenImageWindowGO;
+    public GameObject responseImageListPrefab;
 
     private void Awake()
     {
@@ -32,8 +37,6 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
     {
         ClearChat();
     }
-
-    // TODO Disable controls while processing the request and display loading animation
 
     private void Update()
     {
@@ -122,22 +125,37 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
     public void SendRAGRequest()
     {
         string request = questionInputField.text;
-        AddChatEntry(request, true);
+        AddChatEntry(request, null, true);
         questionInputField.text = "";
 
 
-        ClientRAG.instance.SendRequest(request, (response) =>
+        ClientRAG.instance.SendRequest(request, (responseText, imageTextures) =>
         {
-            AddChatEntry(response, false);
+            AddChatEntry(responseText, imageTextures, false);
         });
     }
 
-    public void AddChatEntry(string text, bool isUser)
+    public void AddChatEntry(string text, List<Texture2D> imageTextures, bool isUser)
     {
         GameObject chatEntryGO = Instantiate(chatEntryPrefab, chatEntriesParent.transform);
         ChatEntry chatEntry = chatEntryGO.GetComponent<ChatEntry>();
 
         chatEntry.SetText(text, isUser);
+
+        if (imageTextures != null )
+        {
+            if (imageTextures.Count > 0)
+            {
+                GameObject responseImageListGO = Instantiate(responseImageListPrefab, chatEntriesParent.transform);
+                responseImageListGO.GetComponent<GridLayoutGroup>().enabled = true;
+                responseImageListGO.GetComponent<RAGResponseImageListManager>().enabled = true;
+
+                foreach (Texture2D imageTexture in imageTextures)
+                {
+                    responseImageListGO.GetComponent<RAGResponseImageListManager>().AddRawImage(imageTexture);
+                }
+            }
+        }
 
         if (!isUser) // Add placeholder after assistant response
         {

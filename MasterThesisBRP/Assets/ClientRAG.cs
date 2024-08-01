@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class ClientRAG : Singleton<ClientRAG>
 {
-    string BASE_URL = "http://192.168.0.110:5000";
+    string BASE_URL = "http://192.168.0.103:5000";
     public bool isBusy;
     //string query = "What are the steps for installing/mounting a BaseUnit? Include the page_numbers but no introductory sentences.";
     string pdfFileName = "et200sp_system_manual_en-US_en-US_stripped.pdf";
@@ -18,12 +18,12 @@ public class ClientRAG : Singleton<ClientRAG>
 
     public Transform imageContainer; // Reference to the container for the images
 
-    public void SendRequest(string query, Action<string> callback)
+    public void SendRequest(string query, Action<string, List<Texture2D>> callback)
     {
         StartCoroutine(SendQuery(query, pdfFileName, callback));
     }
 
-    IEnumerator SendQuery(string query, string pdfFileName, Action<string> callback)
+    IEnumerator SendQuery(string query, string pdfFileName, Action<string, List<Texture2D>> callback)
     {
         isBusy = true;
         string url = BASE_URL + "/query";
@@ -46,16 +46,16 @@ public class ClientRAG : Singleton<ClientRAG>
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                string responseText = request.downloadHandler.text;
-                Debug.Log(responseText);
+                string jsonResponse = request.downloadHandler.text;
+                Debug.Log(jsonResponse);
 
-                string processedResponseText = ProcessResponse(responseText);
-                callback?.Invoke(processedResponseText);
+                ResponseData responseData = ProcessResponse(jsonResponse);
+                callback?.Invoke(responseData.text, responseData.decoded_images);
             }
             else
             {
                 Debug.LogError("Error: " + request.error);
-                callback?.Invoke(request.error);
+                callback?.Invoke(request.error, null);
             }
         }
 
@@ -68,9 +68,10 @@ public class ClientRAG : Singleton<ClientRAG>
         public string text;
         public List<int> page_numbers;
         public Dictionary<string, string> encoded_images;
+        public List<Texture2D> decoded_images = null;
     }
 
-    private string ProcessResponse(string jsonResponse)
+    private ResponseData ProcessResponse(string jsonResponse) 
     {
 
         ResponseData responseData = JsonUtility.FromJson<ResponseData>(jsonResponse);
@@ -93,17 +94,13 @@ public class ClientRAG : Singleton<ClientRAG>
 
             if (texture != null)
             {
-                GameObject rawImageGO = Instantiate(rawImagePrefab, imageContainer);
-
-                RawImage rawImage = rawImageGO.GetComponent<RawImage>();
-                rawImage.texture = texture;
-                rawImage.SetNativeSize();
+                responseData.decoded_images.Add(texture);
             }
         }
 
        //Remove all '"' characters from the response text
        responseData.text = responseData.text.Replace("\"", "");
-       return responseData.text;
+       return responseData;
     }
 
     public GameObject rawImagePrefab;

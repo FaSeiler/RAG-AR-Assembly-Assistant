@@ -4,9 +4,9 @@ import re
 
 # Takes in a text and extracts data from it.
 
-templatePageExtractorPrompt = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+pageExtractorPrompt = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
-    Find all mentioned page numbers in the following text/metadata and return them in csv format (e.g "31, 55, 22", or ""). If there is a range of page numbers (e.g 55-56) include all of them like "55, 56". No additional text or explanation should be included.<|eot_id|>
+    Find all mentioned page numbers in the following text/metadata and return them in csv format (e.g "31, 55, 22", or ""). If there is a range of page numbers (e.g 55-58) include the whole range (i.e. "55, 56, 57, 58"). No additional text or explanation should be included.<|eot_id|>
     <|start_header_id|>user<|end_header_id|>
 
     Text: {text_str}
@@ -48,12 +48,12 @@ def CSVStringToList(csv_str):
 
 
 def PageNumberExtractor(text):
-    formatted_template = templatePageExtractorPrompt.format(text_str=text)  # Format the template with text_str
+    formatted_template = pageExtractorPrompt.format(text_str=text)  # Format the template with text_str
     print(formatted_template)  # Print the formatted template
 
     print("="*100)
 
-    model = Ollama(model="llama3")
+    model = Ollama(model="llama3.1")
     csvString = model.invoke(formatted_template)
     print(csvString)  # Print the formatted template
 

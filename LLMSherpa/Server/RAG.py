@@ -15,7 +15,7 @@ from PDFImageParser import *
 from LLMDataExtractor import PageNumberExtractor
 
 def InitializeLlamaIndex():
-    llm = Ollama(model="llama3", request_timeout=120.0) #, output_parser=output_parser)
+    llm = Ollama(model="llama3.1", request_timeout=120.0) #, output_parser=output_parser)
     Settings.llm = llm
 
     # embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")

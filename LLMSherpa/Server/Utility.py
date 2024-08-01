@@ -43,17 +43,10 @@ def ExtractPageNumbers(text):
     pattern = (
         r'page (\d+)|'                  # "page <int>"
         r'pages (\d+)-(\d+)|'           # "pages <int>-<int>"
-        r'Page (\d+)|'                  # "Page <int>"
-        r'Pages (\d+)-(\d+)|'           # "Pages <int>-<int>"
         r'page number: (\d+)|'          # "page number: <int>"
-        r'Page number: (\d+)|'          # "Page number: <int>"
-        r'Page Number: (\d+)|'          # "Page Number: <int>"
-        r'Page Numbers: ([\d, ]+)|'     # "Page Numbers: <int>, <int>, ..."
         r'page numbers: ([\d, ]+)|'     # "page numbers: <int>, <int>, ..."
         r'page numbers are (\d+)|'      # "page numbers are <int>"
         r'page_number: (\d+)'           # "page_number: <int>"
-        r'page_number: (\d+)-(\d+)'     # "page_number: <int>-<int>"
-        r'Page Number: (\d+)-(\d+)'     # "Page Number: <int>-<int>"
         r'page_number: (\d+)-(\d+)'     # "page_number: <int>-<int>"
     )
     
