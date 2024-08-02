@@ -8,7 +8,6 @@ public class ComponentPreviewCamera : MonoBehaviour
 {
     public float margin = 10f; // Margin of camera to model
     public float height = 10f; // Height of camera from model
-    public GameObject referenceModel;
 
     public Vector3 pivot;
     public bool rotate = false;

@@ -15,14 +15,14 @@ public class ComponentDatabase : Singleton<ComponentDatabase>
         "6ES7193-6BP20-0BA0",
         "6ES7512-1DM03-0AB0",
         "6ES7134-6GB00-0BA1",
-        "6ES7134-6HB00-0CA1",
+        "6ES7134-6FB00-0BA1",
         "6ES7134-6GD01-0BA1",
         "6ES7193-6AR00-0AA0",
         "6EP7133-6AE00-0BN0",
         "6ES7511-1UL03-0AB0",
         "6ES7954-8LC02-0AA0",
-        "6ES7590-1AF30-0AA0",
-        "6ES7193-6MR00-0BA0"
+        "6ES7193-6MR00-0BA0",
+        "6ES7590-1AF30-0AA0"
     });
 
     private void Start()

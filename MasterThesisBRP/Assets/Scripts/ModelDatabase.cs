@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
+/// <summary>
+/// This database returns the prefab of a model based on the article number.
+/// In the future there should be a Siemens database where the models are stored.
+/// </summary>
 public class ModelDatabase : Singleton<ModelDatabase>
 {
     public List<Model> models = new List<Model>();

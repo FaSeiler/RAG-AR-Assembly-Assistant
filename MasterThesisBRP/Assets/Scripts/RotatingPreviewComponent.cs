@@ -41,11 +41,6 @@ public class RotatingPreviewComponent : MonoBehaviour
         transform.position = bounds.center;
         model.transform.parent = transform;
 
-        // Instantiate a cube with the bounds size
-        //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //cube.transform.localScale = bounds.size;
-        //cube.transform.position = bounds.center;
-
         // Set the orthographic size of the camera to fit the bounds
         float size = Mathf.Max(bounds.size.x, bounds.size.y, bounds.size.z) / 2f;
         previewCamera.SetOrthographicSize(size);
