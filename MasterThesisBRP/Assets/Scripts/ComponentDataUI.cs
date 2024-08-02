@@ -56,6 +56,12 @@ public class ComponentDataUI : MonoBehaviour
             Destroy(activePreviewComponent);
         }
 
+        if (component.model == null)
+        {
+            Debug.Log("For the component *" + component.articleNumber + "* no model was found!");
+            return;
+        }
+
         GameObject previewComponent = Instantiate(component.model);
 
         activePreviewComponentParent.UpdatePreviewComponent(previewComponent);
