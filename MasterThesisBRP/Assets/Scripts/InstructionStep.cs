@@ -5,22 +5,10 @@ using UnityEngine;
 public class InstructionStep : MonoBehaviour
 {
     public string instructionText;
-    public List<GameObject> components;
+    public List<GameObject> components; // Use this to enable relevant components for this step (model targets)
     public Animator animator;
 
     public int animationIndex = 0; // Change this to choose a different animation in the animator
-
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.S))
-    //    {
-    //        StartAnimation();
-    //    }
-    //    if (Input.GetKeyDown(KeyCode.D))
-    //    {
-    //        StopAnimation();
-    //    }
-    //}
 
     public void StartAnimation()
     {

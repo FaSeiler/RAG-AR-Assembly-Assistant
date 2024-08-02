@@ -23,8 +23,11 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Components.unity
     guid: 9fabc0bf50e5c074f991275fb8fc7142
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/RAG.unity
     guid: a1941e36fd4de6a48b775d22209ed079
+  - enabled: 1
+    path: Assets/Scenes/ARScene_Model_Target.unity
+    guid: fed6f54a7dfd8e94fbf3e1bbc970b139
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
