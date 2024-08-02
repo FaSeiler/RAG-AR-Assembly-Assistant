@@ -12,11 +12,29 @@ public class InstructionStep : MonoBehaviour
 
     public void StartAnimation()
     {
-        animator.SetBool(animationIndex.ToString(), true);
+        if(animator != null)
+            animator.SetBool(animationIndex.ToString(), true);
     }
 
     public void StopAnimation()
     {
-        animator.SetBool(animationIndex.ToString(), false);
+        if (animator != null)
+            animator.SetBool(animationIndex.ToString(), false);
+    }
+
+    public void OnEnable()
+    {
+        foreach (GameObject component in components)
+        {
+            component.SetActive(true);
+        }
+    }
+
+    public void OnDisable()
+    {
+        foreach (GameObject component in components)
+        {
+            component.SetActive(false);
+        }
     }
 }
