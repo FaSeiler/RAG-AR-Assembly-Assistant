@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -18,18 +19,6 @@ public class ModelDatabase : Singleton<ModelDatabase>
         public GameObject prefab;
     }
 
-    private void Start()
-    {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        foreach (Model model in models)
-        {
-            stringBuilder.Append(model.articleNumber + "\n");
-        }
-
-        Debug.Log(stringBuilder.ToString());
-    }
-
     public GameObject GetModel(string articleNumber)
     {
         foreach (Model model in models)
@@ -41,5 +30,18 @@ public class ModelDatabase : Singleton<ModelDatabase>
         }
 
         return null;
+    }
+
+    private void Start()
+    {
+        AddArticleNumbersFromComponentDatabase();
+    }
+    // This is just for testing purposes
+    private void AddArticleNumbersFromComponentDatabase()
+    {
+        foreach (var tmp in ComponentDatabase.instance.articleNumbersToLoad)
+        {
+            models.Add(new Model { articleNumber = tmp, prefab = null });
+        }
     }
 }

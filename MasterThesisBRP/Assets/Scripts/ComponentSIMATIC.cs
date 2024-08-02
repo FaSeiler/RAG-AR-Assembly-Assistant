@@ -8,7 +8,8 @@ using UnityEngine.Events;
 public class ComponentSIMATIC
 {
     public GameObject model;
-    public Dictionary<string, string> dataDictionary;
+    public string articleNumber;
+    public Dictionary<string, string> dataDictionary; // Data about the component scraped from the web
 
     public UnityEvent<ComponentSIMATIC> OnComponentInitialized = new UnityEvent<ComponentSIMATIC>();
 
@@ -22,6 +23,7 @@ public class ComponentSIMATIC
     {
         WebScraperSIMATIC.instance.StartScraping(articleNumber, OnComponentDataReceived);
         model = ModelDatabase.instance.GetModel(articleNumber);
+        this.articleNumber = articleNumber;
     }
 
     private void OnComponentDataReceived(Dictionary<string, string> dataDictionary)
