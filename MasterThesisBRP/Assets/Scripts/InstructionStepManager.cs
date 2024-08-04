@@ -12,7 +12,7 @@ public class InstructionStepManager : MonoBehaviour
     public ComponentSIMATIC activeComponent;
 
     [Space(10)]
-    public List<InstructionStep> steps;
+    private List<InstructionStep> steps;
     public static UnityEvent<InstructionStep> OnNewInstructionStep = new UnityEvent<InstructionStep>();
 
     [Header("References")]
