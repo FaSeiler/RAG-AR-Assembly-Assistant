@@ -1,16 +1,24 @@
+using NUnit.Framework.Internal;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class RotatingPreviewComponent : MonoBehaviour
+public class RotatingPreviewComponent : Singleton<RotatingPreviewComponent>
 {
     public Vector3 rotationAxis = Vector3.up;
     public float rotationSpeed = 10f;
-    public bool pivotSet = false;
-    public ComponentPreviewCamera previewCamera;
 
+    [HideInInspector]
+    public UnityEvent<Bounds> OnPreviewComponentUpdated = new UnityEvent<Bounds>();
+
+    [HideInInspector]
+    public GameObject activePreviewComponent;
+
+    private bool pivotSet = false;
+    private float oldSize;
 
     private void Update()
     {
@@ -23,13 +31,42 @@ public class RotatingPreviewComponent : MonoBehaviour
     private void RotateObject()
     {
         transform.Rotate(rotationAxis, rotationSpeed * Time.deltaTime);
+        UpdateBounds(); // While rotating the bounds need to be updated constantly
     }
 
-    public void UpdatePreviewComponent(GameObject model)
+    public GameObject SetActivePreview(GameObject prefab)
+    {
+        RemoveActivePreview();
+
+        GameObject model = Instantiate(prefab);
+        model.layer = 6; // Layer "ModelPreview"
+
+        model.SetActive(true);
+        activePreviewComponent = model;
+        
+        Bounds bounds = CalculateBounds(model);
+        transform.position = bounds.center;
+        model.transform.parent = transform;
+        oldSize = Mathf.Max(bounds.size.x, bounds.size.y, bounds.size.z) / 2f;
+
+        pivotSet = true;
+
+        Debug.Log("SetActivePreview - New Preview: " + activePreviewComponent.name);
+
+        OnPreviewComponentUpdated.Invoke(bounds);
+
+        return model;
+    }
+
+    private Bounds CalculateBounds(GameObject model)
     {
         // Step 1: Calculate the bounds of all child renderers
         Renderer[] renderers = model.GetComponentsInChildren<Renderer>();
-        if (renderers.Length == 0) return; // No child renderers found
+        if (renderers.Length == 0)
+        {
+            Debug.LogError("No renderers found in model: " + model.name);
+            return new Bounds(); // No child renderers found
+        }
 
         Bounds bounds = renderers[0].bounds;
         for (int i = 1; i < renderers.Length; i++)
@@ -37,16 +74,38 @@ public class RotatingPreviewComponent : MonoBehaviour
             bounds.Encapsulate(renderers[i].bounds);
         }
 
+        return bounds;
+    }
 
-        transform.position = bounds.center;
-        model.transform.parent = transform;
+    private void UpdateBounds()
+    {
+        // Check if the bounds of the active preview component are larger than the largest bounds
+        // If so, update the largest bounds, otherwise use the largest bounds
 
-        // Set the orthographic size of the camera to fit the bounds
-        float size = Mathf.Max(bounds.size.x, bounds.size.y, bounds.size.z) / 2f;
-        previewCamera.SetOrthographicSize(size);
+        Bounds bounds = CalculateBounds(activePreviewComponent);
+        float newSize = Mathf.Max(bounds.size.x, bounds.size.y, bounds.size.z) / 2f;
 
-        previewCamera.SetPivot(bounds.center);
+        if (newSize > oldSize)
+        {
+            oldSize = newSize;
+            transform.position = bounds.center;
+            OnPreviewComponentUpdated.Invoke(bounds);
+        }
+    }
 
-        pivotSet = true;
+    public void RemoveActivePreview()
+    {
+
+        pivotSet = false;
+
+        if (activePreviewComponent != null)
+        {
+            Destroy(activePreviewComponent);
+            Debug.Log("RemoveActivePreview - Removing: " + activePreviewComponent.name);
+        }
+        else
+        {
+            Debug.Log("RemoveActivePreview - Nothing to remove!");
+        }
     }
 }

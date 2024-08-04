@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class WindowManager : MonoBehaviour
@@ -9,23 +10,21 @@ public class WindowManager : MonoBehaviour
     // It is used to open and close windows
     // Classes can be derived from this class to create custom windows
 
-    public Button openButton, closeButton;
+    [Header("Window Manager")]
+    public GameObject window;
+    public UnityEvent OnWindowEnabled = new UnityEvent();
+    public UnityEvent OnWindowDisabled = new UnityEvent();
 
-    private void Awake()
-    {
-        if (openButton != null)
-            openButton.onClick.AddListener(EnableWindow);
-        if (closeButton != null)
-            closeButton.onClick.AddListener(DisableWindow);
-    }
 
     public void EnableWindow()
     {
-        gameObject.SetActive(true);
+        window.SetActive(true);
+        OnWindowEnabled.Invoke();
     }
 
     public void DisableWindow()
     {
-        gameObject.SetActive(false);
+        window.SetActive(false);
+        OnWindowDisabled.Invoke();
     }
 }
