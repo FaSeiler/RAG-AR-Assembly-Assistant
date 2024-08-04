@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class RotatingPreviewComponent : Singleton<RotatingPreviewComponent>
+public class RotatingPreviewComponent : MonoBehaviour
 {
     public Vector3 rotationAxis = Vector3.up;
     public float rotationSpeed = 10f;
@@ -39,7 +39,8 @@ public class RotatingPreviewComponent : Singleton<RotatingPreviewComponent>
         RemoveActivePreview();
 
         GameObject model = Instantiate(prefab);
-        model.layer = 6; // Layer "ModelPreview"
+        // Set model and all its children layers to this.gameObject.layer
+        SetLayerRecursively(model, gameObject.layer);
 
         model.SetActive(true);
         activePreviewComponent = model;
@@ -56,6 +57,16 @@ public class RotatingPreviewComponent : Singleton<RotatingPreviewComponent>
         OnPreviewComponentUpdated.Invoke(bounds);
 
         return model;
+    }
+
+    private void SetLayerRecursively(GameObject model, int layer)
+    {
+        // Set the layer of the model and all its children to the given layer
+        model.layer = layer;
+        foreach (Transform child in model.transform)
+        {
+            SetLayerRecursively(child.gameObject, layer);
+        }
     }
 
     private Bounds CalculateBounds(GameObject model)

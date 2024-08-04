@@ -6,6 +6,19 @@ public class InstructionStepScan : InstructionStep
 {
     [Header("Scanning")]
     public GameObject scanPreviewModelPrefab;
+    public RotatingPreviewComponent previewComponent;
+
+    public override void Awake()
+    {
+        base.Awake();
+        // Find the preview component in the scene with tag "PreviewComponentScan"
+        previewComponent = GameObject.FindGameObjectWithTag("PreviewComponentScan").GetComponent<RotatingPreviewComponent>();
+    }
+
+    public override void Start()
+    {
+        base.Start();
+    }
 
     public override void OnEnable()
     {
@@ -23,12 +36,12 @@ public class InstructionStepScan : InstructionStep
 
     public void ShowScanPreview()
     {
-        RotatingPreviewComponent.instance.SetActivePreview(scanPreviewModelPrefab);
+        previewComponent.SetActivePreview(scanPreviewModelPrefab);
     }
 
     public void HideScanPreview()
     {
-        RotatingPreviewComponent.instance.RemoveActivePreview();
+        previewComponent.RemoveActivePreview();
 
     }
 }

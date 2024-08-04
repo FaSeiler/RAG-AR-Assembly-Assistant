@@ -19,35 +19,26 @@ public class ComponentDataUI : WindowManager
     public GameObject valueTextEntryPrefab;
     public GameObject placeholderPrefab;
 
+    private RotatingPreviewComponent previewComponent;
+
+    private void Awake()
+    {
+        previewComponent = GameObject.FindGameObjectWithTag("PreviewComponentModelData").GetComponent<RotatingPreviewComponent>();
+    }
 
     private void Start()
     {
         InstructionStepManager.OnNewInstructionStep.AddListener(OnNewInstructionStep);
-        OnWindowEnabled.AddListener(OnWindowUIEnabled);
-        OnWindowDisabled.AddListener(OnWindowUIDisabled);
-    }
-
-    private GameObject lastPreviewComponent;
-
-    public void OnWindowUIEnabled()
-    {
-        if (activeComponent != null)
-        {
-            // Store the active preview component so we can enable it again when the window is disabled
-            lastPreviewComponent = RotatingPreviewComponent.instance.activePreviewComponent;
-
-            UpdateActiveComponent(activeComponent);
-        }
-    }
-
-    private void OnWindowUIDisabled()
-    {
-        RotatingPreviewComponent.instance.SetActivePreview(lastPreviewComponent);
     }
 
     private void OnNewInstructionStep(InstructionStep newInstructionStep)
     {
         activeComponent = newInstructionStep.component;
+
+        if (activeComponent != null)
+        {
+            UpdateActiveComponent(activeComponent);
+        }
     }
 
     public void UpdateActiveComponent(ComponentSIMATIC component)
@@ -94,7 +85,7 @@ public class ComponentDataUI : WindowManager
             return;
         }
 
-        GameObject model = RotatingPreviewComponent.instance.SetActivePreview(component.model);
+        GameObject model = previewComponent.SetActivePreview(component.model);
 
         activePreviewComponent = model;
     }

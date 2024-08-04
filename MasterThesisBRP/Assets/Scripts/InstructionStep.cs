@@ -13,7 +13,7 @@ public class InstructionStep : MonoBehaviour
     public ComponentSIMATIC component; // The SIMATIC component that this step is about
     public List<GameObject> relatedGameObjects; // Use this to enable relevant GameObjects for this step (e.g., model targets)
 
-    private void Awake()
+    public virtual void Awake()
     {
         if (componentArticleNumber != null)
         {
@@ -27,6 +27,11 @@ public class InstructionStep : MonoBehaviour
             }
         }
     }
+
+    public virtual void Start()
+    {
+    }
+
 
     public virtual void OnEnable()
     {
