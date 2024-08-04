@@ -52,8 +52,6 @@ public class RotatingPreviewComponent : MonoBehaviour
 
         pivotSet = true;
 
-        Debug.Log("SetActivePreview - New Preview: " + activePreviewComponent.name);
-
         OnPreviewComponentUpdated.Invoke(bounds);
 
         return model;
@@ -112,11 +110,6 @@ public class RotatingPreviewComponent : MonoBehaviour
         if (activePreviewComponent != null)
         {
             Destroy(activePreviewComponent);
-            Debug.Log("RemoveActivePreview - Removing: " + activePreviewComponent.name);
-        }
-        else
-        {
-            Debug.Log("RemoveActivePreview - Nothing to remove!");
         }
     }
 }
