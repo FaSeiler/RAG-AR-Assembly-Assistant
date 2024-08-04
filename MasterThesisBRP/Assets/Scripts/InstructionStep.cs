@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InstructionStep : MonoBehaviour
 {
@@ -9,12 +10,8 @@ public class InstructionStep : MonoBehaviour
     public string componentArticleNumber; 
 
     public string instructionText;
-    
-    public ComponentSIMATIC component; // The component that this step is related to
+    public ComponentSIMATIC component; // The SIMATIC component that this step is about
     public List<GameObject> relatedGameObjects; // Use this to enable relevant GameObjects for this step (e.g., model targets)
-    public Animator animator;
-
-    public int animationIndex = 0; // Change this to choose a different animation in the animator
 
     private void Awake()
     {
@@ -31,19 +28,7 @@ public class InstructionStep : MonoBehaviour
         }
     }
 
-    public void StartAnimation()
-    {
-        if(animator != null)
-            animator.SetBool(animationIndex.ToString(), true);
-    }
-
-    public void StopAnimation()
-    {
-        if (animator != null)
-            animator.SetBool(animationIndex.ToString(), false);
-    }
-
-    public void OnEnable()
+    public virtual void OnEnable()
     {
         foreach (GameObject relatedGameObject in relatedGameObjects)
         {
@@ -52,7 +37,7 @@ public class InstructionStep : MonoBehaviour
         }
     }
 
-    public void OnDisable()
+    public virtual void OnDisable()
     {
         foreach (GameObject relatedGameObject in relatedGameObjects)
         {

@@ -5,14 +5,13 @@ using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ComponentDataUI : MonoBehaviour
+public class ComponentDataUI : WindowManager
 {
     public ComponentSIMATIC activeComponent;
     public string activeComponentArticleNumber;
 
     [Space(10)]
     public GameObject activePreviewComponent;
-    public RotatingPreviewComponent activePreviewComponentParent;
 
     [Space(10)]
     public GameObject listParent;
@@ -21,22 +20,34 @@ public class ComponentDataUI : MonoBehaviour
     public GameObject placeholderPrefab;
 
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Space))
-    //    {
-    //        LoadNextComponent();
-    //    }
-    //}
-
     private void Start()
     {
         InstructionStepManager.OnNewInstructionStep.AddListener(OnNewInstructionStep);
+        OnWindowEnabled.AddListener(OnWindowUIEnabled);
+        OnWindowDisabled.AddListener(OnWindowUIDisabled);
+    }
+
+    private GameObject lastPreviewComponent;
+
+    public void OnWindowUIEnabled()
+    {
+        if (activeComponent != null)
+        {
+            // Store the active preview component so we can enable it again when the window is disabled
+            lastPreviewComponent = RotatingPreviewComponent.instance.activePreviewComponent;
+
+            UpdateActiveComponent(activeComponent);
+        }
+    }
+
+    private void OnWindowUIDisabled()
+    {
+        RotatingPreviewComponent.instance.SetActivePreview(lastPreviewComponent);
     }
 
     private void OnNewInstructionStep(InstructionStep newInstructionStep)
     {
-        UpdateActiveComponent(newInstructionStep.component);
+        activeComponent = newInstructionStep.component;
     }
 
     public void UpdateActiveComponent(ComponentSIMATIC component)
@@ -83,11 +94,9 @@ public class ComponentDataUI : MonoBehaviour
             return;
         }
 
-        GameObject previewComponent = Instantiate(component.model);
+        GameObject model = RotatingPreviewComponent.instance.SetActivePreview(component.model);
 
-        activePreviewComponentParent.UpdatePreviewComponent(previewComponent);
-
-        activePreviewComponent = previewComponent;
+        activePreviewComponent = model;
     }
 
     public void AddKeyValuePair(string key, string value)

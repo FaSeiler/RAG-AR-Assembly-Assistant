@@ -87,7 +87,6 @@ public class InstructionStepManager : MonoBehaviour
         activeComponent = currentInstructionStep.component;
 
         instructionText.text = currentInstructionStep.instructionText;
-        currentInstructionStep.StartAnimation();
 
         OnNewInstructionStep.Invoke(currentInstructionStep);
     }
