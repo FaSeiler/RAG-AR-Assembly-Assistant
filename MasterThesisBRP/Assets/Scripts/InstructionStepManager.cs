@@ -12,11 +12,12 @@ public class InstructionStepManager : MonoBehaviour
     public ComponentSIMATIC activeComponent;
 
     [Space(10)]
-    private List<InstructionStep> steps;
     public static UnityEvent<InstructionStep> OnNewInstructionStep = new UnityEvent<InstructionStep>();
 
     [Header("References")]
     public TextMeshProUGUI instructionText;
+
+    private List<InstructionStep> steps = new List<InstructionStep>();
 
     void Start()
     {

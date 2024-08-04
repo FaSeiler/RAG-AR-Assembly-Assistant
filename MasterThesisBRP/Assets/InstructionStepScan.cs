@@ -6,7 +6,7 @@ public class InstructionStepScan : InstructionStep
 {
     [Header("Scanning")]
     public GameObject scanPreviewModelPrefab;
-    public RotatingPreviewComponent previewComponent;
+    private RotatingPreviewComponent previewComponent;
 
     public override void Awake()
     {
