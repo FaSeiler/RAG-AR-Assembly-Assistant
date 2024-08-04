@@ -5,21 +5,22 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
 
+[System.Serializable]
 public class ComponentSIMATIC
 {
-    public GameObject model;
     public string articleNumber;
-    public Dictionary<string, string> dataDictionary; // Data about the component scraped from the web
+    public GameObject model;
+    public Dictionary<string, string> webDataDictionary; // Data about the component scraped from the web
 
-    public UnityEvent<ComponentSIMATIC> OnComponentInitialized = new UnityEvent<ComponentSIMATIC>();
+    public UnityEvent<ComponentSIMATIC> OnComponentWebDataInitialized = new UnityEvent<ComponentSIMATIC>();
 
     public ComponentSIMATIC(string articleNumber)
     {
-        Init(articleNumber);
+        InitWebData(articleNumber);
     }
 
     // Get the component information from the web scraper
-    private void Init(string articleNumber)
+    private void InitWebData(string articleNumber)
     {
         WebScraperSIMATIC.instance.StartScraping(articleNumber, OnComponentDataReceived);
         model = ModelDatabase.instance.GetModel(articleNumber);
@@ -28,15 +29,15 @@ public class ComponentSIMATIC
 
     private void OnComponentDataReceived(Dictionary<string, string> dataDictionary)
     {
-        this.dataDictionary = dataDictionary;
-        OnComponentInitialized.Invoke(this);
+        this.webDataDictionary = dataDictionary;
+        OnComponentWebDataInitialized.Invoke(this);
     }
 
-    public void PrintDataDictionary()
+    public void PrintWebDataDictionary()
     {
         StringBuilder stringBuilder = new StringBuilder();
         
-        foreach (KeyValuePair<string, string> kvp in dataDictionary)
+        foreach (KeyValuePair<string, string> kvp in webDataDictionary)
         {
             stringBuilder.Append(kvp.Key + ": " + kvp.Value + "\n");
         }
