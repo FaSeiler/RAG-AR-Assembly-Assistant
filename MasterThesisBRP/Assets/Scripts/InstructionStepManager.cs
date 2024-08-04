@@ -3,20 +3,39 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InstructionStepManager : MonoBehaviour
 {
-    public TextMeshProUGUI instructionText;
-
-    public List<InstructionStep> steps;
-
-    public int currentStepIndex = 0;
     public InstructionStep currentInstructionStep;
+    public int currentStepIndex = 0;
+    public ComponentSIMATIC activeComponent;
+
+    [Space(10)]
+    public List<InstructionStep> steps;
+    public static UnityEvent<InstructionStep> OnNewInstructionStep = new UnityEvent<InstructionStep>();
+
+    [Header("References")]
+    public TextMeshProUGUI instructionText;
 
     void Start()
     {
+        LoadAllInstructionSteps();
         DisableAllInstructionSteps();
         ShowStep(0);
+    }
+
+    private void LoadAllInstructionSteps()
+    {
+        // Find all InstructionStep objects that are children of this object and add them to the list
+        foreach (Transform child in transform)
+        {
+            InstructionStep step = child.GetComponent<InstructionStep>();
+            if (step != null)
+            {
+                steps.Add(step);
+            }
+        }
     }
 
     private void Update()
@@ -26,11 +45,6 @@ public class InstructionStepManager : MonoBehaviour
             NextInstructionStep();
         }
     }
-
-    //public void InitInstructionTextPanel()
-    //{
-    //    instructionText.gameObject.SetActive(true);
-    //}
 
     public void NextInstructionStep()
     {
@@ -70,9 +84,12 @@ public class InstructionStepManager : MonoBehaviour
         currentStepIndex = stepIndex;
         // Enable new step
         currentInstructionStep.gameObject.SetActive(true);
+        activeComponent = currentInstructionStep.component;
 
         instructionText.text = currentInstructionStep.instructionText;
         currentInstructionStep.StartAnimation();
+
+        OnNewInstructionStep.Invoke(currentInstructionStep);
     }
 
     public void DisableAllInstructionSteps()

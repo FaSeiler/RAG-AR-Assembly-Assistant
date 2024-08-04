@@ -1,13 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class ComponentDatabase : Singleton<ComponentDatabase>
 {
-    public List<ComponentSIMATIC> components = new List<ComponentSIMATIC>();
-
     public List<string> articleNumbersToLoad = new List<string>(new string[]
     {
         "6ES7193-6BP00-0BA0",
@@ -25,8 +22,12 @@ public class ComponentDatabase : Singleton<ComponentDatabase>
         "6ES7590-1AF30-0AA0"
     });
 
-    private void Start()
+    public Dictionary<string, ComponentSIMATIC> components = new Dictionary<string, ComponentSIMATIC>();
+
+    protected override void  Awake()
     {
+        base.Awake();
+
         foreach (string articleNumber in articleNumbersToLoad)
         {
             AddNewComponent(articleNumber);
@@ -36,12 +37,11 @@ public class ComponentDatabase : Singleton<ComponentDatabase>
     private void AddNewComponent(string articleNumber)
     {
         ComponentSIMATIC newComponent = new ComponentSIMATIC(articleNumber);
-        newComponent.OnComponentInitialized.AddListener(OnComponentInitialized);
+        components.Add(articleNumber, newComponent);
     }
 
-    private void OnComponentInitialized(ComponentSIMATIC initializedComponent)
+    public ComponentSIMATIC GetComponentSIMATIC(string articleNumber)
     {
-        components.Add(initializedComponent);
-        initializedComponent.PrintDataDictionary();
+        return components[articleNumber];
     }
 }

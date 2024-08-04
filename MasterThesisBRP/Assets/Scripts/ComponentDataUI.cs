@@ -1,52 +1,73 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ComponentDataUI : MonoBehaviour
 {
+    public ComponentSIMATIC activeComponent;
+    public string activeComponentArticleNumber;
+
+    [Space(10)]
+    public GameObject activePreviewComponent;
+    public RotatingPreviewComponent activePreviewComponentParent;
+
+    [Space(10)]
     public GameObject listParent;
     public GameObject keyTextEntryPrefab;
     public GameObject valueTextEntryPrefab;
     public GameObject placeholderPrefab;
 
-    public RotatingPreviewComponent activePreviewComponentParent;
-    public GameObject activePreviewComponent;
 
-    public ComponentSIMATIC activeComponent;
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Space))
+    //    {
+    //        LoadNextComponent();
+    //    }
+    //}
 
-    private void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            LoadNextComponent();
-        }
+        InstructionStepManager.OnNewInstructionStep.AddListener(OnNewInstructionStep);
     }
 
-    public void LoadNextComponent()
+    private void OnNewInstructionStep(InstructionStep newInstructionStep)
     {
-        int nextIndex = ComponentDatabase.instance.components.IndexOf(activeComponent) + 1;
-
-        if (nextIndex >= ComponentDatabase.instance.components.Count)
-        {
-            nextIndex = 0;
-        }
-
-        UpdateActiveComponent(ComponentDatabase.instance.components[nextIndex]);
+        UpdateActiveComponent(newInstructionStep.component);
     }
 
     public void UpdateActiveComponent(ComponentSIMATIC component)
     {
         ClearScrollableListEntries();
 
-        foreach (KeyValuePair<string, string> kvp in component.dataDictionary)
+        if (component.webDataDictionary == null) // If the web data has not been initialized yet, wait for it to be initialized
         {
-            AddKeyValuePair(kvp.Key, kvp.Value);
+            component.OnComponentWebDataInitialized.AddListener(OnComponentWebDataInitialized);
+        }
+        else
+        {
+            UpdateWebDataText(component);
         }
 
         UpdatePreviewImage(component);
 
         activeComponent = component;
+    }
+
+    private void OnComponentWebDataInitialized(ComponentSIMATIC component)
+    {
+        UpdateWebDataText(component);
+    }
+
+    private void UpdateWebDataText(ComponentSIMATIC component)
+    {
+        foreach (KeyValuePair<string, string> kvp in component.webDataDictionary) // TODO: THIS LATER
+        {
+            AddKeyValuePair(kvp.Key, kvp.Value);
+        }
     }
 
     private void UpdatePreviewImage(ComponentSIMATIC component)
