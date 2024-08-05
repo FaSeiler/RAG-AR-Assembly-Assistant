@@ -50,7 +50,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: IsPlaying
+    m_ConditionEvent: 0
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6699728651363619788}
@@ -75,7 +75,7 @@ AnimatorController:
   m_Name: AnimationController_ET200SP
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: IsPlaying
+  - m_Name: 0
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -156,7 +156,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: IsPlaying
+    m_ConditionEvent: 0
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5803480103169015041}

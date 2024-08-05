@@ -22,7 +22,7 @@ public class RotatingPreviewComponent : MonoBehaviour
 
     private void Update()
     {
-        if (pivotSet)
+        if (pivotSet && activePreviewComponent != null)
         {
             RotateObject();
         }
