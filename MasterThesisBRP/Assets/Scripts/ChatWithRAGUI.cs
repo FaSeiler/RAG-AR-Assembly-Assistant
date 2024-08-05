@@ -4,6 +4,8 @@ using TMPro;
 using NUnit.Framework;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using System;
+using System.Collections;
 
 public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
 {
@@ -21,6 +23,7 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
     public GameObject placeHolderPrefab;
     public GameObject fullscreenImageWindowGO;
     public GameObject responseImageListPrefab;
+    public ScrollRect scrollRect;
 
     private void Awake()
     {
@@ -122,21 +125,38 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
         //   errorCode is 6, then the user hasn't spoken and the session has timed out as expected).
     }
 
+    DateTime before;
+    DateTime after;
+
     public void SendRAGRequest()
     {
         string request = questionInputField.text;
         AddChatEntry(request, null, true);
         questionInputField.text = "";
 
+        before = DateTime.Now; // Start of RAG request
 
         ClientRAG.instance.SendRequest(request, (responseText, imageTextures) =>
         {
+            after = DateTime.Now; // End of RAG request
             AddChatEntry(responseText, imageTextures, false);
         });
     }
 
     public void AddChatEntry(string text, List<Texture2D> imageTextures, bool isUser)
     {
+
+
+        if (!isUser)
+        {
+            TimeSpan duration = after.Subtract(before);
+            Debug.Log("Duration in seconds: " + duration.Seconds);
+
+            text += "\n\n<size=65%>(Response time: " + duration.Seconds + " seconds)";
+        }
+
+
+
         GameObject chatEntryGO = Instantiate(chatEntryPrefab, chatEntriesParent.transform);
         ChatEntry chatEntry = chatEntryGO.GetComponent<ChatEntry>();
 
@@ -161,6 +181,14 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
         {
             Instantiate(placeHolderPrefab, chatEntriesParent.transform);
         }
+
+        StartCoroutine(ScrollToBottom());
+    }
+
+    IEnumerator ScrollToBottom()
+    {
+        yield return new WaitForEndOfFrame();
+        scrollRect.verticalNormalizedPosition = 0f;
     }
 
     public void ClearChat()

@@ -39,14 +39,6 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            NextInstructionStep();
-        }
-    }
-
     public void NextInstructionStep()
     {
         // Check if there exists a next step
