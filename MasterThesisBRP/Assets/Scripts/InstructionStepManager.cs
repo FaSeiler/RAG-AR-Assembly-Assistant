@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class InstructionStepManager : MonoBehaviour
+public class InstructionStepManager : Singleton<InstructionStepManager>
 {
     public InstructionStep currentInstructionStep;
     public int currentStepIndex = 0;
