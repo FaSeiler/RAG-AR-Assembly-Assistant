@@ -15,6 +15,11 @@ public class InstructionStep : MonoBehaviour
 
     public virtual void Awake()
     {
+        
+    }
+
+    public virtual void Start()
+    {
         if (componentArticleNumber != null)
         {
             if (componentArticleNumber == "")
@@ -26,10 +31,6 @@ public class InstructionStep : MonoBehaviour
                 component = ComponentDatabase.instance.GetComponentSIMATIC(componentArticleNumber);
             }
         }
-    }
-
-    public virtual void Start()
-    {
     }
 
 
