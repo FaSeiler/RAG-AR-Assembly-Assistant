@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Security.Policy;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -18,6 +20,7 @@ public class ComponentDataUI : WindowManager
     public GameObject keyTextEntryPrefab;
     public GameObject valueTextEntryPrefab;
     public GameObject placeholderPrefab;
+    public TextMeshProUGUI openOnIndustryMallText;
 
     private RotatingPreviewComponent previewComponent;
 
@@ -44,6 +47,9 @@ public class ComponentDataUI : WindowManager
     public void UpdateActiveComponent(ComponentSIMATIC component)
     {
         ClearScrollableListEntries();
+
+        string industryMallLink = "https://mall.industry.siemens.com/mall/de/WW/Catalog/Product/" + component.articleNumber;
+        openOnIndustryMallText.text = $"<link=\"{industryMallLink}\">Open on Industry Mall</link>";
 
         if (component.webDataDictionary == null) // If the web data has not been initialized yet, wait for it to be initialized
         {
