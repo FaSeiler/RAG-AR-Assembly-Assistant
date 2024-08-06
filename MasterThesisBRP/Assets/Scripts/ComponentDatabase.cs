@@ -24,7 +24,9 @@ public class ComponentDatabase : Singleton<ComponentDatabase>
 
     public Dictionary<string, ComponentSIMATIC> components = new Dictionary<string, ComponentSIMATIC>();
 
-    protected override void  Awake()
+    public bool allComponentsInititalized = false;
+
+    protected override void Awake()
     {
         base.Awake();
 
@@ -32,6 +34,7 @@ public class ComponentDatabase : Singleton<ComponentDatabase>
         {
             AddNewComponent(articleNumber);
         }
+        allComponentsInititalized = true;
     }
 
     private void AddNewComponent(string articleNumber)

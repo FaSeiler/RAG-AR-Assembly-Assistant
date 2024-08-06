@@ -18,6 +18,11 @@ public class ModelDatabase : Singleton<ModelDatabase>
         public string articleNumber;
         public GameObject prefab;
     }
+    
+    private void Start()
+    {
+        //AddArticleNumbersFromComponentDatabase();
+    }
 
     public GameObject GetModel(string articleNumber)
     {
@@ -32,10 +37,6 @@ public class ModelDatabase : Singleton<ModelDatabase>
         return null;
     }
 
-    private void Start()
-    {
-        AddArticleNumbersFromComponentDatabase();
-    }
     // This is just for testing purposes
     private void AddArticleNumbersFromComponentDatabase()
     {
