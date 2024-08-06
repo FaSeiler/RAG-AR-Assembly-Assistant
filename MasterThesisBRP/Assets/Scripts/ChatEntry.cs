@@ -10,7 +10,7 @@ public class ChatEntry : MonoBehaviour
     public void SetText(string text, bool isUser)
     {
         this.text.text = text;
-        string modifiedText = URLDetector.ReplaceUrlsWithLinks(this.text);
+        string modifiedText = URLDetector.FormatTextMeshProForRichTextFormat(this.text);
 
         if (isUser)
             this.text.text = "<b>You:</b><indent=12%>" + modifiedText + "</indent>";
