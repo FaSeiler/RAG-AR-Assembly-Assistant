@@ -26,24 +26,6 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
         ShowStep(0);
     }
 
-    private void LoadAllInstructionSteps()
-    {
-        // Find all InstructionStep objects that are children of this object and add them to the list
-        foreach (Transform child in transform)
-        {
-            InstructionStep step = child.GetComponent<InstructionStep>();
-            if (step != null )
-            {
-                if (!step.initialized)
-                {
-                    step.InitInstructionStep();
-                }
-
-                steps.Add(step);
-            }
-        }
-    }
-
     private void LoadInstructionStepsRecursively(Transform parent)
     {
         foreach (Transform child in parent)
@@ -57,11 +39,22 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
                     step.InitInstructionStep();
                 }
 
+                step.OnInstructionUpdated.AddListener(OnInstructionStepUpdated);
                 steps.Add(step);
             }
 
             // Recursively check for InstructionSteps in the children of this child
             LoadInstructionStepsRecursively(child);
+        }
+    }
+
+    private void OnInstructionStepUpdated(InstructionStep updatedInstructionStep)
+    {
+        // If an instruction step is updated, check if it is the current instruction step
+        // If yes, update the instruction text with the updated text it received from the RAG
+        if (updatedInstructionStep == currentInstructionStep)
+        {
+            UpdateInstructionText(updatedInstructionStep.instruction.instructionText);
         }
     }
 
@@ -105,9 +98,19 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
         currentInstructionStep.gameObject.SetActive(true);
         activeComponent = currentInstructionStep.component;
 
-        instructionText.text = currentInstructionStep.instructionText;
+        // Update instruction text
+        if (currentInstructionStep.instruction.instructionText != "")
+        {
+            UpdateInstructionText(currentInstructionStep.instruction.instructionText);
+        }
 
         OnNewInstructionStep.Invoke(currentInstructionStep);
+    }
+
+    private void UpdateInstructionText(string newInstructionText)
+    {
+        instructionText.text = newInstructionText;
+        URLDetector.FormatTextMeshProForRichTextFormat(instructionText);
     }
 
     public void DisableAllInstructionSteps()

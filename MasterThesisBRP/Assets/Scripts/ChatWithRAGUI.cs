@@ -146,8 +146,6 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
 
     public void AddChatEntry(string text, List<Texture2D> imageTextures, bool isUser)
     {
-
-
         if (!isUser)
         {
             TimeSpan duration = after.Subtract(before);

@@ -11,13 +11,35 @@ public class URLDetector : MonoBehaviour
         @"(http|https|ftp|ftps)://[^\s/$.?#].[^\s]*",
         RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-    public static string ReplaceUrlsWithLinks(TextMeshProUGUI input)
+    private static readonly Regex boldRegex = new Regex(
+        @"\*\*(.*?)\*\*",
+        RegexOptions.Compiled);
+
+    /// <summary>
+    /// This method formats the input TextMeshProUGUI component's text to include rich text formatting for URLs and bold text.
+    /// </summary>
+    public static string FormatTextMeshProForRichTextFormat(TextMeshProUGUI input)
     {
-        return urlRegex.Replace(input.text, match => {
+        string text = input.text;
+
+        // Replace URLs with links
+        text = urlRegex.Replace(text, match => {
             string url = match.Value.TrimEnd(')', '.', ',', '!', '?', ':', ';');
-            input.gameObject.AddComponent<TextMeshProLinkClickDetector>();
+
+            if (input.gameObject.GetComponent<TextMeshProLinkClickDetector>() == null)
+            {
+                input.gameObject.AddComponent<TextMeshProLinkClickDetector>();
+            }
             return $"<link=\"{url}\"><color=#00A2E8>{url}</color></link>";
         });
+
+        // Replace **text** with <b>text</b>
+        text = boldRegex.Replace(text, match => {
+            string content = match.Groups[1].Value;
+            return $"<b>{content}</b>";
+        });
+
+        return text;
     }
 
     public static bool ContainsUrl(string input, out string url)

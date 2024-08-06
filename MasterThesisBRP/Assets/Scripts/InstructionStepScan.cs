@@ -11,8 +11,16 @@ public class InstructionStepScan : InstructionStep
     public override void Awake()
     {
         base.Awake();
+
         // Find the preview component in the scene with tag "PreviewComponentScan"
         previewComponent = GameObject.FindGameObjectWithTag("PreviewComponentScan").GetComponent<RotatingPreviewComponent>();
+
+        instruction = new Instruction
+        {
+            componentTypeEnum = componentType,
+            instructionText = "Find the " + ComponentTypes.GetComponentTypeEnumToString(componentType) + " and scan it with the tablet.",
+            imageTextures = new List<Texture2D>()
+        };
     }
 
     public override void Start()

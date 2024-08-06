@@ -12,16 +12,12 @@ using UnityEngine.EventSystems;
 
 public class Testing : MonoBehaviour
 {
-
-    public TextMeshProUGUI text;
-
     public void Start()
     {
-        //string originalText = "Here is a link to a website: ({0}).";
-        //originalText = string.Format(originalText, WebsiteUrl);
-
-        string modifiedText = URLDetector.ReplaceUrlsWithLinks(text);
-        text.text = modifiedText;
-
+        Debug.Log("Start generating instruction for BaseUnit");
+        StartCoroutine(InstructionGenerator.instance.GenerateInstructionCoroutine(ComponentTypes.ComponentType.BaseUnitForIOModules, (instruction) =>
+        {
+            Debug.Log("Instruction generated for BaseUnit: " + instruction.instructionText);
+        }));
     }
 }
