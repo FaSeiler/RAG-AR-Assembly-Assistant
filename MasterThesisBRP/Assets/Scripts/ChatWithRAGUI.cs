@@ -44,7 +44,8 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
     private void Update()
     {
         startSpeechToTextButton.interactable = SpeechToText.IsServiceAvailable(preferOfflineRecognition) && !SpeechToText.IsBusy();
-        
+        startSpeechToTextButton.gameObject.GetComponent<Image>().enabled = !startSpeechToTextButton.interactable;
+
         if (stopSpeechToTextButton != null)
             stopSpeechToTextButton.interactable = SpeechToText.IsBusy();
 
