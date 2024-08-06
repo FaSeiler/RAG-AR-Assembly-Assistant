@@ -21,7 +21,7 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
 
     void Start()
     {
-        LoadAllInstructionSteps();
+        LoadInstructionStepsRecursively(this.transform);
         DisableAllInstructionSteps();
         ShowStep(0);
     }
@@ -41,6 +41,27 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
 
                 steps.Add(step);
             }
+        }
+    }
+
+    private void LoadInstructionStepsRecursively(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            // Check for InstructionStep component in the current child
+            InstructionStep step = child.GetComponent<InstructionStep>();
+            if (step != null)
+            {
+                if (!step.initialized)
+                {
+                    step.InitInstructionStep();
+                }
+
+                steps.Add(step);
+            }
+
+            // Recursively check for InstructionSteps in the children of this child
+            LoadInstructionStepsRecursively(child);
         }
     }
 
