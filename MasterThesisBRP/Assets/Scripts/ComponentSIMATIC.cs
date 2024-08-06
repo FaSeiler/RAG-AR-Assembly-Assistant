@@ -16,11 +16,11 @@ public class ComponentSIMATIC
 
     public ComponentSIMATIC(string articleNumber)
     {
-        InitWebData(articleNumber);
+        InitData(articleNumber);
     }
 
-    // Get the component information from the web scraper
-    private void InitWebData(string articleNumber)
+    // Init model and article number and get the component information from the web scraper
+    private void InitData(string articleNumber)
     {
         WebScraperSIMATIC.instance.StartScraping(articleNumber, OnComponentDataReceived);
         model = ModelDatabase.instance.GetModel(articleNumber);

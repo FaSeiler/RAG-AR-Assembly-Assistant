@@ -32,8 +32,13 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
         foreach (Transform child in transform)
         {
             InstructionStep step = child.GetComponent<InstructionStep>();
-            if (step != null)
+            if (step != null )
             {
+                if (!step.initialized)
+                {
+                    step.InitInstructionStep();
+                }
+
                 steps.Add(step);
             }
         }

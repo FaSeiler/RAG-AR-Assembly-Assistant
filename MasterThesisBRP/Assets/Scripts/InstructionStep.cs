@@ -13,12 +13,19 @@ public class InstructionStep : MonoBehaviour
     public ComponentSIMATIC component; // The SIMATIC component that this step is about
     public List<GameObject> relatedGameObjects; // Use this to enable relevant GameObjects for this step (e.g., model targets)
 
+    public bool initialized = false;    
+
     public virtual void Awake()
     {
         
     }
 
     public virtual void Start()
+    {
+        InitInstructionStep();
+    }
+
+    public void InitInstructionStep()
     {
         if (componentArticleNumber != null)
         {
@@ -30,9 +37,10 @@ public class InstructionStep : MonoBehaviour
             {
                 component = ComponentDatabase.instance.GetComponentSIMATIC(componentArticleNumber);
             }
+
+            initialized = true;
         }
     }
-
 
     public virtual void OnEnable()
     {
