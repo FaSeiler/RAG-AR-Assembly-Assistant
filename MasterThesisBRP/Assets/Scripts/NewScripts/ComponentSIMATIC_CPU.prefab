@@ -74,6 +74,11 @@ PrefabInstance:
       propertyPath: componentName
       value: CPU 1512SP-1 PN, 400KB Prog., 2MB Data
       objectReference: {fileID: 0}
+    - target: {fileID: 8175459011918180462, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: componentType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8446686779136013570, guid: fc2efb0001c994c498e76c19e5f4a3b1,
         type: 3}
       propertyPath: m_Name

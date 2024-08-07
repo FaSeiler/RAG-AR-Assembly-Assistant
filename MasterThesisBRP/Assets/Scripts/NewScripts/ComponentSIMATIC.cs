@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Vuforia;
 
 public class ComponentSIMATIC : MonoBehaviour
@@ -23,8 +24,8 @@ public class ComponentSIMATIC : MonoBehaviour
     public Instruction assemblyInstruction; // Dynamic: Comes from InstructionGenerator. Every component has one assembly instruction (In fute it should be a list of instructions)
 
     [Header("Debugging")]
-    [SerializeField] private bool propertiesInitialized = false;
-    [SerializeField] private bool scanInstructionsInitialized = false;
+    [SerializeField] public bool propertiesInitialized = false;
+    [SerializeField] public bool scanInstructionsInitialized = false;
     [SerializeField] public bool assemblyInstructionInitialized = false;
 
     private void Awake()

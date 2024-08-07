@@ -7,117 +7,95 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Old_Implementation
+public class ComponentDataUI : WindowManager
 {
-    public class ComponentDataUI : WindowManager
+    public string activeComponentArticleNumber;
+
+    [Space(10)]
+    public GameObject activePreviewComponent;
+
+    [Space(10)]
+    public GameObject listParent;
+    public GameObject keyTextEntryPrefab;
+    public GameObject valueTextEntryPrefab;
+    public GameObject placeholderPrefab;
+    public TextMeshProUGUI openOnIndustryMallText;
+
+    private RotatingPreviewComponent previewComponent;
+
+    private void Awake()
     {
-        public ComponentSIMATIC activeComponent;
-        public string activeComponentArticleNumber;
+        OnWindowEnabled.AddListener(OnWindowUIEnabled);
 
-        [Space(10)]
-        public GameObject activePreviewComponent;
+        previewComponent = GameObject.FindGameObjectWithTag("PreviewComponentModelData").GetComponent<RotatingPreviewComponent>();
+    }
 
-        [Space(10)]
-        public GameObject listParent;
-        public GameObject keyTextEntryPrefab;
-        public GameObject valueTextEntryPrefab;
-        public GameObject placeholderPrefab;
-        public TextMeshProUGUI openOnIndustryMallText;
+    private void OnWindowUIEnabled()
+    {
+        StartCoroutine(UpdateActiveComponent());
+    }
 
-        private RotatingPreviewComponent previewComponent;
+    public IEnumerator UpdateActiveComponent()
+    {
+        ClearScrollableListEntries();
 
-        private void Awake()
+        yield return new WaitUntil(() => InstructionStepManager.instance.createdFirstInstructionStep);
+
+        ComponentSIMATIC componentSIMATIC = InstructionStepManager.instance.currentInstructionStep.component;
+
+        string industryMallLink = "https://mall.industry.siemens.com/mall/de/WW/Catalog/Product/" + componentSIMATIC.articleNumber;
+        openOnIndustryMallText.text = $"<link=\"{industryMallLink}\">Open on Industry Mall</link>";
+
+        yield return new WaitUntil(() => componentSIMATIC.propertiesInitialized);
+
+        UpdatePropertiesText(componentSIMATIC);
+        UpdatePreviewImage(componentSIMATIC);
+    }
+
+    //private void OnComponentWebDataInitialized(ComponentSIMATIC component)
+    //{
+    //    UpdatePropertiesText(component);
+    //}
+
+    private void UpdatePreviewImage(ComponentSIMATIC componentSIMATIC)
+    {
+        if (activePreviewComponent != null)
         {
-            previewComponent = GameObject.FindGameObjectWithTag("PreviewComponentModelData").GetComponent<RotatingPreviewComponent>();
+            Destroy(activePreviewComponent);
         }
 
-        //private void Start()
-        //{
-        //    InstructionStepManager.OnNewInstructionStep.AddListener(OnNewInstructionStep);
-        //}
+        GameObject previewComponentModel = previewComponent.SetActivePreview(componentSIMATIC.modelPrefab);
 
-        //private void OnNewInstructionStep(InstructionStep newInstructionStep)
-        //{
-        //    activeComponent = newInstructionStep.component;
+        activePreviewComponent = previewComponentModel;
+    }
 
-        //    if (activeComponent != null)
-        //    {
-        //        UpdateActiveComponent(activeComponent);
-        //    }
-        //}
+    private void UpdatePropertiesText(ComponentSIMATIC component)
+    {
+        foreach (KeyValuePair<string, string> kvp in component.properties)
+        {
+            AddKeyValuePair(kvp.Key, kvp.Value);
+        }
+    }
 
-        //public void UpdateActiveComponent(ComponentSIMATIC component)
-        //{
-        //    ClearScrollableListEntries();
+    public void AddKeyValuePair(string key, string value)
+    {
+        GameObject keyTextEntry = Instantiate(keyTextEntryPrefab, listParent.transform);
+        GameObject valueTextEntry = Instantiate(valueTextEntryPrefab, listParent.transform);
+        GameObject placeHolder = Instantiate(placeholderPrefab, listParent.transform);
 
-        //    string industryMallLink = "https://mall.industry.siemens.com/mall/de/WW/Catalog/Product/" + component.articleNumber;
-        //    openOnIndustryMallText.text = $"<link=\"{industryMallLink}\">Open on Industry Mall</link>";
+        keyTextEntry.name = "Key_" + key;
+        valueTextEntry.name = "Value_" + value;
+        placeHolder.name = "PlaceHolder";
 
-        //    if (component.webDataDictionary == null) // If the web data has not been initialized yet, wait for it to be initialized
-        //    {
-        //        component.OnComponentWebDataInitialized.AddListener(OnComponentWebDataInitialized);
-        //    }
-        //    else
-        //    {
-        //        UpdateWebDataText(component);
-        //    }
+        keyTextEntry.GetComponent<TMPro.TextMeshProUGUI>().text = key + ":";
+        valueTextEntry.GetComponent<TMPro.TextMeshProUGUI>().text = value;
+    }
 
-        //    UpdatePreviewImage(component);
-
-        //    activeComponent = component;
-        //}
-
-        //private void OnComponentWebDataInitialized(ComponentSIMATIC component)
-        //{
-        //    UpdateWebDataText(component);
-        //}
-
-        //private void UpdateWebDataText(ComponentSIMATIC component)
-        //{
-        //    foreach (KeyValuePair<string, string> kvp in component.webDataDictionary) // TODO: THIS LATER
-        //    {
-        //        AddKeyValuePair(kvp.Key, kvp.Value);
-        //    }
-        //}
-
-        //private void UpdatePreviewImage(ComponentSIMATIC component)
-        //{
-        //    if (activeComponent != null)
-        //    {
-        //        Destroy(activePreviewComponent);
-        //    }
-
-        //    if (component.model == null)
-        //    {
-        //        Debug.Log("For the component *" + component.articleNumber + "* no model was found!");
-        //        return;
-        //    }
-
-        //    GameObject model = previewComponent.SetActivePreview(component.model);
-
-        //    activePreviewComponent = model;
-        //}
-
-        //public void AddKeyValuePair(string key, string value)
-        //{
-        //    GameObject keyTextEntry = Instantiate(keyTextEntryPrefab, listParent.transform);
-        //    GameObject valueTextEntry = Instantiate(valueTextEntryPrefab, listParent.transform);
-        //    GameObject placeHolder = Instantiate(placeholderPrefab, listParent.transform);
-
-        //    keyTextEntry.name = "Key_" + key;
-        //    valueTextEntry.name = "Value_" + value;
-        //    placeHolder.name = "PlaceHolder";
-
-        //    keyTextEntry.GetComponent<TMPro.TextMeshProUGUI>().text = key + ":";
-        //    valueTextEntry.GetComponent<TMPro.TextMeshProUGUI>().text = value;
-        //}
-
-        //public void ClearScrollableListEntries()
-        //{
-        //    foreach (Transform child in listParent.transform)
-        //    {
-        //        Destroy(child.gameObject);
-        //    }
-        //}
+    public void ClearScrollableListEntries()
+    {
+        foreach (Transform child in listParent.transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }

@@ -13,7 +13,7 @@ public class InstructionGenerator : Singleton<InstructionGenerator>
     public string instructionTemplateAssembly =  // Template for RAG query on how the instruction should be generated
         "How do I mount/install the {0}? Answer in short concise steps! Dont' add any other additional information.";
     public static string instructionTemplateScan = // Template for the scan instruction
-        "Point the tablet camera at the component <b>{0}</b> to scan it.";
+        "Point the tablet camera at the component to scan it.";
 
     protected override void Awake()
     {

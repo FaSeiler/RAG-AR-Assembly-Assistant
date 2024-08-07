@@ -12,7 +12,9 @@ public class WindowManager : MonoBehaviour
 
     [Header("Window Manager")]
     public GameObject window;
+    [HideInInspector]
     public UnityEvent OnWindowEnabled = new UnityEvent();
+    [HideInInspector]
     public UnityEvent OnWindowDisabled = new UnityEvent();
 
 

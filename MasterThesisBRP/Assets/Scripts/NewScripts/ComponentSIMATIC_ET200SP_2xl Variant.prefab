@@ -32,7 +32,7 @@ PrefabInstance:
     - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
         type: 3}
       propertyPath: componentType
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
         type: 3}

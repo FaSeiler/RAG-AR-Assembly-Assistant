@@ -10,14 +10,23 @@ using UnityEngine.Events;
 /// <summary>
 /// Manages iterating through the various instruction steps
 /// </summary>
-public class InstructionStepManager : MonoBehaviour
+public class InstructionStepManager : Singleton<InstructionStepManager>
 {
+    [Header("Dynamic Properties")]
     public InstructionStep currentInstructionStep;
+    public int currentInstructionStepIndex = 0;
+    public int totalInstructionStepCount = 0;
+    public List<InstructionStep> createdInstructions = new List<InstructionStep>();
 
+    [Header("Static Properties")]
     public Transform parentScanInstructions;
     public Transform parentAnimationInstructions;
+    public InstructionStepUIManager instructionStepUIManager;
 
-    private bool isCreatingInstructionStep = false;
+    [Header("Debugging")]
+    public bool isCreatingInstructionStep = false;
+    public bool createdFirstInstructionStep = false;
+
 
     private void Start()
     {
@@ -44,32 +53,78 @@ public class InstructionStepManager : MonoBehaviour
         isCreatingInstructionStep = true;
 
         /* First create the scan instruction step */
-        CreateScanInstructionStep(componentSIMATIC);
+        CreateAndSetScanInstructionStep(componentSIMATIC);
+
+        /* Set the currentInstructionStep to the first instruction step */
+        if (currentInstructionStep == null)
+        {
+            currentInstructionStep = createdInstructions[currentInstructionStepIndex];
+            currentInstructionStepIndex = 0;
+            totalInstructionStepCount = createdInstructions.Count;
+            instructionStepUIManager.UpdateInstructionUI(currentInstructionStep, currentInstructionStepIndex + 1, totalInstructionStepCount);
+            createdFirstInstructionStep = true;
+        }
 
         /* Then create the animation instruction step */
         yield return new WaitUntil(() => componentSIMATIC.assemblyInstructionInitialized); // Wait for the assemblyInstructionInitialized to become true
-        CreateAssemblyInstructionStep(componentSIMATIC);
+        CreateAndSetAssemblyInstructionStep(componentSIMATIC);
 
         isCreatingInstructionStep = false;
     }
 
-    private void CreateScanInstructionStep(ComponentSIMATIC componentSIMATIC)
+    private void CreateAndSetScanInstructionStep(ComponentSIMATIC componentSIMATIC)
     {
         GameObject scanInstructionStep = new GameObject("ScanInstructionStep_" + componentSIMATIC.name); // Create a new GameObject 
         scanInstructionStep.transform.SetParent(parentScanInstructions); // Set the parent of the new GameObject to the parentScanInstructions
         InstructionStepScan instructionStepScan = scanInstructionStep.AddComponent<InstructionStepScan>(); // Add the InstructionStepScan component 
         instructionStepScan.Init(componentSIMATIC); // Initialize the InstructionStepScan component
+
+        createdInstructions.Add(instructionStepScan);
+        totalInstructionStepCount = createdInstructions.Count;
     }
 
-    private void CreateAssemblyInstructionStep(ComponentSIMATIC componentSIMATIC)
+    private void CreateAndSetAssemblyInstructionStep(ComponentSIMATIC componentSIMATIC)
     {
         GameObject animationInstructionStep = new GameObject("AnimationInstructionStep_" + componentSIMATIC.name); // Create a new GameObject
         animationInstructionStep.transform.SetParent(parentAnimationInstructions); // Set the parent of the new GameObject to the parentAnimationInstructions
         InstructionStepAnimation instructionStepAnimation = animationInstructionStep.AddComponent<InstructionStepAnimation>(); // Add the InstructionStepAnimation component
         instructionStepAnimation.Init(componentSIMATIC); // Initialize the InstructionStepAnimation component
+
+        createdInstructions.Add(instructionStepAnimation);
+        totalInstructionStepCount = createdInstructions.Count;
     }
 
+    /// <summary>
+    /// Sets the currentInstructionStep to the next instruction step
+    /// </summary>
+    public void NextInstructionStep()
+    {
+        Debug.Log("Next");
+        if (currentInstructionStepIndex == createdInstructions.Count - 1)
+        {
+            return;
+        }
 
+        currentInstructionStepIndex++;
+        currentInstructionStep = createdInstructions[currentInstructionStepIndex];
+        instructionStepUIManager.UpdateInstructionUI(currentInstructionStep, currentInstructionStepIndex + 1, totalInstructionStepCount);
+    }
+
+    /// <summary>
+    /// Sets the currentInstructionStep to the previous instruction step
+    /// </summary>
+    public void PreviousInstructionStep()
+    {
+        Debug.Log("Back");
+        if (currentInstructionStepIndex == 0)
+        {
+            return;
+        }
+
+        currentInstructionStepIndex--;
+        currentInstructionStep = createdInstructions[currentInstructionStepIndex];
+        instructionStepUIManager.UpdateInstructionUI(currentInstructionStep, currentInstructionStepIndex + 1, totalInstructionStepCount);
+    }
 
 
 

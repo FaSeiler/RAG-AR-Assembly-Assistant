@@ -7,9 +7,9 @@ using UnityEngine.Events;
 
 namespace Old_Implementation
 {
-    [System.Serializable]
-    public class ComponentSIMATIC
-    {
+    //[System.Serializable]
+    //public class ComponentSIMATIC
+    //{
         //public string articleNumber;
         //public GameObject model;
         //public Dictionary<string, string> webDataDictionary; // Data about the component scraped from the web
@@ -44,5 +44,5 @@ namespace Old_Implementation
         //        stringBuilder.Append(kvp.Key + ": " + kvp.Value + "\n");
         //    }
         //}
-    }
+    //}
 }

@@ -20,6 +20,7 @@ public class ComponentTypes : MonoBehaviour
     // We need to get the exact string for the component type to increase chances of finding the component with the RAG
     public static Dictionary<ComponentType, string> componentTypeEnumStringDictionary = new Dictionary<ComponentType, string>()
     {
+        { ComponentType.None, "None" },
         { ComponentType.CPU_InterfaceModule, "CPU/interface module" },
         { ComponentType.BaseUnitForIOModules, "BaseUnit for I/O modules" },
         { ComponentType.ServerModule, "Server Module" },

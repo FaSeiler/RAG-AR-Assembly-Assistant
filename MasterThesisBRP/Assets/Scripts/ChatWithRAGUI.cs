@@ -9,19 +9,19 @@ using System.Collections;
 
 public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
 {
-    // TMPRO input field
+    [Header("Speech to Text")]
     public TMP_InputField questionInputField;
     public Button startSpeechToTextButton, stopSpeechToTextButton, sendRequestButton;
     public Slider voiceLevelSlider;
-    public bool preferOfflineRecognition;
     public GameObject loadingRing;
-
+    public bool preferOfflineRecognition;
     private float normalizedVoiceLevel;
 
+    [Header("Properties")]
     public GameObject chatEntriesParent;
     public GameObject chatEntryPrefab;
     public GameObject placeHolderPrefab;
-    public GameObject fullscreenImageWindowGO;
+    public GameObject fullscreenImageWindowGO; // Needed?
     public GameObject responseImageListPrefab;
     public GameObject responsePageNumberListPrefab;
     public ScrollRect scrollRect;

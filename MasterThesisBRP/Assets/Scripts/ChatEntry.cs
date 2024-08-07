@@ -19,4 +19,13 @@ public class ChatEntry : MonoBehaviour
         else
             this.text.text = "<b>Assistant:</b><indent=12%>" + modifiedText + "</indent>";
     }
+
+    public void SetTextInstruction(string text)
+    {
+        if (text == null)
+            return;
+
+        string modifiedText = URLDetector.FormatTextMeshProForRichTextFormat(text);
+        this.text.text = modifiedText;
+    }
 }
