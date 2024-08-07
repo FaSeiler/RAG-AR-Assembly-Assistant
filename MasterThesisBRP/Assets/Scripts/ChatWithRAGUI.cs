@@ -23,6 +23,7 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
     public GameObject placeHolderPrefab;
     public GameObject fullscreenImageWindowGO;
     public GameObject responseImageListPrefab;
+    public GameObject responsePageNumberListPrefab;
     public ScrollRect scrollRect;
 
     private void Awake()
@@ -132,19 +133,19 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
     public void SendRAGRequest()
     {
         string request = questionInputField.text;
-        AddChatEntry(request, null, true);
+        AddChatEntry(request, null, null, true);
         questionInputField.text = "";
 
         before = DateTime.Now; // Start of RAG request
 
-        ClientRAG.instance.SendRequest(request, (responseText, imageTextures) =>
+        ClientRAG.instance.SendRequest(request, (responseData) =>
         {
             after = DateTime.Now; // End of RAG request
-            AddChatEntry(responseText, imageTextures, false);
+            AddChatEntry(responseData.text, responseData.decoded_images, responseData.page_numbers, false);
         });
     }
 
-    public void AddChatEntry(string text, List<Texture2D> imageTextures, bool isUser)
+    public void AddChatEntry(string text, List<Texture2D> imageTextures, List<int> page_numbers, bool isUser)
     {
         if (!isUser)
         {
@@ -163,17 +164,12 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
 
         if (imageTextures != null )
         {
-            if (imageTextures.Count > 0)
-            {
-                GameObject responseImageListGO = Instantiate(responseImageListPrefab, chatEntriesParent.transform);
-                responseImageListGO.GetComponent<GridLayoutGroup>().enabled = true;
-                responseImageListGO.GetComponent<RAGResponseImageListManager>().enabled = true;
+            AddImageList(imageTextures);
+        }
 
-                foreach (Texture2D imageTexture in imageTextures)
-                {
-                    responseImageListGO.GetComponent<RAGResponseImageListManager>().AddRawImage(imageTexture);
-                }
-            }
+        if (page_numbers != null)
+        {
+            AddPageNumbersList(page_numbers);
         }
 
         if (!isUser) // Add placeholder after assistant response
@@ -182,6 +178,38 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
         }
 
         StartCoroutine(ScrollToBottom());
+    }
+
+
+
+    public void AddImageList(List<Texture2D> imageTextures)
+    {
+        if (imageTextures.Count > 0)
+        {
+            GameObject responseImageListGO = Instantiate(responseImageListPrefab, chatEntriesParent.transform);
+            responseImageListGO.GetComponent<GridLayoutGroup>().enabled = true;
+            responseImageListGO.GetComponent<RAGResponseImageListManager>().enabled = true;
+
+            foreach (Texture2D imageTexture in imageTextures)
+            {
+                responseImageListGO.GetComponent<RAGResponseImageListManager>().AddRawImage(imageTexture);
+            }
+        }
+    }
+
+    private void AddPageNumbersList(List<int> page_numbers)
+    {
+        if (page_numbers.Count > 0)
+        {
+            GameObject responsePageNumberListGO = Instantiate(responsePageNumberListPrefab, chatEntriesParent.transform);   
+            responsePageNumberListGO.GetComponent<GridLayoutGroup>().enabled = true;
+            responsePageNumberListGO.GetComponent<RAGResponsePageNumberListManager>().enabled = true;
+
+            foreach (int page_number in page_numbers)
+            {
+                responsePageNumberListGO.GetComponent<RAGResponsePageNumberListManager>().AddPageNumberButton(page_number);
+            }
+        }
     }
 
     IEnumerator ScrollToBottom()

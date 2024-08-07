@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,11 +18,18 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
     [Header("References")]
     public TextMeshProUGUI instructionText;
 
-    private List<InstructionStep> steps = new List<InstructionStep>();
+    public List<InstructionStep> steps = new List<InstructionStep>();
 
     void Start()
     {
-        LoadInstructionStepsRecursively(this.transform);
+        //LoadInstructionStepsRecursively(this.transform); // We probably have to set them manually to change the order of steps
+
+        // If instruction step list was set manually in the inspector, we don't need to load them recursively
+        foreach (var step in steps)
+        {
+            LoadInstructionStep(step);
+        }
+
         DisableAllInstructionSteps();
         ShowStep(0);
     }
@@ -32,19 +40,25 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
         {
             // Check for InstructionStep component in the current child
             InstructionStep step = child.GetComponent<InstructionStep>();
-            if (step != null)
-            {
-                if (!step.initialized)
-                {
-                    step.InitInstructionStep();
-                }
-
-                step.OnInstructionUpdated.AddListener(OnInstructionStepUpdated);
-                steps.Add(step);
-            }
+            LoadInstructionStep(step);
+            steps.Add(step);
 
             // Recursively check for InstructionSteps in the children of this child
             LoadInstructionStepsRecursively(child);
+        }
+    }
+
+    private void LoadInstructionStep(InstructionStep instructionStep)
+    {
+        // Check for InstructionStep component in the current child
+        if (instructionStep != null)
+        {
+            if (!instructionStep.initialized)
+            {
+                instructionStep.InitInstructionStep();
+            }
+
+            instructionStep.OnInstructionUpdated.AddListener(OnInstructionStepUpdated);
         }
     }
 
@@ -109,8 +123,8 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
 
     private void UpdateInstructionText(string newInstructionText)
     {
-        instructionText.text = newInstructionText;
-        URLDetector.FormatTextMeshProForRichTextFormat(instructionText);
+        string richTextFormattedText = URLDetector.FormatTextMeshProForRichTextFormat(newInstructionText);
+        instructionText.text = richTextFormattedText;
     }
 
     public void DisableAllInstructionSteps()

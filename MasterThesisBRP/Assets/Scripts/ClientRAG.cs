@@ -17,12 +17,12 @@ public class ClientRAG : Singleton<ClientRAG>
 
     public Transform imageContainer; // Reference to the container for the images
 
-    public void SendRequest(string query, Action<string, List<Texture2D>> callback)
+    public void SendRequest(string query, Action<ResponseData> callback)
     {
         StartCoroutine(SendQuery(query, pdfFileName, callback));
     }
 
-    IEnumerator SendQuery(string query, string pdfFileName, Action<string, List<Texture2D>> callback)
+    IEnumerator SendQuery(string query, string pdfFileName, Action<ResponseData> callback)
     {
         isBusy = true;
         string url = BASE_URL + "/query";
@@ -49,12 +49,12 @@ public class ClientRAG : Singleton<ClientRAG>
                 //Debug.Log(jsonResponse);
 
                 ResponseData responseData = ProcessResponse(jsonResponse);
-                callback?.Invoke(responseData.text, responseData.decoded_images);
+                callback?.Invoke(responseData);
             }
             else
             {
                 Debug.LogError("Error: " + request.error);
-                callback?.Invoke(request.error, null);
+                callback?.Invoke(null);
             }
         }
 

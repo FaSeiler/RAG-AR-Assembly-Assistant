@@ -42,10 +42,11 @@ public class InstructionGenerator : Singleton<InstructionGenerator>
 
         bool isRequestCompleted = false;
 
-        ClientRAG.instance.SendRequest(query, (responseText, imageTextures) =>
+        ClientRAG.instance.SendRequest(query, (responseData) =>
         {
-            instruction.instructionText = responseText;
-            instruction.imageTextures = imageTextures;
+            instruction.instructionText = responseData.text;
+            instruction.imageTextures = responseData.decoded_images;
+            instruction.page_numbers = responseData.page_numbers;
             isRequestCompleted = true;
         });
 
