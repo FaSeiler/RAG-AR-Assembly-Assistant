@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 5542848750788967395}
   - component: {fileID: 273888792380062958}
   - component: {fileID: 8987849997000871140}
+  - component: {fileID: 4603398951643447301}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -143,13 +144,27 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, re et dolore magna
-    aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-    et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
-    dolor sit amet.
+  m_text: 'To install the CPU/interface module, follow these steps:
+
+
+    1. Install
+    the CPU/interface module on the mounting rail.
+
+    2. Swivel the CPU/interface
+    module towards the back until you hear the mounting rail release button click
+    into place.
+
+
+    **Please refer to Figure 7-2 Mounting the CPU/interface module
+    and page_number: 59**
+
+
+    Note: These instructions are from the manual, parent_section:
+    Mounting the CPU/interface module, and page_number: 59.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f6e742fc8a0846e409d94414c316ce8a, type: 2}
+  m_sharedMaterial: {fileID: 1608292245544200662, guid: f6e742fc8a0846e409d94414c316ce8a,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -217,6 +232,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4603398951643447301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159746535598137625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2bdd002f767aad4eab2b530651704c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7154881811910761565
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,6 +256,7 @@ GameObject:
   - component: {fileID: 2908916705494063094}
   - component: {fileID: 7483953443366768192}
   - component: {fileID: 1661853923134235045}
+  - component: {fileID: 8646583923169491477}
   m_Layer: 5
   m_Name: Background_Image
   m_TagString: Untagged
@@ -307,10 +335,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
+    m_Left: 30
+    m_Right: 30
+    m_Top: 30
+    m_Bottom: 30
   m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
@@ -320,3 +348,17 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &8646583923169491477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7154881811910761565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb30198aa32dd140b5750692dd48104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 10
+  image: {fileID: 7483953443366768192}

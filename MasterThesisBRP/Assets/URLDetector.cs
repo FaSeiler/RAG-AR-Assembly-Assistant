@@ -17,29 +17,26 @@ public class URLDetector : MonoBehaviour
 
     /// <summary>
     /// This method formats the input TextMeshProUGUI component's text to include rich text formatting for URLs and bold text.
+    /// IMPORTANT: The TexMeshProUGUI component must have a TextMeshProLinkClickDetector component attached to it.
     /// </summary>
-    public static string FormatTextMeshProForRichTextFormat(TextMeshProUGUI input)
+    public static string FormatTextMeshProForRichTextFormat(string input)
     {
-        string text = input.text;
+        if (input == null)
+            return null;
 
         // Replace URLs with links
-        text = urlRegex.Replace(text, match => {
+        input = urlRegex.Replace(input, match => {
             string url = match.Value.TrimEnd(')', '.', ',', '!', '?', ':', ';');
-
-            if (input.gameObject.GetComponent<TextMeshProLinkClickDetector>() == null)
-            {
-                input.gameObject.AddComponent<TextMeshProLinkClickDetector>();
-            }
             return $"<link=\"{url}\"><color=#00A2E8>{url}</color></link>";
         });
 
         // Replace **text** with <b>text</b>
-        text = boldRegex.Replace(text, match => {
+        input = boldRegex.Replace(input, match => {
             string content = match.Groups[1].Value;
             return $"<b>{content}</b>";
         });
 
-        return text;
+        return input;
     }
 
     public static bool ContainsUrl(string input, out string url)

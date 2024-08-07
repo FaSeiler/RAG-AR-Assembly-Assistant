@@ -372,7 +372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Viewer: {fileID: 385824574}
-  m_PDFAsset: {fileID: 11400000, guid: 5d28e5a11f0bbbf49a2aaa645955e348, type: 2}
+  m_PDFAsset: {fileID: 11400000, guid: c50b632c29b364a499c3565abfea7d5b, type: 2}
 --- !u!1 &569028801
 GameObject:
   m_ObjectHideFlags: 0
