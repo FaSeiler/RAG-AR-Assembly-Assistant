@@ -1,31 +1,51 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InstructionStepScan : InstructionStep
 {
-    [Header("Scanning")]
-    public GameObject scanPreviewModelPrefab;
+    public GameObject scanModelTargetPreviewGO; // The instance of the model target preview GameObject
+
     private RotatingPreviewComponent previewComponent;
 
-    public override void Awake()
+    public override void Init(ComponentSIMATIC componentSIMATIC)
     {
-        base.Awake();
+        SetPreviewComponent();
+        SetPreviewModel(componentSIMATIC);
+        SetScanInstruction(componentSIMATIC); // Find the scan instruction in the list of instructions of the componentSIMATIC and set it to the instruction variable
 
-        // Find the preview component in the scene with tag "PreviewComponentScan"
-        previewComponent = GameObject.FindGameObjectWithTag("PreviewComponentScan").GetComponent<RotatingPreviewComponent>();
+        base.Init(componentSIMATIC);
+    }
 
-        instruction = new Instruction
-        {
-            componentTypeEnum = componentType,
-            instructionText = "Find the " + ComponentTypes.GetComponentTypeEnumToString(componentType) + " and scan it with the tablet.",
-            imageTextures = new List<Texture2D>()
-        };
+    private void SetPreviewModel(ComponentSIMATIC componentSIMATIC)
+    {
+        scanModelTargetPreviewGO = componentSIMATIC.modelTargetPreview;
+        scanModelTargetPreviewGO.transform.SetParent(transform);
+    }
+
+    /// <summary>
+    /// Sets the scan instruction of the componentSIMATIC to the instruction variable
+    /// </summary>
+    private void SetScanInstruction(ComponentSIMATIC componentSIMATIC)
+    {
+        instruction = componentSIMATIC.scanInstruction;
     }
 
     public override void Start()
     {
         base.Start();
+
+        SetPreviewComponent();
+    }
+
+    /// <summary>
+    /// Finds the preview component in the scene with tag "PreviewComponentScan" and sets it to the previewComponent variable
+    /// </summary>
+    private void SetPreviewComponent()
+    {
+        previewComponent = GameObject.FindGameObjectWithTag("PreviewComponentScan").GetComponent<RotatingPreviewComponent>();
     }
 
     public override void OnEnable()
@@ -44,12 +64,17 @@ public class InstructionStepScan : InstructionStep
 
     public void ShowScanPreview()
     {
-        previewComponent.SetActivePreview(scanPreviewModelPrefab);
+        if (!initialized)
+            return;
+
+        previewComponent.SetActivePreview(scanModelTargetPreviewGO);
     }
 
     public void HideScanPreview()
     {
-        previewComponent.RemoveActivePreview();
+        if (!initialized)
+            return;
 
+        previewComponent.RemoveActivePreview();
     }
 }

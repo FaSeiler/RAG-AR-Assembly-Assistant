@@ -7,114 +7,117 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ComponentDataUI : WindowManager
+namespace Old_Implementation
 {
-    public ComponentSIMATIC activeComponent;
-    public string activeComponentArticleNumber;
-
-    [Space(10)]
-    public GameObject activePreviewComponent;
-
-    [Space(10)]
-    public GameObject listParent;
-    public GameObject keyTextEntryPrefab;
-    public GameObject valueTextEntryPrefab;
-    public GameObject placeholderPrefab;
-    public TextMeshProUGUI openOnIndustryMallText;
-
-    private RotatingPreviewComponent previewComponent;
-
-    private void Awake()
+    public class ComponentDataUI : WindowManager
     {
-        previewComponent = GameObject.FindGameObjectWithTag("PreviewComponentModelData").GetComponent<RotatingPreviewComponent>();
-    }
+        public ComponentSIMATIC activeComponent;
+        public string activeComponentArticleNumber;
 
-    private void Start()
-    {
-        InstructionStepManager.OnNewInstructionStep.AddListener(OnNewInstructionStep);
-    }
+        [Space(10)]
+        public GameObject activePreviewComponent;
 
-    private void OnNewInstructionStep(InstructionStep newInstructionStep)
-    {
-        activeComponent = newInstructionStep.component;
+        [Space(10)]
+        public GameObject listParent;
+        public GameObject keyTextEntryPrefab;
+        public GameObject valueTextEntryPrefab;
+        public GameObject placeholderPrefab;
+        public TextMeshProUGUI openOnIndustryMallText;
 
-        if (activeComponent != null)
+        private RotatingPreviewComponent previewComponent;
+
+        private void Awake()
         {
-            UpdateActiveComponent(activeComponent);
-        }
-    }
-
-    public void UpdateActiveComponent(ComponentSIMATIC component)
-    {
-        ClearScrollableListEntries();
-
-        string industryMallLink = "https://mall.industry.siemens.com/mall/de/WW/Catalog/Product/" + component.articleNumber;
-        openOnIndustryMallText.text = $"<link=\"{industryMallLink}\">Open on Industry Mall</link>";
-
-        if (component.webDataDictionary == null) // If the web data has not been initialized yet, wait for it to be initialized
-        {
-            component.OnComponentWebDataInitialized.AddListener(OnComponentWebDataInitialized);
-        }
-        else
-        {
-            UpdateWebDataText(component);
+            previewComponent = GameObject.FindGameObjectWithTag("PreviewComponentModelData").GetComponent<RotatingPreviewComponent>();
         }
 
-        UpdatePreviewImage(component);
+        //private void Start()
+        //{
+        //    InstructionStepManager.OnNewInstructionStep.AddListener(OnNewInstructionStep);
+        //}
 
-        activeComponent = component;
-    }
+        //private void OnNewInstructionStep(InstructionStep newInstructionStep)
+        //{
+        //    activeComponent = newInstructionStep.component;
 
-    private void OnComponentWebDataInitialized(ComponentSIMATIC component)
-    {
-        UpdateWebDataText(component);
-    }
+        //    if (activeComponent != null)
+        //    {
+        //        UpdateActiveComponent(activeComponent);
+        //    }
+        //}
 
-    private void UpdateWebDataText(ComponentSIMATIC component)
-    {
-        foreach (KeyValuePair<string, string> kvp in component.webDataDictionary) // TODO: THIS LATER
-        {
-            AddKeyValuePair(kvp.Key, kvp.Value);
-        }
-    }
+        //public void UpdateActiveComponent(ComponentSIMATIC component)
+        //{
+        //    ClearScrollableListEntries();
 
-    private void UpdatePreviewImage(ComponentSIMATIC component)
-    {
-        if (activeComponent != null)
-        {
-            Destroy(activePreviewComponent);
-        }
+        //    string industryMallLink = "https://mall.industry.siemens.com/mall/de/WW/Catalog/Product/" + component.articleNumber;
+        //    openOnIndustryMallText.text = $"<link=\"{industryMallLink}\">Open on Industry Mall</link>";
 
-        if (component.model == null)
-        {
-            Debug.Log("For the component *" + component.articleNumber + "* no model was found!");
-            return;
-        }
+        //    if (component.webDataDictionary == null) // If the web data has not been initialized yet, wait for it to be initialized
+        //    {
+        //        component.OnComponentWebDataInitialized.AddListener(OnComponentWebDataInitialized);
+        //    }
+        //    else
+        //    {
+        //        UpdateWebDataText(component);
+        //    }
 
-        GameObject model = previewComponent.SetActivePreview(component.model);
+        //    UpdatePreviewImage(component);
 
-        activePreviewComponent = model;
-    }
+        //    activeComponent = component;
+        //}
 
-    public void AddKeyValuePair(string key, string value)
-    {
-        GameObject keyTextEntry = Instantiate(keyTextEntryPrefab, listParent.transform);
-        GameObject valueTextEntry = Instantiate(valueTextEntryPrefab, listParent.transform);
-        GameObject placeHolder = Instantiate(placeholderPrefab, listParent.transform);
+        //private void OnComponentWebDataInitialized(ComponentSIMATIC component)
+        //{
+        //    UpdateWebDataText(component);
+        //}
 
-        keyTextEntry.name = "Key_" + key;
-        valueTextEntry.name = "Value_" + value;
-        placeHolder.name = "PlaceHolder";
+        //private void UpdateWebDataText(ComponentSIMATIC component)
+        //{
+        //    foreach (KeyValuePair<string, string> kvp in component.webDataDictionary) // TODO: THIS LATER
+        //    {
+        //        AddKeyValuePair(kvp.Key, kvp.Value);
+        //    }
+        //}
 
-        keyTextEntry.GetComponent<TMPro.TextMeshProUGUI>().text = key + ":";
-        valueTextEntry.GetComponent<TMPro.TextMeshProUGUI>().text = value;
-    }
+        //private void UpdatePreviewImage(ComponentSIMATIC component)
+        //{
+        //    if (activeComponent != null)
+        //    {
+        //        Destroy(activePreviewComponent);
+        //    }
 
-    public void ClearScrollableListEntries()
-    {
-        foreach (Transform child in listParent.transform)
-        {
-            Destroy(child.gameObject);
-        }
+        //    if (component.model == null)
+        //    {
+        //        Debug.Log("For the component *" + component.articleNumber + "* no model was found!");
+        //        return;
+        //    }
+
+        //    GameObject model = previewComponent.SetActivePreview(component.model);
+
+        //    activePreviewComponent = model;
+        //}
+
+        //public void AddKeyValuePair(string key, string value)
+        //{
+        //    GameObject keyTextEntry = Instantiate(keyTextEntryPrefab, listParent.transform);
+        //    GameObject valueTextEntry = Instantiate(valueTextEntryPrefab, listParent.transform);
+        //    GameObject placeHolder = Instantiate(placeholderPrefab, listParent.transform);
+
+        //    keyTextEntry.name = "Key_" + key;
+        //    valueTextEntry.name = "Value_" + value;
+        //    placeHolder.name = "PlaceHolder";
+
+        //    keyTextEntry.GetComponent<TMPro.TextMeshProUGUI>().text = key + ":";
+        //    valueTextEntry.GetComponent<TMPro.TextMeshProUGUI>().text = value;
+        //}
+
+        //public void ClearScrollableListEntries()
+        //{
+        //    foreach (Transform child in listParent.transform)
+        //    {
+        //        Destroy(child.gameObject);
+        //    }
+        //}
     }
 }

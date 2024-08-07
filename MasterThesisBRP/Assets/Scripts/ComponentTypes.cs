@@ -7,6 +7,7 @@ public class ComponentTypes : MonoBehaviour
 {
     public enum ComponentType
     {
+        None,
         CPU_InterfaceModule,
         BaseUnitForIOModules,
         ServerModule,

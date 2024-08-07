@@ -12,12 +12,4 @@ using UnityEngine.EventSystems;
 
 public class Testing : MonoBehaviour
 {
-    public void Start()
-    {
-        Debug.Log("Start generating instruction for BaseUnit");
-        StartCoroutine(InstructionGenerator.instance.GenerateInstructionCoroutine(ComponentTypes.ComponentType.BaseUnitForIOModules, (instruction) =>
-        {
-            Debug.Log("Instruction generated for BaseUnit: " + instruction.instructionText);
-        }));
-    }
 }

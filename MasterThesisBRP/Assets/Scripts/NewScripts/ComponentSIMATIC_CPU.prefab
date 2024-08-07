@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4729943211190796385
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 420262843065775631, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 420262843065775631, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 420262843065775631, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 420262843065775631, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 420262843065775631, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 420262843065775631, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 420262843065775631, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 420262843065775631, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 420262843065775631, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 420262843065775631, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175459011918180462, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: modelPrefab
+      value: 
+      objectReference: {fileID: 919132149155446097, guid: 6e53f6a42cbde33469a33aa1e283e076,
+        type: 3}
+    - target: {fileID: 8175459011918180462, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: articleNumber
+      value: 6ES7512-1DM03-0AB0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175459011918180462, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: componentName
+      value: CPU 1512SP-1 PN, 400KB Prog., 2MB Data
+      objectReference: {fileID: 0}
+    - target: {fileID: 8446686779136013570, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: m_Name
+      value: ComponentSIMATIC_CPU
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fc2efb0001c994c498e76c19e5f4a3b1, type: 3}
