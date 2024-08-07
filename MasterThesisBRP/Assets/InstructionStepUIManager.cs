@@ -20,7 +20,7 @@ public class InstructionStepUIManager : WindowManager
     {
         ClearText();
         AddInstructionStepHeader(instructionStep, instructionStepIndex, totalInstuctionStepCount);
-        AddPlaceHolder();
+        //AddPlaceHolder();
         AddChatEntry(instructionStep.instruction.text, instructionStep.instruction.images, instructionStep.instruction.pageNumbers);
     }
 
