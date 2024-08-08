@@ -21,7 +21,7 @@ public class InstructionStepScan : InstructionStep
 
     private void SetPreviewModel(ComponentSIMATIC componentSIMATIC)
     {
-        scanModelTargetPreviewGO = componentSIMATIC.modelTargetPreview;
+        scanModelTargetPreviewGO = componentSIMATIC.modelTargetPreviewGO;
         scanModelTargetPreviewGO.transform.SetParent(transform);
     }
 
@@ -52,29 +52,25 @@ public class InstructionStepScan : InstructionStep
     {
         base.OnEnable();
 
-        ShowScanPreview();
+        StartCoroutine(ShowScanPreview());
     }
 
     public override void OnDisable()
     {
         base.OnDisable();
 
-        HideScanPreview();
+        RemoveScanPreview();
     }
 
-    public void ShowScanPreview()
+    public IEnumerator ShowScanPreview()
     {
-        if (!initialized)
-            return;
+        yield return new WaitUntil(() => initialized);
 
         previewComponent.SetActivePreview(scanModelTargetPreviewGO);
     }
 
-    public void HideScanPreview()
+    public void RemoveScanPreview()
     {
-        if (!initialized)
-            return;
-
         previewComponent.RemoveActivePreview();
     }
 }

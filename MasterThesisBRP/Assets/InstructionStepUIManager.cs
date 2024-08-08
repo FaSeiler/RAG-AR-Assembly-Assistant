@@ -9,7 +9,6 @@ public class InstructionStepUIManager : WindowManager
 {
     public GameObject chatEntriesParent;
     public GameObject chatEntryPrefab;
-    public GameObject fullscreenImageWindowGO; // Needed?
     public GameObject responseImageListPrefab;
     public GameObject responsePageNumberListPrefab;
     public GameObject chatPlaceHolderPrefab;
@@ -20,7 +19,6 @@ public class InstructionStepUIManager : WindowManager
     {
         ClearText();
         AddInstructionStepHeader(instructionStep, instructionStepIndex, totalInstuctionStepCount);
-        //AddPlaceHolder();
         AddChatEntry(instructionStep.instruction.text, instructionStep.instruction.images, instructionStep.instruction.pageNumbers);
     }
 
@@ -82,9 +80,14 @@ public class InstructionStepUIManager : WindowManager
             responsePageNumberListGO.GetComponent<GridLayoutGroup>().enabled = true;
             responsePageNumberListGO.GetComponent<RAGResponsePageNumberListManager>().enabled = true;
 
+            List<int> addedPageNumbers = new List<int>();
             foreach (int page_number in page_numbers)
             {
-                responsePageNumberListGO.GetComponent<RAGResponsePageNumberListManager>().AddPageNumberButton(page_number);
+                if (!addedPageNumbers.Contains(page_number))
+                {
+                    responsePageNumberListGO.GetComponent<RAGResponsePageNumberListManager>().AddPageNumberButton(page_number);
+                    addedPageNumbers.Add(page_number);
+                }
             }
         }
     }

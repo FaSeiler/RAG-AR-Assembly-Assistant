@@ -39,6 +39,16 @@ public class InstructionStep : MonoBehaviour
 
     }
 
+    public virtual void EnableInstructionStep()
+    {
+        this.gameObject.SetActive(true);
+    }
+
+    public virtual void DisableInstructionStep()
+    {
+        this.gameObject.SetActive(false);
+    }
+
 
 
 

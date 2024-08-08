@@ -21,7 +21,6 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
     public GameObject chatEntriesParent;
     public GameObject chatEntryPrefab;
     public GameObject placeHolderPrefab;
-    public GameObject fullscreenImageWindowGO; // Needed?
     public GameObject responseImageListPrefab;
     public GameObject responsePageNumberListPrefab;
     public ScrollRect scrollRect;

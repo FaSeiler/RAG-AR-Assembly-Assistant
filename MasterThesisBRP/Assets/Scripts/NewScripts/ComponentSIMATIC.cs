@@ -18,7 +18,7 @@ public class ComponentSIMATIC : MonoBehaviour
     public Vector3 positionAnimationModel; // Static: The Position of the model which plays the animation (needed to position SIMATIC correctly)
 
     [Header("Dynamic Properties")] // Properties that are set dynamically
-    public GameObject modelTargetPreview; // Dynamic: Comes from the ModelDatabase (in future it should come from a Siemens database)
+    public GameObject modelTargetPreviewGO; // Dynamic: Comes from the ModelDatabase (in future it should come from a Siemens database)
     public Dictionary<string, string> properties = new Dictionary<string, string>(); // Dynamic: Comes from WebScraper (Siemens Industry Mall)
 
     public Instruction scanInstruction; // Dynamic: Comes from InstructionGenerator. Every component has one scan instruction
@@ -77,9 +77,10 @@ public class ComponentSIMATIC : MonoBehaviour
     /// </summary>
     private void CreateModelTargetPreview()
     {
-        modelTargetPreview = Instantiate(modelPrefab, transform);
+        modelTargetPreviewGO = Instantiate(modelPrefab, transform);
+        //modelTargetPreviewGO.SetActive(false);
 
-        SetMaterials(modelTargetPreview, materialHologram);
+        SetMaterials(modelTargetPreviewGO, materialHologram);
     }
 
     #region HELPERS
