@@ -31,17 +31,17 @@ PrefabInstance:
     - target: {fileID: 420262843065775631, guid: fc2efb0001c994c498e76c19e5f4a3b1,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 420262843065775631, guid: fc2efb0001c994c498e76c19e5f4a3b1,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 420262843065775631, guid: fc2efb0001c994c498e76c19e5f4a3b1,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 420262843065775631, guid: fc2efb0001c994c498e76c19e5f4a3b1,
         type: 3}
@@ -79,10 +79,31 @@ PrefabInstance:
       propertyPath: componentType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8175459011918180462, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: modelTargetBehaviour
+      value: 
+      objectReference: {fileID: 6054041568589901762, guid: 94524c74ca24a6846b813d3e0ee4e0a0,
+        type: 3}
+    - target: {fileID: 8175459011918180462, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: positionAnimationModel.x
+      value: -0.118599996
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175459011918180462, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: positionAnimationModel.y
+      value: 0.032799944
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175459011918180462, guid: fc2efb0001c994c498e76c19e5f4a3b1,
+        type: 3}
+      propertyPath: positionAnimationModel.z
+      value: 0.015400007
+      objectReference: {fileID: 0}
     - target: {fileID: 8446686779136013570, guid: fc2efb0001c994c498e76c19e5f4a3b1,
         type: 3}
       propertyPath: m_Name
-      value: ComponentSIMATIC_CPU
+      value: ComponentSIMATIC_CPU Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

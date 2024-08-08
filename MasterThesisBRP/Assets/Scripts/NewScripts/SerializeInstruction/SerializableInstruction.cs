@@ -9,5 +9,5 @@ public class SerializableInstruction
     public string text;
     public List<string> imagePaths; // Paths to the saved image files
     public List<int> pageNumbers;
-    public string animationClipName;
+    //public string animationClipName;
 }

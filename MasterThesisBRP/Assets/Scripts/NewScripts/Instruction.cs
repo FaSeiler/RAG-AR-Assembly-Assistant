@@ -10,5 +10,5 @@ public struct Instruction
     public string text; // The description (steps) of the instruction
     public List<Texture2D> images; // Relevant images for the instruction
     public List<int> pageNumbers;
-    public Animation animationClip; // Animation for the instruction
+    //public Animation animationClip; // Animation for the instruction
 }

@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 2527739491160222093}
   - component: {fileID: 798125099742591237}
   m_Layer: 0
-  m_Name: ModelTarget_CPU_EndModule
+  m_Name: ModelTarget_CPU_ServerModule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

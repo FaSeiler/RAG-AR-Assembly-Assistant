@@ -14,4 +14,20 @@ public class Testing : MonoBehaviour
 {
 
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Animator anim = GetComponent<Animator>();
+
+            anim.SetBool("0", false);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Animator anim = GetComponent<Animator>();
+
+            anim.SetBool("0", true);
+        }
+    }
+
 }

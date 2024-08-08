@@ -15,6 +15,7 @@ public class ComponentSIMATIC : MonoBehaviour
     public GameObject modelPrefab; // Static (in future it should come from a database)
     public ModelTargetBehaviour modelTargetBehaviour; // Static
     public Material materialHologram; // Static
+    public Vector3 positionAnimationModel; // Static: The Position of the model which plays the animation (needed to position SIMATIC correctly)
 
     [Header("Dynamic Properties")] // Properties that are set dynamically
     public GameObject modelTargetPreview; // Dynamic: Comes from the ModelDatabase (in future it should come from a Siemens database)

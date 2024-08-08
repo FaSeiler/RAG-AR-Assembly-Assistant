@@ -73,7 +73,7 @@ public class InstructionSerializer : Singleton<InstructionSerializer>
             text = instruction.text,
             imagePaths = new List<string>(),
             pageNumbers = instruction.pageNumbers,
-            animationClipName = instruction.animationClip != null ? instruction.animationClip.name : null
+            //animationClipName = instruction.animationClip != null ? instruction.animationClip.name : null
         };
 
         for (int i = 0; i < instruction.images.Count; i++)
@@ -83,12 +83,6 @@ public class InstructionSerializer : Singleton<InstructionSerializer>
             File.WriteAllBytes(imagePath, image.EncodeToPNG());
             serializableInstruction.imagePaths.Add(imagePath);
         }
-        //foreach (var image in instruction.images)
-        //{
-        //    string imagePath = Path.Combine(imageDirectory, instruction.componentType.ToString() + ".png");
-        //    File.WriteAllBytes(imagePath, image.EncodeToPNG());
-        //    serializableInstruction.imagePaths.Add(imagePath);
-        //}
 
         return serializableInstruction;
     }
@@ -101,7 +95,7 @@ public class InstructionSerializer : Singleton<InstructionSerializer>
             text = serializableInstruction.text,
             images = new List<Texture2D>(),
             pageNumbers = serializableInstruction.pageNumbers,
-            animationClip = serializableInstruction.animationClipName != null ? Resources.Load<Animation>(serializableInstruction.animationClipName) : null
+            //animationClip = serializableInstruction.animationClipName != null ? Resources.Load<Animation>(serializableInstruction.animationClipName) : null
         };
 
         foreach (var path in serializableInstruction.imagePaths)

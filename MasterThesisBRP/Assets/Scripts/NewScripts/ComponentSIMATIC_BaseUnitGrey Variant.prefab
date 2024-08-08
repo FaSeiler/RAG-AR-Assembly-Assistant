@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6523460038907363697
+--- !u!1001 &3956582505882470365
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11,49 +11,34 @@ PrefabInstance:
     - target: {fileID: 2493491215494486173, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
         type: 3}
       propertyPath: m_Name
-      value: ComponentSIMATIC_ET200SP_2xl Variant
+      value: ComponentSIMATIC_BaseUnitGrey Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
         type: 3}
       propertyPath: modelPrefab
       value: 
-      objectReference: {fileID: 919132149155446097, guid: 34f74ec14d4f0b6489b5a7143bf42857,
+      objectReference: {fileID: 919132149155446097, guid: 77f33a8ba04e8f048a3d6abd6fe7549d,
         type: 3}
     - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
         type: 3}
       propertyPath: articleNumber
-      value: 6ES7134-6GB00-0BA1
+      value: 6ES7193-6BP00-0BA0
       objectReference: {fileID: 0}
     - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
         type: 3}
       propertyPath: componentName
-      value: ET 200SP, AI 2xI 2-4-Wire ST, PU 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
-        type: 3}
-      propertyPath: componentType
-      value: 6
+      value: BaseUnit Type A0, BU15-P16+A0+2B
       objectReference: {fileID: 0}
     - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
         type: 3}
       propertyPath: modelTargetBehaviour
       value: 
-      objectReference: {fileID: 2162873730695061825, guid: c7b793950a460a74e9b9854c13bd6367,
+      objectReference: {fileID: 8900419026746854228, guid: 1b36a51fa6e9be643b245c7909d54761,
         type: 3}
     - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
         type: 3}
       propertyPath: positionAnimationModel.x
-      value: -0.2186
-      objectReference: {fileID: 0}
-    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
-        type: 3}
-      propertyPath: positionAnimationModel.y
-      value: 0.07779994
-      objectReference: {fileID: 0}
-    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
-        type: 3}
-      propertyPath: positionAnimationModel.z
-      value: 0.03590002
+      value: -0.2337
       objectReference: {fileID: 0}
     - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
         type: 3}

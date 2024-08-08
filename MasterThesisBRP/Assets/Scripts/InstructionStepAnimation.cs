@@ -11,9 +11,19 @@ public class InstructionStepAnimation : InstructionStep
     public override void Init(ComponentSIMATIC componentSIMATIC)
     {
         SetAssemblyInstruction(componentSIMATIC);
-        AddAnimator();
+        AddAnimatingModel(componentSIMATIC);
 
         base.Init(componentSIMATIC);
+    }
+
+    private void AddAnimatingModel(ComponentSIMATIC componentSIMATIC)
+    {
+        transform.position = componentSIMATIC.positionAnimationModel; // The parent of the animation defines the world position
+        transform.rotation = Quaternion.Euler(90, 0, 0);
+        GameObject modelGO = Instantiate(componentSIMATIC.modelPrefab, transform); // Instantiate the model as a child of the position parent
+        animator = modelGO.AddComponent<Animator>(); // Add an animator to the model
+        animator.runtimeAnimatorController = // Get the animator controller for the component type
+            AnimationDatabase.instance.GetAnimatorController(componentSIMATIC.componentType); 
     }
 
     /// <summary>
@@ -22,14 +32,6 @@ public class InstructionStepAnimation : InstructionStep
     private void SetAssemblyInstruction(ComponentSIMATIC componentSIMATIC)
     {
         instruction = componentSIMATIC.assemblyInstruction;
-    }
-
-    /// <summary>
-    /// Adds an Animator component to the GameObject
-    /// </summary>
-    private void AddAnimator()
-    {
-        gameObject.AddComponent<Animator>();
     }
 
     public override void OnEnable()

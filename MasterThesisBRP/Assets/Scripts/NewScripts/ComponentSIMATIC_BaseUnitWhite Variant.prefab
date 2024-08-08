@@ -35,6 +35,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8941685644983982074, guid: 1996c013ae912004a8443c066825edd4,
         type: 3}
+    - target: {fileID: 3517648780258865167, guid: b11490b4ce24c8e43bb1ab73a5ff8255,
+        type: 3}
+      propertyPath: positionAnimationModel.x
+      value: -0.2185
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517648780258865167, guid: b11490b4ce24c8e43bb1ab73a5ff8255,
+        type: 3}
+      propertyPath: positionAnimationModel.y
+      value: 0.032799944
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517648780258865167, guid: b11490b4ce24c8e43bb1ab73a5ff8255,
+        type: 3}
+      propertyPath: positionAnimationModel.z
+      value: 0.015400007
+      objectReference: {fileID: 0}
     - target: {fileID: 3791057362277610851, guid: b11490b4ce24c8e43bb1ab73a5ff8255,
         type: 3}
       propertyPath: m_Name

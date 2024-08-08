@@ -90,6 +90,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4330488108904588651, guid: 1c6ea7971653ecd4ba952aaed58e6041,
         type: 3}
+    - target: {fileID: 8957920395530951808, guid: 5374992debad87b42a8fb785d22464a9,
+        type: 3}
+      propertyPath: positionAnimationModel.x
+      value: -0.1421
+      objectReference: {fileID: 0}
+    - target: {fileID: 8957920395530951808, guid: 5374992debad87b42a8fb785d22464a9,
+        type: 3}
+      propertyPath: positionAnimationModel.y
+      value: 0.07729994
+      objectReference: {fileID: 0}
+    - target: {fileID: 8957920395530951808, guid: 5374992debad87b42a8fb785d22464a9,
+        type: 3}
+      propertyPath: positionAnimationModel.z
+      value: 0.030400008
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
