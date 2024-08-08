@@ -34,6 +34,12 @@ PrefabInstance:
       propertyPath: componentType
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: modelTargetBehaviour
+      value: 
+      objectReference: {fileID: 2162873730695061825, guid: c7b793950a460a74e9b9854c13bd6367,
+        type: 3}
     - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -6,30 +6,45 @@ using UnityEngine.Events;
 
 public class InstructionGenerator : Singleton<InstructionGenerator>
 {
+    public bool loadInstructions = false; // If true, load the instructions from the PersistentDataPath otherwise generate new instructions
 
     public Dictionary<ComponentTypes.ComponentType, Instruction> generatedAssemblyInstructions = // For each component type, store the generated instruction
         new Dictionary<ComponentTypes.ComponentType, Instruction>();
-    public static UnityEvent<Instruction> OnNewAssemblyInstructionGenerated = new UnityEvent<Instruction>();
+    public UnityEvent<Instruction> OnNewAssemblyInstructionGeneratedOrLoaded = new UnityEvent<Instruction>();
     public string instructionTemplateAssembly =  // Template for RAG query on how the instruction should be generated
         "How do I mount/install the {0}? Answer in short concise steps! Dont' add any other additional information.";
     public static string instructionTemplateScan = // Template for the scan instruction
         "Point the tablet camera at the component to scan it.";
 
-    protected override void Awake()
+    public int generatedInstructionCount = 0;
+
+    protected void Start() 
     {
-        base.Awake();
-        StartCoroutine(GenerateAllAssemblyInstructionsCoroutine());
+        // We have to load and generate the instructions in start to ensure all componentsSIMATIC are subscribed to the new instructionGenerated event
+        StartCoroutine(LoadOrGenerateInstructions());
     }
 
     /// <summary>
-    /// Fetches all component types and generates instructions for each of them
+    /// Check if all instructions are already generated and stored, otherwise generate them
     /// </summary>
-    public IEnumerator GenerateAllAssemblyInstructionsCoroutine()
+    private IEnumerator LoadOrGenerateInstructions()
     {
+        generatedAssemblyInstructions = InstructionSerializer.instance.LoadInstructions();
+        generatedInstructionCount = generatedAssemblyInstructions.Count;
+
+        // Check if all instructions are already in the generatedInstructions dictionary
         foreach (ComponentSIMATIC componentSIMATIC in ComponentDatabase.instance.GetAllComponents())
         {
-            // Wait until the instruction for the current componentType has been generated
-            yield return StartCoroutine(GenerateAssemblyInstructionCoroutine(componentSIMATIC));
+            if (generatedAssemblyInstructions.ContainsKey(componentSIMATIC.componentType))
+            {
+                OnNewAssemblyInstructionGeneratedOrLoaded.Invoke(generatedAssemblyInstructions[componentSIMATIC.componentType]);
+                Debug.Log("Loaded instruction for " + componentSIMATIC.componentType + " from file.");
+            }
+            else
+            {
+                // Wait until the instruction for the current componentType has been generated
+                yield return StartCoroutine(GenerateAssemblyInstructionCoroutine(componentSIMATIC));
+            }
         }
     }
 
@@ -66,8 +81,10 @@ public class InstructionGenerator : Singleton<InstructionGenerator>
         Debug.Log("Generated instruction for " + instruction.componentType + ": \n\n" + instruction.text);
 
         generatedAssemblyInstructions.Add(instruction.componentType, instruction);
+        generatedInstructionCount = generatedAssemblyInstructions.Count;
+        InstructionSerializer.instance.SaveInstructions(generatedAssemblyInstructions); // Save the generated instruction
 
-        OnNewAssemblyInstructionGenerated.Invoke(instruction);
+        OnNewAssemblyInstructionGeneratedOrLoaded.Invoke(instruction);
         callback?.Invoke(instruction);
 
         yield return instruction;
@@ -83,79 +100,4 @@ public class InstructionGenerator : Singleton<InstructionGenerator>
         instruction.componentType = componentSIMATIC.componentType;
         return instruction;
     }
-
-
-
-
-    //    public bool generateNewInstructions = false;
-
-    //    public string instructionTemplate = "How do I mount/install the {0}? Answer in short concise steps! Dont' add any other additional information.";
-
-    //    public Dictionary<ComponentTypes.ComponentType, Instruction> generatedInstructions = new Dictionary<ComponentTypes.ComponentType, Instruction>();
-
-    //    public static UnityEvent<Instruction> OnNewInstructionGenerated = new UnityEvent<Instruction>();
-
-    //    private void Start()
-    //    {
-    //        if (generateNewInstructions)
-    //        {
-    //            StartCoroutine(GenerateAllInstructionsCoroutine());
-    //        }
-    //    }
-
-    //    public IEnumerator GenerateAllInstructionsCoroutine()
-    //    {
-    //        foreach (ComponentTypes.ComponentType componentType in ComponentTypes.GetAllComponentTypeEnums())
-    //        {
-    //            // Warte, bis die Anweisung für den aktuellen componentType generiert wurde
-    //            yield return StartCoroutine(GenerateInstructionCoroutine(componentType));
-    //        }
-    //    }
-
-    //    public IEnumerator GenerateInstructionCoroutine(ComponentTypes.ComponentType componentType, Action<Instruction> callback = null)
-    //    {
-    //        Debug.Log("Generating instruction for " + componentType);
-
-    //        Instruction instruction = new Instruction();
-    //        instruction.componentTypeEnum = componentType;
-
-    //        string query = string.Format(instructionTemplate, componentType);
-
-    //        bool isRequestCompleted = false;
-
-    //        ClientRAG.instance.SendRequest(query, (responseData) =>
-    //        {
-    //            instruction.instructionText = responseData.text;
-    //            instruction.imageTextures = responseData.decoded_images;
-    //            instruction.page_numbers = responseData.page_numbers;
-    //            isRequestCompleted = true;
-    //        });
-
-    //        // Wait until the request is completed
-    //        while (!isRequestCompleted)
-    //        {
-    //            yield return null; // Wait for the next frame
-    //        }
-
-    //        // Add the generated instruction to the dictionary
-    //        generatedInstructions.Add(componentType, instruction);
-
-    //        Debug.Log("Generated instruction for " + componentType + ": \n\n" + instruction.instructionText);
-    //        OnNewInstructionGenerated.Invoke(instruction);
-
-    //        callback?.Invoke(instruction);
-
-    //        yield return instruction;
-    //    }
-
-    //    internal string GetInstructionForComponentType(ComponentTypes.ComponentType componentType)
-    //    {
-    //        // Find the instruction for the given component type
-    //        if (generatedInstructions.ContainsKey(componentType))
-    //        {
-    //            return generatedInstructions[componentType].instructionText;
-    //        }
-
-    //        return "No instruction found";
-    //    }
 }

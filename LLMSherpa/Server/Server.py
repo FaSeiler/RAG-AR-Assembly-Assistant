@@ -4,7 +4,7 @@ from RAG import SendQueryForPDF, Init
 app = Flask(__name__)
 
 # Initialize load_index and pdf_data on startup
-load_index = False
+load_index = True
 pdf_data = Init(load_index)
 
 

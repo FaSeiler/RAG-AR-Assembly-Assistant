@@ -29,7 +29,7 @@ public class InstructionStepUIManager : WindowManager
         GameObject instructionStepHeaderGO = Instantiate(instructionStepHeaderPrefab, chatEntriesParent.transform);
 
         string newText = "Step {0}/{1} <indent=15%>Art. Name:</indent><indent=35%> {2}</indent>\r\n<indent=15%>Art. Number:</indent><indent=35%> {3}</indent>";
-        newText = string.Format(newText, currentInstructionStepIndex, totalInstuctionSepCount, instructionStep.component.name, instructionStep.component.articleNumber);
+        newText = string.Format(newText, currentInstructionStepIndex, totalInstuctionSepCount, instructionStep.component.componentName, instructionStep.component.articleNumber);
 
         instructionStepHeaderGO.GetComponent<TextMeshProUGUI>().text = newText;
     }

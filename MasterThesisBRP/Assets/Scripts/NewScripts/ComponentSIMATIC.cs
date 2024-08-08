@@ -30,10 +30,11 @@ public class ComponentSIMATIC : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log(componentName + " created"); ;
         CreateModelTargetPreview(); // Create the hologram preview GameObject of the model
         GetProperties(articleNumber); // Get the properties of the component from the Siemens Industry Mall
         GetScanInstructions(); // Get the scan instructions for the component
-        InstructionGenerator.OnNewAssemblyInstructionGenerated.AddListener(OnNewAssemblyInstructionGenerated); // Listen for new instructions
+        InstructionGenerator.instance.OnNewAssemblyInstructionGeneratedOrLoaded.AddListener(OnNewAssemblyInstructionGenerated); // Listen for new instructions
     }
 
     /// <summary>

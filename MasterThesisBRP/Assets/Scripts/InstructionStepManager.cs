@@ -16,7 +16,7 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
     public InstructionStep currentInstructionStep;
     public int currentInstructionStepIndex = 0;
     public int totalInstructionStepCount = 0;
-    public List<InstructionStep> createdInstructions = new List<InstructionStep>();
+    public List<InstructionStep> createdInstructionSteps = new List<InstructionStep>();
 
     [Header("Static Properties")]
     public Transform parentScanInstructions;
@@ -58,9 +58,9 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
         /* Set the currentInstructionStep to the first instruction step */
         if (currentInstructionStep == null)
         {
-            currentInstructionStep = createdInstructions[currentInstructionStepIndex];
+            currentInstructionStep = createdInstructionSteps[currentInstructionStepIndex];
             currentInstructionStepIndex = 0;
-            totalInstructionStepCount = createdInstructions.Count;
+            totalInstructionStepCount = createdInstructionSteps.Count;
             instructionStepUIManager.UpdateInstructionUI(currentInstructionStep, currentInstructionStepIndex + 1, totalInstructionStepCount);
             createdFirstInstructionStep = true;
         }
@@ -79,8 +79,8 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
         InstructionStepScan instructionStepScan = scanInstructionStep.AddComponent<InstructionStepScan>(); // Add the InstructionStepScan component 
         instructionStepScan.Init(componentSIMATIC); // Initialize the InstructionStepScan component
 
-        createdInstructions.Add(instructionStepScan);
-        totalInstructionStepCount = createdInstructions.Count;
+        createdInstructionSteps.Add(instructionStepScan);
+        totalInstructionStepCount = createdInstructionSteps.Count;
     }
 
     private void CreateAndSetAssemblyInstructionStep(ComponentSIMATIC componentSIMATIC)
@@ -90,8 +90,8 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
         InstructionStepAnimation instructionStepAnimation = animationInstructionStep.AddComponent<InstructionStepAnimation>(); // Add the InstructionStepAnimation component
         instructionStepAnimation.Init(componentSIMATIC); // Initialize the InstructionStepAnimation component
 
-        createdInstructions.Add(instructionStepAnimation);
-        totalInstructionStepCount = createdInstructions.Count;
+        createdInstructionSteps.Add(instructionStepAnimation);
+        totalInstructionStepCount = createdInstructionSteps.Count;
     }
 
     /// <summary>
@@ -99,14 +99,13 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
     /// </summary>
     public void NextInstructionStep()
     {
-        Debug.Log("Next");
-        if (currentInstructionStepIndex == createdInstructions.Count - 1)
+        if (currentInstructionStepIndex == createdInstructionSteps.Count - 1)
         {
             return;
         }
 
         currentInstructionStepIndex++;
-        currentInstructionStep = createdInstructions[currentInstructionStepIndex];
+        currentInstructionStep = createdInstructionSteps[currentInstructionStepIndex];
         instructionStepUIManager.UpdateInstructionUI(currentInstructionStep, currentInstructionStepIndex + 1, totalInstructionStepCount);
     }
 
@@ -115,14 +114,13 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
     /// </summary>
     public void PreviousInstructionStep()
     {
-        Debug.Log("Back");
         if (currentInstructionStepIndex == 0)
         {
             return;
         }
 
         currentInstructionStepIndex--;
-        currentInstructionStep = createdInstructions[currentInstructionStepIndex];
+        currentInstructionStep = createdInstructionSteps[currentInstructionStepIndex];
         instructionStepUIManager.UpdateInstructionUI(currentInstructionStep, currentInstructionStepIndex + 1, totalInstructionStepCount);
     }
 
