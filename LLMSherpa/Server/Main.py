@@ -12,7 +12,6 @@ def main():
     # pdf_file_name = "Lebenslauf_Fabian_Seiler.pdf"
     SendQueryForPDF(query=query, pdf_file_name=pdf_file_name, pdf_data=pdf_data)
 
-
 if __name__ == "__main__":
     main()
 
