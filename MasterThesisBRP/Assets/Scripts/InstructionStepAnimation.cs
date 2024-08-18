@@ -34,25 +34,11 @@ public class InstructionStepAnimation : InstructionStep
         instruction = componentSIMATIC.assemblyInstruction;
     }
 
-    public override void EnableInstructionStep()
-    {
-        StartAnimation();
-
-        base.EnableInstructionStep();
-    }
-
-    public override void DisableInstructionStep()
-    {
-        StopAnimation();
-
-        base.DisableInstructionStep();
-    }
-
     public override void OnEnable()
     {
         base.OnEnable();
 
-        //StartAnimation();
+        StartAnimation();
     }
 
     public void StartAnimation()

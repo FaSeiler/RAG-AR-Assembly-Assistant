@@ -59,7 +59,7 @@ public class InstructionStepScan : InstructionStep
     {
         base.OnDisable();
 
-        RemoveScanPreview();
+        HideScanPreview();
     }
 
     public IEnumerator ShowScanPreview()
@@ -69,7 +69,7 @@ public class InstructionStepScan : InstructionStep
         previewComponent.SetActivePreview(scanModelTargetPreviewGO);
     }
 
-    public void RemoveScanPreview()
+    public void HideScanPreview()
     {
         previewComponent.RemoveActivePreview();
     }
