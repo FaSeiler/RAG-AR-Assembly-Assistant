@@ -1,6 +1,46 @@
 from bs4 import BeautifulSoup
+import datetime
+import os
 
-def extract_all_svg(file_path):
+def extract_pages_filePaths(html_file_path, remove_original_after=True):
+    # Read the HTML file
+    with open(html_file_path, 'r', encoding='utf-8') as file:
+        content = file.read()
+
+    # Parse the HTML
+    soup = BeautifulSoup(content, 'lxml')
+    
+    # Find all SVG elements
+    svgs = soup.find_all('svg')
+    
+    html_page_filePaths = []
+    # Iterate over all SVG elements and create a new BeautifulSoup object for each
+    for index, svg in enumerate(svgs):
+        # Create a new BeautifulSoup object with only the current SVG element
+        new_soup = BeautifulSoup('<!DOCTYPE html><html><head><meta charset="utf-8"><title>SVG Page</title></head><body style="margin:0', 'lxml')
+        new_soup.body.append(svg)
+
+        # Append the new soup to the list
+        
+        # Create a file path for each new soup object
+        output_file_path = os.path.join(f'svg_page_{index + 1}.html')
+        
+        # Write the new BeautifulSoup object to a file
+        with open(output_file_path, 'w', encoding='utf-8') as file:
+            file.write(str(new_soup))
+
+        html_page_filePaths.append(output_file_path)
+
+    print(f'Successfully saved {len(svgs)} SVG pages to {output_file_path}')
+    
+    if remove_original_after:
+        os.remove(html_file_path)
+
+    return html_page_filePaths
+
+    
+
+def extract_all_svg_filePath(file_path, remove_original_after=True):
     # Get the file name string without extension
     html_file_name = file_path.split("/")[-1].split(".")[0]
 
@@ -8,6 +48,9 @@ def extract_all_svg(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         soup = BeautifulSoup(file, 'lxml')
     
+    if remove_original_after:
+        os.remove(file_path)
+
     # Find the <svg> tag
     svg = soup.find('svg')
     
@@ -79,9 +122,3 @@ def extract_all_svg(file_path):
     print("HTML processing complete.")
 
     return created_files
-
-# # Path to the input HTML file
-# input_html_file = "./Output/sample5_html.html"
-
-# # Process the SVG in the HTML file
-# extract_svg(input_html_file)

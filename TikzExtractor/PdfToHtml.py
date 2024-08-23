@@ -26,3 +26,4 @@ def convert_pdf_to_html(pdf_file_path):
 
     # Return the output file path
     return output_file_path
+

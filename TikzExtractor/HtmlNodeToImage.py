@@ -3,7 +3,7 @@ from playwright.async_api import async_playwright
 from PIL import Image
 import os
 
-async def capture_screenshot(input_file, element_selector):
+async def capture_screenshot(input_file, remove_original_after=True):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page()
@@ -11,9 +11,12 @@ async def capture_screenshot(input_file, element_selector):
         # Navigate to the local HTML file
         absolute_path = os.path.abspath(input_file)
         await page.goto(f"file:///{absolute_path}")
+        print(f"Opened file: {absolute_path}")
 
         # Wait for the page to fully load
         await page.wait_for_load_state("load")
+
+        element_selector = "#capture"
 
         # Ensure the element is visible
         await page.wait_for_selector(element_selector)
@@ -45,19 +48,14 @@ async def capture_screenshot(input_file, element_selector):
         # Open the screenshot using Pillow
         image = Image.open(screenshot_path)
 
-        # Crop the image to the bounding box of the element
-        left = bounding_box['x'] * zoom_level
-        top = bounding_box['y'] * zoom_level
-        right = left + scaled_width
-        bottom = top + scaled_height
+        # Open the image
+        # image.show()
+        file_name = os.path.splitext(os.path.basename(input_file))[0]
+        image_path = f"C:/Users/fabia/Desktop/MasterThesisRepo/TikzExtractor/Output/{file_name}.png"
+        image.save(image_path)
+        
+        os.remove("Screenshot.png")
+        if remove_original_after:
+            os.remove(input_file)
 
-        # Crop the image to match the zoomed element's dimensions
-        # cropped_image = image.crop((left, top, right, bottom))
-
-        # # Save the cropped image
-        # cropped_image.save('sample5_html_tikz_extracted_PNG.png')
-        image.show()
         await browser.close()
-
-# Run the function
-# asyncio.run(capture_screenshot(r"C:\Users\fabia\Desktop\TikzExtractor\Output\sample5_html_tikz_extracted.html", "#capture"))
