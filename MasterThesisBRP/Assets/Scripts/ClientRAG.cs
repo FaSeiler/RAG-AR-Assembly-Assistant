@@ -54,7 +54,10 @@ public class ClientRAG : Singleton<ClientRAG>
             else
             {
                 Debug.LogError("Error: " + request.error);
-                callback?.Invoke(null);
+                ResponseData responseData = new ResponseData();
+                responseData.text = "Error: " + request.error;
+
+                callback?.Invoke(responseData);
             }
         }
 
