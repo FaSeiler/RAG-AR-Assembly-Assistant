@@ -98,3 +98,5 @@ LLMSherpa/data/Images/
 LLMSherpa/Server/chroma_db_Lebenslauf_Fabian_Seiler/
 LLMSherpa/Server/chroma_db_et200sp_system_manual_en-US_en-US_stripped/
 MasterThesisBRP/obj/
+TikzExtractor/Output/
+TikzExtractor/__pycache__/

@@ -26,7 +26,7 @@ async def capture_screenshot(input_file, remove_original_after=True):
         bounding_box = await element.bounding_box()
 
         # Zoom in on the page
-        zoom_level = 1.3
+        zoom_level = 4
         await page.evaluate(f"document.body.style.zoom = '{zoom_level}'")
 
         # Calculate the dimensions considering the zoom level
