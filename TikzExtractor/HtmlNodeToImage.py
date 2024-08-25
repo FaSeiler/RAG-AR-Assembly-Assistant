@@ -2,6 +2,8 @@ import asyncio
 from playwright.async_api import async_playwright
 from PIL import Image
 import os
+import re
+import time
 
 async def capture_screenshot(input_file, remove_original_after=True):
     async with async_playwright() as p:
@@ -48,10 +50,16 @@ async def capture_screenshot(input_file, remove_original_after=True):
         # Open the screenshot using Pillow
         image = Image.open(screenshot_path)
 
-        # Open the image
+        # Get the current timestamp
+        # timestamp = int(time.time())
+
+
         # image.show()
         file_name = os.path.splitext(os.path.basename(input_file))[0]
+
+
         image_path = f"C:/Users/fabia/Desktop/MasterThesisRepo/TikzExtractor/Output/{file_name}.png"
+
         image.save(image_path)
         
         os.remove("Screenshot.png")

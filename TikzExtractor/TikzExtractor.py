@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import datetime
 import os
 
-def extract_pages_filePaths(html_file_path, remove_original_after=True):
+def extract_pages_filePaths(html_file_path, counter, remove_original_after=True):
     # Read the HTML file
     with open(html_file_path, 'r', encoding='utf-8') as file:
         content = file.read()
@@ -23,7 +23,8 @@ def extract_pages_filePaths(html_file_path, remove_original_after=True):
         # Append the new soup to the list
         
         # Create a file path for each new soup object
-        output_file_path = os.path.join(f'svg_page_{index + 1}.html')
+        # print("Path: ", html_file_path, "\nCounter: ", counter, "\nIndex: ", index, "\n====================")
+        output_file_path = os.path.join(f'page_{(counter * 10) + index + 1}.html')
         
         # Write the new BeautifulSoup object to a file
         with open(output_file_path, 'w', encoding='utf-8') as file:
@@ -93,7 +94,7 @@ def extract_all_svg_filePath(file_path, remove_original_after=True):
             # Append the current inner_gs to first_level_g
             first_level_g.extend(current_inner_gs)
             # Output file name for the modified HTML
-            output_file_path = f"./Output/{html_file_name}_tikz_extracted_{file_index}.html"
+            output_file_path = f"./Output/{html_file_name}_{file_index}.html"
             # Write the modified HTML to a new file
             with open(output_file_path, 'w', encoding='utf-8') as file:
                 file.write(soup.prettify())

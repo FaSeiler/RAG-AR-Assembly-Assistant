@@ -1,7 +1,7 @@
 from spire.pdf.common import *
 from spire.pdf import *
 
-def convert_pdf_to_html(pdf_file_path):
+def convert_pdf_to_html(pdf_file_path, counter):
     # Get the file name string without extension
     pdf_file_name = pdf_file_path.split("/")[-1].split(".")[0]
 
@@ -16,7 +16,7 @@ def convert_pdf_to_html(pdf_file_path):
     convertOptions.SetPdfToHtmlOptions(True, True, 1, True)
 
     # Specify the output HTML file path
-    output_file_path = "./Output/" + pdf_file_name + "_html.html"
+    output_file_path = "./Output/" + pdf_file_name + ".html"
 
     # Save the PDF document to HTML format
     doc.SaveToFile(output_file_path, FileFormat.HTML)
