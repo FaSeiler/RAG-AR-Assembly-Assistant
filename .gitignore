@@ -100,3 +100,5 @@ LLMSherpa/Server/chroma_db_et200sp_system_manual_en-US_en-US_stripped/
 MasterThesisBRP/obj/
 TikzExtractor/Output/
 TikzExtractor/__pycache__/
+TikzExtractor/split_pdfs/
+TikzExtractor/Input/
