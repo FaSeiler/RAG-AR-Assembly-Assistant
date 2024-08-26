@@ -11,8 +11,9 @@ from ParserPostprocessor import *
 from VectorStoreChromaDB import CreateIndex, LoadIndex
 from RetrieverPostprocessor import *
 from Utility import *
-from PDFImageParser import *
+# from PDFImageParser import *
 from LLMDataExtractor import PageNumberExtractor
+from ImageExtractorPDF import *
 
 def InitializeLlamaIndex():
     llm = Ollama(model="llama3.1", request_timeout=120.0) #, output_parser=output_parser)
@@ -23,7 +24,6 @@ def InitializeLlamaIndex():
     # embed_model = HuggingFaceEmbedding(model_name="Salesforce/SFR-Embedding-Mistral") # Too slow
     embed_model = HuggingFaceEmbedding(model_name="Alibaba-NLP/gte-large-en-v1.5", trust_remote_code=True)
     Settings.embed_model = embed_model
-
 
 
 def GetQueryEngine(index):
@@ -50,9 +50,9 @@ def GetFormattedJSONQueryResponse(response, image_dict, pdf_file_name, print_con
 
     # Initialize parsed_dict
     parsed_dict = {}
+    
     parsed_dict["text"] = text
     parsed_dict["page_numbers"] = page_numbers
-
     pdf_name = os.path.splitext(pdf_file_name)[0]
     image_file_paths = []
 
@@ -60,8 +60,6 @@ def GetFormattedJSONQueryResponse(response, image_dict, pdf_file_name, print_con
     for page_nr in parsed_dict["page_numbers"]:
         image_file_paths.extend(GetImageFilePaths(image_dict=image_dict, pdf_name=pdf_name, page_idx=page_nr))
         
-    # parsed_dict["image_file_paths"] = image_file_paths
-
     # Encode images to base64
     encoded_images = {}
     for image_file_path in image_file_paths:
@@ -93,22 +91,44 @@ def InitPDFData(pdf_url, load_index=False):
     pdf_file_name = os.path.basename(pdf_url)
     pdf_name = os.path.splitext(pdf_file_name)[0]
 
+
+    image_dict = {} # TODO: Remove
     if load_index:
+        # Old image implementation (does not work with embedded vector graphics like SVG)
+        # image_dict = LoadImagesFromDirectory(pdf_url)
+        # New image implementation (works with embedded vector graphics like SVG)
+        print("Start load all images")
+        image_dict =  LoadImagesFromDirectory(pdf_url)
+
         index = LoadIndex(pdf_name)
-        image_dict = LoadImagesFromDirectory(pdf_url)
         print(f"Index for {pdf_url} loaded.")
     else:
+        # Old image implementation (does not work with embedded vector graphics like SVG)
+        # image_dict = ExtractImagesFromPDF(pdf_url)
+        # New image implementation (works with embedded vector graphics like SVG)
+        print("Start extract all images from pdf")
+        image_dict = extract_all_images_from_PDF(pdf_url)
+
         doc = ParsePDF(pdf_url=pdf_url)
         # PrintChunks(doc)
         custom_chunks = MergeChunks(doc)
         for chunk in custom_chunks:
             PrintCustomChunk(chunk)
         index = CreateIndex(pdf_name, custom_chunks)
-        image_dict = ExtractImagesFromPDF(pdf_url)
+
+
         print(f"Index for {pdf_url} created.")
+        print("IMAGE DICT: \n", image_dict)
 
     
     query_engine = GetQueryEngine(index)
+
+    # TODO: Remove
+    # Print image_dict
+    print("Image Dictionary:")
+    for key, value in image_dict.items():
+        print("<KEY> ", key)
+        print("<VALUE> ", value)
 
     return query_engine, image_dict
 
@@ -136,6 +156,15 @@ def SendQueryForPDF(query, pdf_file_name, pdf_data):
     if pdf_url in pdf_data: 
         query_engine = pdf_data[pdf_url]['query_engine']
         image_dict = pdf_data[pdf_url]['image_dict']
+
+        if query_engine is None:
+            print("Query engine does not exist.")
+        else:
+            print("Query engine exists!")
+        if image_dict is None:
+            print("Image dictionary does not exist.")
+        else:
+            print("Image dictionary exists!")
     else:
         print("PDF data does not exist.")
 

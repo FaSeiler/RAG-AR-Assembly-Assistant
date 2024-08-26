@@ -62,6 +62,8 @@ public class InstructionSerializer : Singleton<InstructionSerializer>
             instructions[kvp.Key] = ConvertFromSerializable(kvp.Value);
         }
 
+        Debug.Log("Loaded " + instructions.Count + " instructions from filepath: " + filePath);
+
         return instructions;
     }
 

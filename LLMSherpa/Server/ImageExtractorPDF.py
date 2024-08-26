@@ -42,6 +42,7 @@ def LoadImagesFromDirectory(pdf_url):
     # Create the full path to the directory
     workdir = os.path.dirname(pdf_url) + "/Images/"
     pdf_file_name = os.path.basename(pdf_url)
+
     pdf_name = os.path.splitext(pdf_file_name)[0]
     workdir += pdf_name
 
@@ -55,15 +56,23 @@ def LoadImagesFromDirectory(pdf_url):
             # Extract page index and xref index from the file name
             image_file_name = os.path.basename(image_file_path)
 
-
+            # Extract the page number from the filename
             parts = image_file_name.split('_')
-            page_number = parts[2]
+            if len(parts) >= 4:
+                # Page number should be the second to last number
+                page_number = parts[-2]
+            else:
+                # If filename format is unexpected, skip this file
+                print(f"Unexpected filename format: {image_file_name}")
+                continue
 
-            print("Pdf name: ", pdf_name)
-            print("Page number: ", page_number)
-            print("Image file path: ", image_file_path)
+            # print("§§§§§§§§§§§§§§§§§ PDF file name: ", pdf_file_name)
+            # print("§§§§§§§§§§§§§§§§§ Pdf name: ", pdf_name)
+            # print("§§§§§§§§§§§§§§§§§ Page number: ", page_number)
+            # print("§§§§§§§§§§§§§§§§§ Image file path: ", image_file_path)
 
             image_key = pdf_name + "_" + str(page_number)
+            # print("§§§§§§§§§§§§§§§§§§§§§ Image key: ", image_key)
             # print("Key: ", image_key, "\nValue:", image_path)
 
             if image_key in image_dict:
@@ -74,11 +83,15 @@ def LoadImagesFromDirectory(pdf_url):
     return image_dict
 
 def GetImageFilePaths(image_dict, pdf_name, page_idx):
-    # Create the key from the pdf_name and page_idx
-    key = pdf_name + "_" + str(page_idx)
     
-    # Return the corresponding file_names from the dictionary
-    return image_dict.get(key, [])
+    # print("ImageExtractor.py: image_dict: ", image_dict)
+    # print("ImageExtractor.py: pdf_name: ", pdf_name)    
+    # print("ImageExtractor.py: page_idx: ", page_idx)    
+
+    key = pdf_name + "_" + str(page_idx)
+
+    file_names = image_dict.get(key, [])
+    return file_names
 
 def PrintImageDict(image_dict):
     for key, value in image_dict.items():
