@@ -15,7 +15,7 @@ public class ComponentTypes : MonoBehaviour
         ServerModule,
         BusAdapterForCPU_InterfaceModule,
         MemoryCardForCPU,
-        IOModules,
+        IOModulesAndBUCovers,
         PowerSupply
     }
 
@@ -28,7 +28,7 @@ public class ComponentTypes : MonoBehaviour
         { ComponentType.ServerModule, "Server Module" },
         { ComponentType.BusAdapterForCPU_InterfaceModule, "BusAdapter for the CPU/interface module" },
         { ComponentType.MemoryCardForCPU, "Memory Card for the CPU" },
-        { ComponentType.IOModules, "I/O modules" },
+        { ComponentType.IOModulesAndBUCovers, "I/O modules and BU covers" },
         { ComponentType.PowerSupply, "Power Supply" }
     };
 
