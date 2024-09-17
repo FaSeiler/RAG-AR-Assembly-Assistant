@@ -39,6 +39,8 @@ public class ToggleButton : MonoBehaviour
 
     [SerializeField]
     private bool disableInteractionIfToggled = false;
+    [SerializeField]
+    private bool startInToggledState = false;
 
     [Header("On Disable")]
     [SerializeField]
@@ -85,7 +87,14 @@ public class ToggleButton : MonoBehaviour
 
         isInitialized = true;
 
-        SetToStartState();
+        if (startInToggledState)
+        {
+            SetToToggledState();
+        }
+        else
+        {
+            SetToStartState();
+        }
     }
 
     private void Start()

@@ -15,10 +15,14 @@ public class InstructionStepUIManager : WindowManager
     public GameObject instructionStepHeaderPrefab;
     public ScrollRect scrollRect;
 
+    private List<GameObject> instructionBody = new List<GameObject>(); // Everything that is part of the instruction except the header
+    private GameObject chatPlaceHolderInstance;
+
     public void UpdateInstructionUI(InstructionStep instructionStep, int instructionStepIndex, int totalInstuctionStepCount)
     {
         ClearText();
         AddInstructionStepHeader(instructionStep, instructionStepIndex, totalInstuctionStepCount);
+        AddPlaceHolder();
         AddChatEntry(instructionStep.instruction.text, instructionStep.instruction.images, instructionStep.instruction.pageNumbers);
     }
 
@@ -34,12 +38,17 @@ public class InstructionStepUIManager : WindowManager
 
     private void AddPlaceHolder()
     {
-        Instantiate(chatPlaceHolderPrefab, chatEntriesParent.transform);
+        chatPlaceHolderInstance = Instantiate(chatPlaceHolderPrefab, chatEntriesParent.transform);
+        chatPlaceHolderInstance.SetActive(false);
     }
 
     private void AddChatEntry(string text, List<Texture2D> imageTextures, List<int> page_numbers)
     {
+        instructionBody.Clear();
+
         GameObject chatEntryGO = Instantiate(chatEntryPrefab, chatEntriesParent.transform);
+        instructionBody.Add(chatEntryGO);
+
         ChatEntry chatEntry = chatEntryGO.GetComponent<ChatEntry>();
 
         chatEntry.SetTextInstruction(text);
@@ -69,6 +78,8 @@ public class InstructionStepUIManager : WindowManager
             {
                 responseImageListGO.GetComponent<RAGResponseImageListManager>().AddRawImage(imageTexture);
             }
+
+            instructionBody.Add(responseImageListGO);
         }
     }
 
@@ -89,7 +100,42 @@ public class InstructionStepUIManager : WindowManager
                     addedPageNumbers.Add(page_number);
                 }
             }
+
+            instructionBody.Add(responsePageNumberListGO);
         }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            EnableInstructionBody();
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            DisableInstructionBody();
+        }
+    }
+
+    public void EnableInstructionBody()
+    {
+        foreach (GameObject instructionBodyGO in instructionBody)
+        {
+            instructionBodyGO.SetActive(true);
+        }
+
+        chatPlaceHolderInstance.SetActive(false);
+    }
+
+    public void DisableInstructionBody()
+    {
+        foreach (GameObject instructionBodyGO in instructionBody)
+        {
+            instructionBodyGO.SetActive(false);
+        }
+
+        chatPlaceHolderInstance.SetActive(true);
     }
 
     private IEnumerator ScrollToBottom()
