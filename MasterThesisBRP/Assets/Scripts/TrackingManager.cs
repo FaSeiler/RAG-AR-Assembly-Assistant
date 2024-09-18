@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Vuforia;
 
-public class TrackingManager : MonoBehaviour //DefaultObserverEventHandler
+public class TrackingManager : Singleton<TrackingManager> //DefaultObserverEventHandler
 {
     public ImageTargetBehaviour imageTarget;
     public List<ModelTargetBehaviour> modelTargets = new List<ModelTargetBehaviour>();
+    public ModelTargetBehaviour activeModelTarget;
+
 
     private void Start()
     {
@@ -17,7 +19,23 @@ public class TrackingManager : MonoBehaviour //DefaultObserverEventHandler
         {
             modelTarget.OnTargetStatusChanged += OnTargetStatusChanged;
         }
+    }
 
+    public void UpdateActiveModelTarget(ModelTargetBehaviour modelTarget)
+    {
+        DisableAllModelTargets();
+
+        modelTarget.gameObject.SetActive(true);
+
+        activeModelTarget = modelTarget;
+    }
+
+    public void DisableAllModelTargets()
+    {
+        foreach (ModelTargetBehaviour modelTarget in modelTargets)
+        {
+            modelTarget.gameObject.SetActive(false);
+        }
     }
 
     private void OnTargetStatusChanged(ObserverBehaviour behaviour, TargetStatus targetStatus)

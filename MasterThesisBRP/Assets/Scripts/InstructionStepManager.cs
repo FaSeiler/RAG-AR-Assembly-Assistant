@@ -123,6 +123,11 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
                 if (instructionStep is InstructionStepScan)
                 {
                     InstructionStepScan instructionStepScan = (InstructionStepScan)instructionStep;
+                    
+                    // Update the model target for the object to scan
+                    TrackingManager.instance.UpdateActiveModelTarget(instructionStepScan.component.modelTargetBehaviour);
+
+                    // Show the scan preview
                     StartCoroutine(instructionStepScan.ShowScanPreview());
                 }
             }
