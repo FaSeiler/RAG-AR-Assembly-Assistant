@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<QCARInfo>
+    <TargetSet version="36.0" toolVersion="v7.0.6">
+        <ModelTarget name="6ES7954-8LC02-0AA0_G_ST70_XX_03184V_stp" targetId="166456514dc44fc5adf82c419b227ff4" version="14.0" toolVersion="v7.0.6" bbox="-0.016214 0.033559 0.015465 0.007813 0.065591 0.017687" trackingMode="car" upVector="0.0 1.0 0.0" optimizeTrackingFor="low_feature_objects" realisticTextures="no" />
+    </TargetSet>
+    <Assembly name="6ES7954-8LC02-0AA0_G_ST70_XX_03184V_stp" assemblyId="628e818d3df149a29796f92f6a99d143">
+        <Part name="6ES7954-8LC02-0AA0_G_ST70_XX_03184V_stp" translation="0 0 0" rotation="AD: 0 0 1 0" />
+        <EntryPoint name="(none)" trained="yes" />
+    </Assembly>
+</QCARInfo>

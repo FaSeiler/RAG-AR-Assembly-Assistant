@@ -38,7 +38,7 @@ public class InstructionGenerator : Singleton<InstructionGenerator>
             if (generatedAssemblyInstructions.ContainsKey(componentSIMATIC.componentType))
             {
                 OnNewAssemblyInstructionGeneratedOrLoaded.Invoke(generatedAssemblyInstructions[componentSIMATIC.componentType]);
-                Debug.Log("Loaded instruction for " + componentSIMATIC.componentType + " from file.");
+                //Debug.Log("Loaded instruction for " + componentSIMATIC.componentType + " from file.");
             }
             else
             {
