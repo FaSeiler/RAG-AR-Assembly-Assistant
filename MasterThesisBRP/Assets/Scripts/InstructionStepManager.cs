@@ -96,6 +96,9 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
         totalInstructionStepCount = createdInstructionSteps.Count;
     }
 
+    /// <summary>
+    /// Sets the currentInstructionStep to the instruction step at the currentInstructionStepIndex
+    /// </summary>
     private void SetCurrentInstructionStep()
     {
         currentInstructionStep = createdInstructionSteps[currentInstructionStepIndex];

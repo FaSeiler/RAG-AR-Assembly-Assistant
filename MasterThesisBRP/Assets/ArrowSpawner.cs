@@ -1,7 +1,31 @@
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ArrowSpawner : MonoBehaviour
 {
+    [Serializable]
+    public struct ArrowData
+    {
+        public Face face;
+        public Position position;
+        public string name;
+        public bool enabled;
+    }
+
+    [Serializable]
+    // The faces of the bounding box
+    public enum Face { Front, Back, Top, Bottom, Left, Right }
+
+    [Serializable]
+    // The position of the arrow on one face
+    public enum Position { Center, Top, Bottom, Left, Right }
+
+    [Header("Set Arrows")]
+    public List<ArrowData> arrowPositions = new List<ArrowData>();
+
+    [Header("Variables")]
     public GameObject arrowPrefab; // The arrow prefab to instantiate
     public GameObject spherePrefab; // The small black sphere prefab
     public Transform targetObject; // The target object the arrows will point to
@@ -15,21 +39,26 @@ public class ArrowSpawner : MonoBehaviour
 
     private int arrowID = 0;
 
+    private Bounds combinedBounds;
+    private Vector3[] corners;
+
     void Start()
     {
-        // Calculate the combined bounding box of the target object and its children
-        Bounds combinedBounds = CalculateCombinedBounds(targetObject);
+        //AddAllArrows();
 
-        // Spawn arrows on all six faces of the bounding box
-        SpawnArrows(combinedBounds, Vector3.forward, frontFaceColor);  // Front face
-        SpawnArrows(combinedBounds, Vector3.back, backFaceColor);     // Back face
-        SpawnArrows(combinedBounds, Vector3.up, topFaceColor);        // Top face
-        SpawnArrows(combinedBounds, Vector3.down, bottomFaceColor);    // Bottom face
-        SpawnArrows(combinedBounds, Vector3.left, leftFaceColor);      // Left face
-        SpawnArrows(combinedBounds, Vector3.right, rightFaceColor);    // Right face
+        // Add arrows at the specified positions
+        //foreach (ArrowData arrowPosition in arrowPositions)
+        //{
+        //    AddArrowAtPosition(arrowPosition.face, arrowPosition.position, arrowPosition.name, arrowPosition.enabled);
+        //}
 
-        // Spawn spheres at all 8 corners of the bounding box
+        // Spawn spheres at all 8 corners of the bounding box for debugging
         SpawnCorners(combinedBounds);
+    }
+
+    private void Update()
+    {
+        VisualizeBoundingBox();
     }
 
     Bounds CalculateCombinedBounds(Transform root)
@@ -53,57 +82,147 @@ public class ArrowSpawner : MonoBehaviour
         return combinedBounds;
     }
 
-    void SpawnArrows(Bounds bounds, Vector3 direction, Color color)
+    public void AddArrowAtPosition(ArrowData arrowData, Transform parentTransform)
     {
-        Vector3 faceCenter = bounds.center + Vector3.Scale(bounds.extents, direction);
+        AddArrowAtPosition(arrowData.face, arrowData.position, arrowData.name, arrowData.enabled, parentTransform);
+    }
 
+    // New method to add an arrow using enums
+    public void AddArrowAtPosition(Face face, Position position, string name, bool enabled, Transform parent = null)
+    {
+        if (parent != null)
+        {
+            targetObject = parent;
+        }
+
+        // Calculate the combined bounding box of the target object and its children
+        combinedBounds = CalculateCombinedBounds(targetObject);
+
+        // Determine the face and direction
+        Vector3 faceDirection;
+        Color faceColor;
+
+        switch (face)
+        {
+            case Face.Back:
+                faceDirection = Vector3.forward;
+                faceColor = backFaceColor;
+                break;
+            case Face.Front:
+                faceDirection = Vector3.back;
+                faceColor = frontFaceColor;
+                break;
+            case Face.Top:
+                faceDirection = Vector3.up;
+                faceColor = topFaceColor;
+                break;
+            case Face.Bottom:
+                faceDirection = Vector3.down;
+                faceColor = bottomFaceColor;
+                break;
+            case Face.Left:
+                faceDirection = Vector3.left;
+                faceColor = leftFaceColor;
+                break;
+            case Face.Right:
+                faceDirection = Vector3.right;
+                faceColor = rightFaceColor;
+                break;
+            default:
+                Debug.LogError("Invalid face specified");
+                return;
+        }
+
+        // Calculate face center
+        Vector3 faceCenter = combinedBounds.center + Vector3.Scale(combinedBounds.extents, faceDirection);
         Vector3 perpendicular1, perpendicular2;
 
-        if (direction == Vector3.up || direction == Vector3.down)
+        // Calculate perpendicular directions for the face
+        if (faceDirection == Vector3.up || faceDirection == Vector3.down)
         {
-            // For top and bottom faces, use the right and forward directions
-            perpendicular1 = Vector3.right * bounds.extents.x;
-            perpendicular2 = Vector3.forward * bounds.extents.z;
+            perpendicular1 = Vector3.right * combinedBounds.extents.x;
+            perpendicular2 = Vector3.forward * combinedBounds.extents.z;
         }
-        else if (direction == Vector3.right || direction == Vector3.left)
+        else if (faceDirection == Vector3.left || faceDirection == Vector3.right)
         {
-            // For right and left faces, use up and forward directions
-            perpendicular1 = Vector3.up * bounds.extents.y;
-            perpendicular2 = Vector3.forward * bounds.extents.z;
-
-            if (direction == Vector3.left)
-            {
-                // Invert the perpendicular directions for the left face
-                perpendicular1 = -perpendicular1;
-                perpendicular2 = -perpendicular2;
-            }
+            perpendicular1 = Vector3.up * combinedBounds.extents.y;
+            perpendicular2 = Vector3.forward * combinedBounds.extents.z;
         }
         else
         {
-            // For front and back faces, use up and right directions
-            perpendicular1 = Vector3.up * bounds.extents.y;
-            perpendicular2 = Vector3.right * bounds.extents.x;
+            perpendicular1 = Vector3.up * combinedBounds.extents.y;
+            perpendicular2 = Vector3.right * combinedBounds.extents.x;
         }
 
-        // Calculate the positions on the face
+        // Define positions on the face
         Vector3 top = faceCenter + perpendicular1;
         Vector3 bottom = faceCenter - perpendicular1;
         Vector3 left = faceCenter - perpendicular2;
         Vector3 right = faceCenter + perpendicular2;
         Vector3 center = faceCenter;
 
-        // Instantiate arrows at these positions
-        InstantiateArrow(top, direction, color);
-        InstantiateArrow(bottom, direction, color);
-        InstantiateArrow(left, direction, color);
-        InstantiateArrow(right, direction, color);
-        InstantiateArrow(center, direction, color);
+        // Instantiate an arrow at the specified position
+        switch (position)
+        {
+            case Position.Top:
+                InstantiateArrow(top, faceDirection, faceColor, name, enabled);
+                break;
+            case Position.Bottom:
+                InstantiateArrow(bottom, faceDirection, faceColor, name, enabled);
+                break;
+            case Position.Left:
+                InstantiateArrow(left, faceDirection, faceColor, name, enabled);
+                break;
+            case Position.Right:
+                InstantiateArrow(right, faceDirection, faceColor, name, enabled);
+                break;
+            case Position.Center:
+                InstantiateArrow(center, faceDirection, faceColor, name, enabled);
+                break;
+            default:
+                Debug.LogError("Invalid position specified");
+                break;
+        }
+    }
+
+    void InstantiateArrow(Vector3 position, Vector3 direction, Color color, string name, bool enabled)
+    {
+        // Instantiate the arrow at the given position
+        GameObject arrow = Instantiate(arrowPrefab, position, Quaternion.identity, targetObject);
+
+        // Set the arrow's rotation based on the face direction
+        arrow.transform.rotation = Quaternion.LookRotation(direction);
+
+        if (color == leftFaceColor || color == rightFaceColor)
+        {
+            // Rotate the arrow by 90 degrees for the left and right faces
+            arrow.transform.Rotate(Vector3.forward, 90);
+        }
+
+
+        // Set the arrow's color for all Renderer components in the children
+        foreach (Renderer renderer in arrow.GetComponentsInChildren<Renderer>())
+        {
+            renderer.material.color = color;
+        }
+
+        // Set a unique name and ID
+        if (arrow.name == "")
+        {
+            arrow.name = $"Arrow_{arrowID++}";
+        }
+        else
+        {
+            arrow.name = name;
+        }
+
+        arrow.SetActive(enabled);
     }
 
     void SpawnCorners(Bounds bounds)
     {
         // Calculate the 8 corners of the bounding box
-        Vector3[] corners = new Vector3[8];
+        corners = new Vector3[8];
         corners[0] = bounds.center + new Vector3(bounds.extents.x, bounds.extents.y, bounds.extents.z);
         corners[1] = bounds.center + new Vector3(-bounds.extents.x, bounds.extents.y, bounds.extents.z);
         corners[2] = bounds.center + new Vector3(bounds.extents.x, bounds.extents.y, -bounds.extents.z);
@@ -113,33 +232,54 @@ public class ArrowSpawner : MonoBehaviour
         corners[6] = bounds.center + new Vector3(bounds.extents.x, -bounds.extents.y, -bounds.extents.z);
         corners[7] = bounds.center + new Vector3(-bounds.extents.x, -bounds.extents.y, -bounds.extents.z);
 
+        // Create new empty gameObject with the name "Corners"
+        GameObject cornersGO = new GameObject("Corners");
+        cornersGO.transform.parent = targetObject;
+
         // Instantiate a sphere at each corner position
         foreach (Vector3 corner in corners)
         {
-            Instantiate(spherePrefab, corner, Quaternion.identity);
+            Instantiate(spherePrefab, corner, Quaternion.identity, cornersGO.transform);
         }
     }
 
-    void InstantiateArrow(Vector3 position, Vector3 direction, Color color)
+    /// <summary>
+    /// Adds all arrows possible for debugging
+    /// </summary>
+    private void AddAllArrows()
     {
-        // Instantiate the arrow at the given position
-        GameObject arrow = Instantiate(arrowPrefab, position, Quaternion.identity);
+        // Calculate the combined bounding box of the target object and its children
+        combinedBounds = CalculateCombinedBounds(targetObject);
 
-        // Set the arrow's rotation based on the face direction
-        arrow.transform.rotation = Quaternion.LookRotation(direction);
-
-        // Set the arrow's color
-        Renderer arrowRenderer = arrow.GetComponent<Renderer>();
-        if (arrowRenderer != null)
+        // Iterate over all faces
+        foreach (Face face in Enum.GetValues(typeof(Face)))
         {
-            arrowRenderer.material.color = color;
+            // Iterate over all positions for each face
+            foreach (Position position in Enum.GetValues(typeof(Position)))
+            {
+                // Add an arrow at the current face and position
+                AddArrowAtPosition(face, position, "", true);
+            }
         }
-        else
-        {
-            Debug.LogWarning("Arrow prefab does not have a Renderer component.");
-        }
+    }
 
-        // Set a unique name and ID
-        arrow.name = $"Arrow_{arrowID++}";
+    private void VisualizeBoundingBox()
+    {
+        if (corners != null)
+        {
+            // Draw lines between the corners to form the edges of the bounding box
+            Debug.DrawLine(corners[0], corners[1], Color.white);
+            Debug.DrawLine(corners[0], corners[2], Color.white);
+            Debug.DrawLine(corners[0], corners[4], Color.white);
+            Debug.DrawLine(corners[1], corners[3], Color.white);
+            Debug.DrawLine(corners[1], corners[5], Color.white);
+            Debug.DrawLine(corners[2], corners[3], Color.white);
+            Debug.DrawLine(corners[2], corners[6], Color.white);
+            Debug.DrawLine(corners[3], corners[7], Color.white);
+            Debug.DrawLine(corners[4], corners[5], Color.white);
+            Debug.DrawLine(corners[4], corners[6], Color.white);
+            Debug.DrawLine(corners[5], corners[7], Color.white);
+            Debug.DrawLine(corners[6], corners[7], Color.white);
+        }
     }
 }
