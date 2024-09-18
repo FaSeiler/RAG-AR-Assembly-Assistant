@@ -148,6 +148,13 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
             return;
         }
 
+        // We are moving from the first assembly instruction step to the next scan instruction step
+        // Therefore we need to set the tracking reference point to the first component
+        if (currentInstructionStepIndex == 1)
+        {
+            TrackingManager.instance.SetFirstComponentReferencePoint(currentInstructionStep.component.modelTargetBehaviour);
+        }
+
         currentInstructionStepIndex++;
 
         SetCurrentInstructionStep();
