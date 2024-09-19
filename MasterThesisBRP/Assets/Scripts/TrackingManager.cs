@@ -22,6 +22,7 @@ public class TrackingManager : Singleton<TrackingManager> //DefaultObserverEvent
         }
     }
 
+    public Vector3 positionFirstComponentOnRail;
     public GameObject loggedInFirstComponent;
     public Material loggedInComponentMaterial;
     /// <summary>
