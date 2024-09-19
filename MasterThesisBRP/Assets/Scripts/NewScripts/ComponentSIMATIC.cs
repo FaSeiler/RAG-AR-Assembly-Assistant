@@ -83,7 +83,7 @@ public class ComponentSIMATIC : MonoBehaviour
     }
 
     #region HELPERS
-    private void SetMaterials(GameObject parent, Material newMaterial)
+    public void SetMaterials(GameObject parent, Material newMaterial)
     {
         // Get all MeshRenderer components in the parent object and its children
         MeshRenderer[] meshRenderers = parent.GetComponentsInChildren<MeshRenderer>();

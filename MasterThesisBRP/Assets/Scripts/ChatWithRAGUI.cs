@@ -204,9 +204,14 @@ public class ChatWithRAGUI : MonoBehaviour, ISpeechToTextListener
             responsePageNumberListGO.GetComponent<GridLayoutGroup>().enabled = true;
             responsePageNumberListGO.GetComponent<RAGResponsePageNumberListManager>().enabled = true;
 
+            List<int> addedPageNumbers = new List<int>(); // Don't add page numbers twice
             foreach (int page_number in page_numbers)
             {
-                responsePageNumberListGO.GetComponent<RAGResponsePageNumberListManager>().AddPageNumberButton(page_number);
+                if (!addedPageNumbers.Contains(page_number))
+                {
+                    responsePageNumberListGO.GetComponent<RAGResponsePageNumberListManager>().AddPageNumberButton(page_number);
+                    addedPageNumbers.Add(page_number);
+                }
             }
         }
     }

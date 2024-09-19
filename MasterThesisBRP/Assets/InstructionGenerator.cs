@@ -6,8 +6,6 @@ using UnityEngine.Events;
 
 public class InstructionGenerator : Singleton<InstructionGenerator>
 {
-    public bool loadInstructions = false; // If true, load the instructions from the PersistentDataPath otherwise generate new instructions
-
     public Dictionary<ComponentTypes.ComponentType, Instruction> generatedAssemblyInstructions = // For each component type, store the generated instruction
         new Dictionary<ComponentTypes.ComponentType, Instruction>();
     public UnityEvent<Instruction> OnNewAssemblyInstructionGeneratedOrLoaded = new UnityEvent<Instruction>();
@@ -21,7 +19,21 @@ public class InstructionGenerator : Singleton<InstructionGenerator>
     protected void Start() 
     {
         // We have to load and generate the instructions in start to ensure all componentsSIMATIC are subscribed to the new instructionGenerated event
+        InvokeLoadOrGenerateInstructions();
+    }
+
+    public void InvokeLoadOrGenerateInstructions()
+    {
+        StopCoroutine(LoadOrGenerateInstructions());
         StartCoroutine(LoadOrGenerateInstructions());
+    }
+
+    public void ReGenerateAssemblyInstructions()
+    {
+        StopCoroutine(LoadOrGenerateInstructions());
+        InstructionSerializer.instance.DeleteAllSerializedInstructions();
+        //generatedAssemblyInstructions.Clear();
+        //InvokeLoadOrGenerateInstructions();
     }
 
     /// <summary>

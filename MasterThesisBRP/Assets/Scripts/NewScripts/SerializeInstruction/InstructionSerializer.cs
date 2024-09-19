@@ -21,11 +21,14 @@ public class InstructionSerializer : Singleton<InstructionSerializer>
         {
             Directory.CreateDirectory(imageDirectory);
         }
+
+        Debug.Log(filePath);
     }
 
-    public void SaveInstructions(Dictionary<ComponentTypes.ComponentType, Instruction> instructionsDictionary)
+    // Returns the path to the saved instructions
+    public string SaveInstructions(Dictionary<ComponentTypes.ComponentType, Instruction> instructionsDictionary)
     {
-        SaveInstructions(instructionsDictionary, filePath, imageDirectory);
+        return SaveInstructions(instructionsDictionary, filePath, imageDirectory);
     }
 
     public Dictionary<ComponentTypes.ComponentType, Instruction> LoadInstructions()
@@ -33,7 +36,8 @@ public class InstructionSerializer : Singleton<InstructionSerializer>
         return LoadInstructions(filePath);
     }
 
-    public void SaveInstructions(Dictionary<ComponentTypes.ComponentType, Instruction> instructions, string filePath, string imageDirectory)
+    // Returns the path to the saved instructions
+    public string SaveInstructions(Dictionary<ComponentTypes.ComponentType, Instruction> instructions, string filePath, string imageDirectory)
     {
         Dictionary<ComponentTypes.ComponentType, SerializableInstruction> serializableDict = new Dictionary<ComponentTypes.ComponentType, SerializableInstruction>();
 
@@ -44,6 +48,8 @@ public class InstructionSerializer : Singleton<InstructionSerializer>
 
         string json = JsonConvert.SerializeObject(serializableDict, Formatting.Indented);
         File.WriteAllText(filePath, json);
+
+        return filePath;
     }
 
     public Dictionary<ComponentTypes.ComponentType, Instruction> LoadInstructions(string filePath)
@@ -111,4 +117,18 @@ public class InstructionSerializer : Singleton<InstructionSerializer>
         return instruction;
     }
 
+    public void DeleteAllSerializedInstructions()
+    {
+        // If filepath exists, delete it
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+        }
+
+        // If imageDirectory exists, delete it
+        if (Directory.Exists(imageDirectory))
+        {
+            Directory.Delete(imageDirectory, true);
+        }
+    }
 }

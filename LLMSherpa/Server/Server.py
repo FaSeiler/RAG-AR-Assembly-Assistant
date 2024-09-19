@@ -7,6 +7,9 @@ app = Flask(__name__)
 load_index = True
 pdf_data = Init(load_index)
 
+@app.route('/test', methods=['GET'])
+def test_connection():
+    return jsonify({"message": "Connection successful!"}), 200
 
 @app.route('/query', methods=['POST'])
 def handle_query():
@@ -25,4 +28,5 @@ def handle_query():
     return response_json
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    # app.run(host='0.0.0.0', port=5000)
+    app.run(host='192.168.137.1', port=5000)

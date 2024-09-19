@@ -10,4 +10,17 @@ public class ComponentDatabase : Singleton<ComponentDatabase>
     {
         return components;
     }
+
+    public ComponentSIMATIC GetComponentByType(ComponentTypes.ComponentType type)
+    {
+        foreach (ComponentSIMATIC component in components)
+        {
+            if (component.componentType == type)
+            {
+                return component;
+            }
+        }
+
+        return null;
+    }
 }

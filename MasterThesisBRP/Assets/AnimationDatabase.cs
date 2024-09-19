@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class AnimationDatabase : Singleton<AnimationDatabase>
@@ -12,13 +11,13 @@ public class AnimationDatabase : Singleton<AnimationDatabase>
     public struct ComponentAnimationData
     {
         public ComponentTypes.ComponentType componentType;
-        public AnimatorController animatorController;
+        public RuntimeAnimatorController animatorController;
         public List<ArrowSpawner.ArrowData> arrowDatas; // This specifies where the arrows needed in the animation are spawned
     }
 
     public List<ComponentAnimationData> componentAnimationDatas = new List<ComponentAnimationData>();
 
-    public AnimatorController GetAnimatorController(ComponentTypes.ComponentType componentType)
+    public RuntimeAnimatorController GetAnimatorController(ComponentTypes.ComponentType componentType)
     {
         foreach (ComponentAnimationData componentAnimationData in componentAnimationDatas)
         {

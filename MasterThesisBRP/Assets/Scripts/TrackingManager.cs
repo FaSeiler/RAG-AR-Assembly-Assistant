@@ -22,17 +22,25 @@ public class TrackingManager : Singleton<TrackingManager> //DefaultObserverEvent
         }
     }
 
-    public Vector3 firstComponentReferencePosition;
-
+    public GameObject loggedInFirstComponent;
+    public Material loggedInComponentMaterial;
     /// <summary>
     /// Use the position of the first component tracked as a model target as a reference for all further animations
+    /// Attach the reference point to the image marker for stable tracking after the model target is lost
     /// We know all further components will be placed next to the first component (x-axis)
     /// </summary>
     public void SetFirstComponentReferencePoint(ModelTargetBehaviour modelTargetFirstComponent)
     {
-        firstComponentReferencePosition = modelTargetFirstComponent.transform.position;
-    }
+        ComponentSIMATIC cpuComponentSIMATIC = ComponentDatabase.instance.GetComponentByType(ComponentTypes.ComponentType.CPU_InterfaceModule);
+        loggedInFirstComponent = Instantiate(cpuComponentSIMATIC.modelPrefab, modelTargetFirstComponent.transform);
+        // Attach the reference point to the image marker for stable tracking after the model target is lost
+        loggedInFirstComponent.transform.parent = imageTarget.gameObject.transform;
+        loggedInFirstComponent.gameObject.name = "LoggedInFirstComponent_REFERENCE";
+        loggedInFirstComponent.transform.Rotate(90f, 0f, 0f);
+        cpuComponentSIMATIC.SetMaterials(loggedInFirstComponent, loggedInComponentMaterial);
 
+        Debug.Log("Logged in First Component");
+    }
 
     public void UpdateActiveModelTarget(ModelTargetBehaviour modelTarget)
     {
