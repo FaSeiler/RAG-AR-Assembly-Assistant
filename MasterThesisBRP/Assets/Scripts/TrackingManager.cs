@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Vuforia;
 
 public class TrackingManager : Singleton<TrackingManager> //DefaultObserverEventHandler
@@ -25,6 +26,9 @@ public class TrackingManager : Singleton<TrackingManager> //DefaultObserverEvent
     public Vector3 positionFirstComponentOnRail;
     public GameObject loggedInFirstComponent;
     public Material loggedInComponentMaterial;
+
+    public static UnityEvent<Transform> OnFirstComponentReferencePointChanged = new UnityEvent<Transform>();
+
     /// <summary>
     /// Use the position of the first component tracked as a model target as a reference for all further animations
     /// Attach the reference point to the image marker for stable tracking after the model target is lost
@@ -40,6 +44,8 @@ public class TrackingManager : Singleton<TrackingManager> //DefaultObserverEvent
         loggedInFirstComponent.transform.Rotate(90f, 0f, 0f);
         cpuComponentSIMATIC.SetMaterials(loggedInFirstComponent, loggedInComponentMaterial);
 
+        //positionFirstComponentOnRail
+        OnFirstComponentReferencePointChanged.Invoke(loggedInFirstComponent.transform);
         Debug.Log("Logged in First Component");
     }
 

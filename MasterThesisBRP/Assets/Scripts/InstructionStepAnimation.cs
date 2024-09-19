@@ -14,6 +14,8 @@ public class InstructionStepAnimation : InstructionStep
     public override void Init(ComponentSIMATIC componentSIMATIC)
     {
         this.componentSIMATIC = componentSIMATIC;
+        
+        //TrackingManager.OnFirstComponentReferencePointChanged.AddListener(UpdatePosition);
 
         SetAssemblyInstruction(componentSIMATIC);
         AddAnimatingModel(componentSIMATIC);
@@ -21,6 +23,12 @@ public class InstructionStepAnimation : InstructionStep
 
         base.Init(componentSIMATIC);
     }
+
+    //private void UpdatePosition(Transform newTransform)
+    //{
+    //    transform.rotation = newTransform.rotation;
+    //    transform.position = newTransform.position + componentSIMATIC.offsetOnRail;
+    //}
 
     // We can't add all animating models at the start, because we don't know the position of the first component
     // Take first reference point if we don't have the model target position yet, otherwise take the model target position
