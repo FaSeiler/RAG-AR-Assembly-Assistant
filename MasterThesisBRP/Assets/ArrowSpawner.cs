@@ -33,6 +33,8 @@ public class ArrowSpawner : MonoBehaviour
     public bool showAllArrows = false;
     public bool visualizeBoundingBox = false;
 
+    [Header("Arrow Colors")]
+    [Header("Variable Colors")]
     public Color frontFaceColor = Color.red;
     public Color backFaceColor = Color.blue;
     public Color topFaceColor = Color.green;
@@ -40,37 +42,51 @@ public class ArrowSpawner : MonoBehaviour
     public Color leftFaceColor = Color.magenta;
     public Color rightFaceColor = Color.cyan;
 
+    [Header("Mono Colors")]
+    public bool useMonoColor = false;
+    public Color monoColor = Color.blue;
+
     private int arrowID = 0;
 
     private Bounds combinedBounds;
     private Vector3[] corners;
 
-    //void Start()
-    //{
-    //    combinedBounds = CalculateCombinedBounds(targetObject);
+    void Start()
+    {
+        if (useMonoColor)
+        {
+            frontFaceColor = monoColor;
+            backFaceColor = monoColor;
+            topFaceColor = monoColor;
+            bottomFaceColor = monoColor;
+            leftFaceColor = monoColor;
+            rightFaceColor = monoColor;
+        }
 
-    //    if (addArrowsAtStart)
-    //    {
-    //        if (showAllArrows)
-    //        {
-    //            AddAllArrows();
-    //        }
-    //        else
-    //        {
-    //            //Add arrows at the specified positions
-    //            foreach (ArrowData arrowPosition in arrowPositions)
-    //            {
-    //                AddArrowAtPosition(arrowPosition.face, arrowPosition.position, arrowPosition.name, arrowPosition.enabled);
-    //            }
-    //        }
+        /*combinedBounds = CalculateCombinedBounds(targetObject);
 
-    //        if (visualizeBoundingBox)
-    //        {
-    //            //Spawn spheres at all 8 corners of the bounding box for debugging
-    //            SpawnCorners(combinedBounds);
-    //        }
-    //    }
-    //}
+        if (addArrowsAtStart)
+        {
+            if (showAllArrows)
+            {
+                AddAllArrows();
+            }
+            else
+            {
+                //Add arrows at the specified positions
+                foreach (ArrowData arrowPosition in arrowPositions)
+                {
+                    AddArrowAtPosition(arrowPosition.face, arrowPosition.position, arrowPosition.name, arrowPosition.enabled);
+                }
+            }
+
+            if (visualizeBoundingBox)
+            {
+                //Spawn spheres at all 8 corners of the bounding box for debugging
+                SpawnCorners(combinedBounds);
+            }
+        }*/
+    }
 
     private void Update()
     {
