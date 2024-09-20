@@ -156,7 +156,7 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
             {
                 // We don't want to continue to the next instruction step if the model target is not tracked
                 // This ensures that the reference point for all further components is accurate
-                WarningUI.instance.ShowWarning("The component needs to be scanned to continue!");
+                WarningUI.instance.ShowWarning("For the first component the objects needs to be scanned to continue!");
 
                 return;
             }
