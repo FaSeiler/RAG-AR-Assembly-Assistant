@@ -27,7 +27,7 @@ public class InstructionStepAnimation : InstructionStep
     // Take first reference point if we don't have the model target position yet, otherwise take the model target position
     private void AddAnimatingModel(ComponentSIMATIC componentSIMATIC)
     {
-        // Update the position of the animation model based on the reference point
+        // Update the position of the animation parent based on the reference point
         UpdatePosition();
 
         // Instantiate the model as a child of the position parent to not mess up animation position
@@ -35,7 +35,7 @@ public class InstructionStepAnimation : InstructionStep
         
         animator = modelGO.AddComponent<Animator>(); // Add an animator to the model
         animator.runtimeAnimatorController = // Get the animator controller for the component type
-            AnimationDatabase.instance.GetAnimatorController(componentSIMATIC.componentType); 
+            AnimationDatabase.instance.GetAnimatorController(componentSIMATIC.componentType);
         AnimationDatabase.instance.AttachAnimationArrows(modelGO, componentSIMATIC.componentType); // Attach animation arrows to the model
     }
 
@@ -66,7 +66,7 @@ public class InstructionStepAnimation : InstructionStep
     {
         if (!initialized)
             return;
-        
+
         animator.SetBool(animationIndex.ToString(), true);
     }
 

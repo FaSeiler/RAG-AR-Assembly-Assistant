@@ -29,6 +29,8 @@ public class ArrowSpawner : MonoBehaviour
     public GameObject arrowPrefab; // The arrow prefab to instantiate
     public GameObject spherePrefab; // The small black sphere prefab
     public Transform targetObject; // The target object the arrows will point to
+    public bool addArrowsAtStart = false;
+    public bool visualizeBoundingBox = false;
 
     public Color frontFaceColor = Color.red;
     public Color backFaceColor = Color.blue;
@@ -44,21 +46,28 @@ public class ArrowSpawner : MonoBehaviour
 
     void Start()
     {
-        //AddAllArrows();
+        if (addArrowsAtStart)
+        {
+            //AddAllArrows();
 
-        // Add arrows at the specified positions
-        //foreach (ArrowData arrowPosition in arrowPositions)
-        //{
-        //    AddArrowAtPosition(arrowPosition.face, arrowPosition.position, arrowPosition.name, arrowPosition.enabled);
-        //}
+            //Add arrows at the specified positions
+            foreach (ArrowData arrowPosition in arrowPositions)
+            {
+                AddArrowAtPosition(arrowPosition.face, arrowPosition.position, arrowPosition.name, arrowPosition.enabled);
+            }
 
-        // Spawn spheres at all 8 corners of the bounding box for debugging
-        SpawnCorners(combinedBounds);
+            //Spawn spheres at all 8 corners of the bounding box for debugging
+
+            //SpawnCorners(combinedBounds);
+        }
     }
 
     private void Update()
     {
-        VisualizeBoundingBox();
+        if (visualizeBoundingBox)
+        {
+            VisualizeBoundingBox();
+        }
     }
 
     Bounds CalculateCombinedBounds(Transform root)
@@ -196,7 +205,7 @@ public class ArrowSpawner : MonoBehaviour
         if (color == leftFaceColor || color == rightFaceColor)
         {
             // Rotate the arrow by 90 degrees for the left and right faces
-            arrow.transform.Rotate(Vector3.forward, 90);
+            //arrow.transform.Rotate(Vector3.forward, 90);
         }
 
 
