@@ -30,6 +30,7 @@ public class ArrowSpawner : MonoBehaviour
     public GameObject spherePrefab; // The small black sphere prefab
     public Transform targetObject; // The target object the arrows will point to
     public bool addArrowsAtStart = false;
+    public bool showAllArrows = false;
     public bool visualizeBoundingBox = false;
 
     public Color frontFaceColor = Color.red;
@@ -46,19 +47,28 @@ public class ArrowSpawner : MonoBehaviour
 
     void Start()
     {
+        combinedBounds = CalculateCombinedBounds(targetObject);
+
         if (addArrowsAtStart)
         {
-            //AddAllArrows();
-
-            //Add arrows at the specified positions
-            foreach (ArrowData arrowPosition in arrowPositions)
+            if (showAllArrows)
             {
-                AddArrowAtPosition(arrowPosition.face, arrowPosition.position, arrowPosition.name, arrowPosition.enabled);
+                AddAllArrows();
+            }
+            else
+            {
+                //Add arrows at the specified positions
+                foreach (ArrowData arrowPosition in arrowPositions)
+                {
+                    AddArrowAtPosition(arrowPosition.face, arrowPosition.position, arrowPosition.name, arrowPosition.enabled);
+                }
             }
 
-            //Spawn spheres at all 8 corners of the bounding box for debugging
-
-            //SpawnCorners(combinedBounds);
+            if (visualizeBoundingBox)
+            {
+                //Spawn spheres at all 8 corners of the bounding box for debugging
+                SpawnCorners(combinedBounds);
+            }
         }
     }
 
@@ -70,26 +80,66 @@ public class ArrowSpawner : MonoBehaviour
         }
     }
 
+    // Calculate Bounds based on renderer
+    //Bounds CalculateCombinedBounds(Transform root)
+    //{
+    //    // Initialize the combined bounds with an invalid value
+    //    Bounds combinedBounds = new Bounds(root.position, Vector3.zero);
+
+    //    // Include the bounds of the root object
+    //    Renderer rootRenderer = root.GetComponent<Renderer>();
+    //    if (rootRenderer != null)
+    //    {
+    //        combinedBounds = rootRenderer.bounds;
+    //    }
+
+    //    // Include the bounds of all child objects
+    //    foreach (Renderer renderer in root.GetComponentsInChildren<Renderer>())
+    //    {
+    //        combinedBounds.Encapsulate(renderer.bounds);
+    //    }
+
+    //    return combinedBounds;
+    //}
+
+    // Calculate Bounds based on Mesh Vertices
     Bounds CalculateCombinedBounds(Transform root)
     {
         // Initialize the combined bounds with an invalid value
-        Bounds combinedBounds = new Bounds(root.position, Vector3.zero);
+        Bounds combinedBounds = new Bounds();
+        bool boundsInitialized = false;
 
-        // Include the bounds of the root object
-        Renderer rootRenderer = root.GetComponent<Renderer>();
-        if (rootRenderer != null)
+        // Go through all the MeshFilter components in the root and its children
+        foreach (MeshFilter meshFilter in root.GetComponentsInChildren<MeshFilter>())
         {
-            combinedBounds = rootRenderer.bounds;
+            Mesh mesh = meshFilter.sharedMesh;
+
+            if (mesh != null)
+            {
+                // Iterate over the vertices of the mesh and transform them to world space
+                foreach (Vector3 vertex in mesh.vertices)
+                {
+                    Vector3 worldVertex = meshFilter.transform.TransformPoint(vertex);
+
+                    if (!boundsInitialized)
+                    {
+                        // Initialize bounds with the first vertex
+                        combinedBounds = new Bounds(worldVertex, Vector3.zero);
+                        boundsInitialized = true;
+                    }
+                    else
+                    {
+                        // Encapsulate the current vertex into the bounds
+                        combinedBounds.Encapsulate(worldVertex);
+                    }
+                }
+            }
         }
 
-        // Include the bounds of all child objects
-        foreach (Renderer renderer in root.GetComponentsInChildren<Renderer>())
-        {
-            combinedBounds.Encapsulate(renderer.bounds);
-        }
-
-        return combinedBounds;
+        // Return valid bounds if there were any vertices, otherwise return an empty bounds
+        return boundsInitialized ? combinedBounds : new Bounds(root.position, Vector3.zero);
     }
+
 
     public void AddArrowAtPosition(ArrowData arrowData, Transform parentTransform)
     {
