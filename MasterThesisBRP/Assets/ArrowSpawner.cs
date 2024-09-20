@@ -45,32 +45,32 @@ public class ArrowSpawner : MonoBehaviour
     private Bounds combinedBounds;
     private Vector3[] corners;
 
-    void Start()
-    {
-        combinedBounds = CalculateCombinedBounds(targetObject);
+    //void Start()
+    //{
+    //    combinedBounds = CalculateCombinedBounds(targetObject);
 
-        if (addArrowsAtStart)
-        {
-            if (showAllArrows)
-            {
-                AddAllArrows();
-            }
-            else
-            {
-                //Add arrows at the specified positions
-                foreach (ArrowData arrowPosition in arrowPositions)
-                {
-                    AddArrowAtPosition(arrowPosition.face, arrowPosition.position, arrowPosition.name, arrowPosition.enabled);
-                }
-            }
+    //    if (addArrowsAtStart)
+    //    {
+    //        if (showAllArrows)
+    //        {
+    //            AddAllArrows();
+    //        }
+    //        else
+    //        {
+    //            //Add arrows at the specified positions
+    //            foreach (ArrowData arrowPosition in arrowPositions)
+    //            {
+    //                AddArrowAtPosition(arrowPosition.face, arrowPosition.position, arrowPosition.name, arrowPosition.enabled);
+    //            }
+    //        }
 
-            if (visualizeBoundingBox)
-            {
-                //Spawn spheres at all 8 corners of the bounding box for debugging
-                SpawnCorners(combinedBounds);
-            }
-        }
-    }
+    //        if (visualizeBoundingBox)
+    //        {
+    //            //Spawn spheres at all 8 corners of the bounding box for debugging
+    //            SpawnCorners(combinedBounds);
+    //        }
+    //    }
+    //}
 
     private void Update()
     {

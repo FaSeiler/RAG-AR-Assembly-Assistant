@@ -37,6 +37,8 @@ public class InstructionStepAnimation : InstructionStep
         animator.runtimeAnimatorController = // Get the animator controller for the component type
             AnimationDatabase.instance.GetAnimatorController(componentSIMATIC.componentType);
         AnimationDatabase.instance.AttachAnimationArrows(modelGO, componentSIMATIC.componentType); // Attach animation arrows to the model
+
+        AnimationDatabase.instance.AttachAdditionalModels(modelGO, componentSIMATIC.componentType); // Attach additional models to the model
     }
 
     // Update the position of the animation model based on the reference point

@@ -1112,21 +1112,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6324166676958118672, guid: f0ceac8e6e7d0b446866f61193833ca7,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 6324166676958118672, guid: f0ceac8e6e7d0b446866f61193833ca7,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 6324166676958118672, guid: f0ceac8e6e7d0b446866f61193833ca7,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 6324166676958118672, guid: f0ceac8e6e7d0b446866f61193833ca7,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.00328
       objectReference: {fileID: 0}
@@ -1179,11 +1164,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ScrewDriver
-      objectReference: {fileID: 0}
-    - target: {fileID: 6667619626966571434, guid: f0ceac8e6e7d0b446866f61193833ca7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

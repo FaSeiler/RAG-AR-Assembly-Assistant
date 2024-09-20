@@ -12,6 +12,7 @@ public class AnimationDatabase : Singleton<AnimationDatabase>
     {
         public ComponentTypes.ComponentType componentType;
         public RuntimeAnimatorController animatorController;
+        public List<GameObject> additionalAnimationModels;
         public List<ArrowSpawner.ArrowData> arrowDatas; // This specifies where the arrows needed in the animation are spawned
     }
 
@@ -39,6 +40,21 @@ public class AnimationDatabase : Singleton<AnimationDatabase>
                 foreach (ArrowSpawner.ArrowData arrowData in componentAnimationData.arrowDatas)
                 {
                     arrowSpawner.AddArrowAtPosition(arrowData, parentGO.transform);
+                }
+            }
+        }
+    }
+
+    public void AttachAdditionalModels(GameObject parentGO, ComponentTypes.ComponentType componentType)
+    {
+        foreach (ComponentAnimationData componentAnimationData in componentAnimationDatas)
+        {
+            if (componentAnimationData.componentType == componentType)
+            {
+                foreach (GameObject additionalModel in componentAnimationData.additionalAnimationModels)
+                {
+                    Instantiate(additionalModel, parentGO.transform);
+                    additionalModel.SetActive(false);
                 }
             }
         }

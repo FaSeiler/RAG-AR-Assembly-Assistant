@@ -77,7 +77,7 @@ public class ComponentSIMATIC : MonoBehaviour
     private void CreateModelTargetPreview()
     {
         modelTargetPreviewGO = Instantiate(modelPrefab, transform);
-        //modelTargetPreviewGO.SetActive(false);
+        modelTargetPreviewGO.SetActive(false);
 
         SetMaterials(modelTargetPreviewGO, materialHologram);
     }
