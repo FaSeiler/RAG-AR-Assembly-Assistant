@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using UnityEngine.Events;
 using Vuforia;
@@ -12,6 +13,17 @@ public class TrackingManager : Singleton<TrackingManager> //DefaultObserverEvent
 
     [Space(10)]
     public ModelTargetBehaviour activeModelTarget;
+    public Transform referenceTransform; // This is the reference for all other components (usually the first component)
+
+    public struct LoggedInComponent
+    {
+        public ComponentSIMATIC componentSIMATIC;
+        public GameObject loggedInComponentVisualizer;
+    }
+
+    public Material loggedInComponentMaterial;
+    public List<LoggedInComponent> loggedInComponents = new List<LoggedInComponent>();
+    public static UnityEvent OnReferencePointChanged = new UnityEvent();
 
     private void Start()
     {
@@ -23,30 +35,124 @@ public class TrackingManager : Singleton<TrackingManager> //DefaultObserverEvent
         }
     }
 
-    public Vector3 positionFirstComponentOnRail;
-    public GameObject loggedInFirstComponent;
-    public Material loggedInComponentMaterial;
-
-    public static UnityEvent<Transform> OnFirstComponentReferencePointChanged = new UnityEvent<Transform>();
-
     /// <summary>
     /// Use the position of the first component tracked as a model target as a reference for all further animations
     /// Attach the reference point to the image marker for stable tracking after the model target is lost
     /// We know all further components will be placed next to the first component (x-axis)
+    /// 
+    /// If overrideReferenceTransform is set, use this transform as the reference point
+    /// Else use the transform of the first component
     /// </summary>
-    public void SetFirstComponentReferencePoint(ModelTargetBehaviour modelTargetFirstComponent)
+    public void CreateLoggedInComponent(ComponentSIMATIC componentSIMATIC, Transform overrideReferenceTransform = null)
     {
-        ComponentSIMATIC cpuComponentSIMATIC = ComponentDatabase.instance.GetComponentByType(ComponentTypes.ComponentType.CPU_InterfaceModule);
-        loggedInFirstComponent = Instantiate(cpuComponentSIMATIC.modelPrefab, modelTargetFirstComponent.transform);
-        // Attach the reference point to the image marker for stable tracking after the model target is lost
-        loggedInFirstComponent.transform.parent = imageTarget.gameObject.transform;
-        loggedInFirstComponent.gameObject.name = "LoggedInFirstComponent_REFERENCE";
-        loggedInFirstComponent.transform.Rotate(90f, 0f, 0f);
-        cpuComponentSIMATIC.SetMaterials(loggedInFirstComponent, loggedInComponentMaterial);
+        if (overrideReferenceTransform == null)
+        {
+            // This is not the reference component, so we need to calculate the position of the component relative to the reference component
+            if (referenceTransform != null)
+            {
+                overrideReferenceTransform = GetTransformNextToReferenceComponent(componentSIMATIC.offsetOnRail);
+            }
+            else
+            {
+                Debug.LogError("The first component is not logged in!");
+            }
+        }
 
-        //positionFirstComponentOnRail
-        OnFirstComponentReferencePointChanged.Invoke(loggedInFirstComponent.transform);
-        Debug.Log("Logged in First Component");
+        GameObject loggedInComponentVisualizer = InstantiateLoggedInVisualizer(componentSIMATIC, overrideReferenceTransform);
+        Debug.Log("Logged in component: " + loggedInComponentVisualizer.name);
+    }
+
+    public GameObject InstantiateLoggedInVisualizer(ComponentSIMATIC componentSIMATIC, Transform transformAtInstantiate)
+    {
+        GameObject loggedInComponentVisualizer;
+
+        // Check if this component was logged in before
+        foreach (LoggedInComponent loggedInComponent in loggedInComponents)
+        {
+            if (loggedInComponent.componentSIMATIC == componentSIMATIC)
+            {
+                // Was logged in before: Use the existing visualizer and update its position and rotation
+                loggedInComponentVisualizer = loggedInComponent.loggedInComponentVisualizer;
+                loggedInComponentVisualizer.transform.position = transformAtInstantiate.transform.position;
+                loggedInComponentVisualizer.transform.rotation = transformAtInstantiate.transform.rotation;
+
+                return loggedInComponentVisualizer;
+            }
+            else
+            {
+                // Instantiate the model with the transform of the model target
+                loggedInComponentVisualizer = Instantiate(componentSIMATIC.modelPrefab, transformAtInstantiate);
+                loggedInComponentVisualizer.transform.Rotate(90f, 0f, 0f); // Correct the rotation of the model
+                loggedInComponentVisualizer.name = componentSIMATIC.componentName + "_LoggedInComponentVisualizer";
+                componentSIMATIC.SetMaterials(loggedInComponentVisualizer, loggedInComponentMaterial);
+
+                // Attach the reference point to the image marker for stable tracking after the model target is lost
+                loggedInComponentVisualizer.transform.parent = imageTarget.gameObject.transform;
+
+
+                // Add the component to the list of logged in components
+                LoggedInComponent newloggedInComponent = new LoggedInComponent
+                {
+                    componentSIMATIC = componentSIMATIC,
+                    loggedInComponentVisualizer = loggedInComponentVisualizer
+                };
+
+                loggedInComponents.Add(newloggedInComponent);
+                
+                // If this is the first component, set the reference point
+                if (loggedInComponents.Count == 1)
+                {
+                    UpdateReferenceTransform(loggedInComponentVisualizer.transform);
+                }
+
+                return loggedInComponentVisualizer;
+            }
+        }
+
+        Debug.LogError("Could not instantiate the logged in component visualizer");
+        return null; 
+    }
+
+    public void UpdateReferenceTransform(Transform newReferenceTransform)
+    {
+        referenceTransform = newReferenceTransform;
+        UpdateLoggedInComponents();
+        OnReferencePointChanged.Invoke();
+    }
+
+    // If the reference point is updated, update all logged in components
+    private void UpdateLoggedInComponents()
+    {
+        foreach (LoggedInComponent loggedInComponent in loggedInComponents)
+        {
+            Transform updatedTransform = GetTransformNextToReferenceComponent(loggedInComponent.componentSIMATIC.offsetOnRail);
+            loggedInComponent.loggedInComponentVisualizer.transform.position = updatedTransform.position;
+            loggedInComponent.loggedInComponentVisualizer.transform.rotation = updatedTransform.rotation;
+        }
+    }
+
+    /// <summary>
+    /// Returns a transform next to the reference component with the given offset
+    /// </summary>
+    public Transform GetTransformNextToReferenceComponent(Vector3 offsetOnRail)
+    {
+        // Invert the X component of the offset to account for the axis flip issue
+        Vector3 adjustedOffset = new Vector3(
+            -offsetOnRail.x, offsetOnRail.y, offsetOnRail.z);
+
+        // Apply the adjusted offset relative to the reference object's rotation and position
+        Vector3 worldOffset = referenceTransform.position + referenceTransform.rotation * adjustedOffset;
+
+        GameObject place = new GameObject();
+        Transform placeTransform = place.transform;
+
+        // Set the position of the "place" object
+        placeTransform.position = worldOffset;
+
+        // Set the rotation of the "place" object to match the "reference" object's rotation
+        placeTransform.rotation = referenceTransform.rotation;
+
+        return placeTransform;
     }
 
     public void UpdateActiveModelTarget(ModelTargetBehaviour modelTarget)

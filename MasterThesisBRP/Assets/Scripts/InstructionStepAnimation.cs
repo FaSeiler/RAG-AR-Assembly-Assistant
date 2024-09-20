@@ -14,32 +14,21 @@ public class InstructionStepAnimation : InstructionStep
     public override void Init(ComponentSIMATIC componentSIMATIC)
     {
         this.componentSIMATIC = componentSIMATIC;
-        
-        //TrackingManager.OnFirstComponentReferencePointChanged.AddListener(UpdatePosition);
+
+        TrackingManager.OnReferencePointChanged.AddListener(UpdatePosition);
 
         SetAssemblyInstruction(componentSIMATIC);
         AddAnimatingModel(componentSIMATIC);
-        AddArrows(componentSIMATIC);
 
         base.Init(componentSIMATIC);
     }
-
-    //private void UpdatePosition(Transform newTransform)
-    //{
-    //    transform.rotation = newTransform.rotation;
-    //    transform.position = newTransform.position + componentSIMATIC.offsetOnRail;
-    //}
 
     // We can't add all animating models at the start, because we don't know the position of the first component
     // Take first reference point if we don't have the model target position yet, otherwise take the model target position
     private void AddAnimatingModel(ComponentSIMATIC componentSIMATIC)
     {
-        // position is always first plus offset.
-        //transform.position = componentSIMATIC.offsetOnRail; // The parent of the animation defines the world position
-        //UpdatePosition();
-
-        transform.rotation = Quaternion.Euler(0, 180, 0);
-        transform.position = TrackingManager.instance.positionFirstComponentOnRail + componentSIMATIC.offsetOnRail;
+        // Update the position of the animation model based on the reference point
+        UpdatePosition();
 
         // Instantiate the model as a child of the position parent to not mess up animation position
         modelGO = Instantiate(componentSIMATIC.modelPrefab, transform); 
@@ -50,27 +39,12 @@ public class InstructionStepAnimation : InstructionStep
         AnimationDatabase.instance.AttachAnimationArrows(modelGO, componentSIMATIC.componentType); // Attach animation arrows to the model
     }
 
-    public void UpdatePosition()
+    // Update the position of the animation model based on the reference point
+    private void UpdatePosition()
     {
-        //if (componentSIMATIC == null)
-        //{
-        //    return;
-        //}
-
-        //// Take first reference point if we don't have the model target position yet, otherwise take the model target position
-        //if (TrackingManager.instance.loggedInFirstComponent != null)
-        //{
-        //    transform.position = TrackingManager.instance.loggedInFirstComponent.transform.position + componentSIMATIC.offsetOnRail;
-        //}
-        //else
-        //{
-        //    transform.position = TrackingManager.instance.positionFirstComponentOnRail + componentSIMATIC.offsetOnRail;
-        //}
-    }
-
-    private void AddArrows(ComponentSIMATIC componentSIMATIC)
-    {
-        // Set arrows based on the animation
+        Transform placeTransform = TrackingManager.instance.GetTransformNextToReferenceComponent(componentSIMATIC.offsetOnRail);
+        transform.position = placeTransform.position;
+        transform.rotation = placeTransform.rotation;
     }
 
     /// <summary>
@@ -85,7 +59,6 @@ public class InstructionStepAnimation : InstructionStep
     {
         base.OnEnable();
 
-        UpdatePosition();
         StartAnimation();
     }
 
