@@ -22,18 +22,19 @@ public class InstructionGenerator : Singleton<InstructionGenerator>
         InvokeLoadOrGenerateInstructions();
     }
 
+    public void ReGenerateAssemblyInstructions()
+    {
+        StopAllCoroutines();
+        InstructionSerializer.instance.DeleteAllSerializedInstructions(); // Delete the saved instructions
+        // Get current scene index
+        int activeSceneIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(activeSceneIndex); // Reload the scene
+    }
+
     public void InvokeLoadOrGenerateInstructions()
     {
         StopCoroutine(LoadOrGenerateInstructions());
         StartCoroutine(LoadOrGenerateInstructions());
-    }
-
-    public void ReGenerateAssemblyInstructions()
-    {
-        StopCoroutine(LoadOrGenerateInstructions());
-        InstructionSerializer.instance.DeleteAllSerializedInstructions();
-        //generatedAssemblyInstructions.Clear();
-        //InvokeLoadOrGenerateInstructions();
     }
 
     /// <summary>

@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -15,14 +16,19 @@ public class InstructionSerializer : Singleton<InstructionSerializer>
     {
         base.Awake();
 
+        InitializeFilePathsAndDirectories();
+
+        Debug.Log(filePath);
+    }
+
+    public void InitializeFilePathsAndDirectories()
+    {
         filePath = Path.Combine(Application.persistentDataPath, "instructions.json");
         imageDirectory = Path.Combine(Application.persistentDataPath, "Images");
         if (!Directory.Exists(imageDirectory))
         {
             Directory.CreateDirectory(imageDirectory);
         }
-
-        Debug.Log(filePath);
     }
 
     // Returns the path to the saved instructions
@@ -130,5 +136,8 @@ public class InstructionSerializer : Singleton<InstructionSerializer>
         {
             Directory.Delete(imageDirectory, true);
         }
+
+        // Recreate the imageDirectory
+        InitializeFilePathsAndDirectories();
     }
 }

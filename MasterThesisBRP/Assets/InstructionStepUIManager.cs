@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class InstructionStepUIManager : WindowManager
 {
-    public GameObject chatEntriesParent;
+    public GameObject instructionUIParent;
     public GameObject chatEntryPrefab;
     public GameObject responseImageListPrefab;
     public GameObject responsePageNumberListPrefab;
@@ -20,15 +20,15 @@ public class InstructionStepUIManager : WindowManager
 
     public void UpdateInstructionUI(InstructionStep instructionStep, int instructionStepIndex, int totalInstuctionStepCount)
     {
-        ClearText();
+        ClearInstructionContent();
         AddInstructionStepHeader(instructionStep, instructionStepIndex, totalInstuctionStepCount);
         AddPlaceHolder();
-        AddChatEntry(instructionStep.instruction.text, instructionStep.instruction.images, instructionStep.instruction.pageNumbers);
+        SetInstructionContent(instructionStep.instruction.text, instructionStep.instruction.images, instructionStep.instruction.pageNumbers);
     }
 
     private void AddInstructionStepHeader(InstructionStep instructionStep, int currentInstructionStepIndex, int totalInstuctionSepCount)
     {
-        GameObject instructionStepHeaderGO = Instantiate(instructionStepHeaderPrefab, chatEntriesParent.transform);
+        GameObject instructionStepHeaderGO = Instantiate(instructionStepHeaderPrefab, instructionUIParent.transform);
 
         string newText = "Step {0}/{1} <indent=15%>Art. Name:</indent><indent=35%> {2}</indent>\r\n<indent=15%>Art. Number:</indent><indent=35%> {3}</indent>";
         newText = string.Format(newText, currentInstructionStepIndex, totalInstuctionSepCount, instructionStep.component.componentName, instructionStep.component.articleNumber);
@@ -38,15 +38,15 @@ public class InstructionStepUIManager : WindowManager
 
     private void AddPlaceHolder()
     {
-        chatPlaceHolderInstance = Instantiate(chatPlaceHolderPrefab, chatEntriesParent.transform);
+        chatPlaceHolderInstance = Instantiate(chatPlaceHolderPrefab, instructionUIParent.transform);
         chatPlaceHolderInstance.SetActive(false);
     }
 
-    private void AddChatEntry(string text, List<Texture2D> imageTextures, List<int> page_numbers)
+    private void SetInstructionContent(string text, List<Texture2D> imageTextures, List<int> page_numbers)
     {
         instructionBody.Clear();
 
-        GameObject chatEntryGO = Instantiate(chatEntryPrefab, chatEntriesParent.transform);
+        GameObject chatEntryGO = Instantiate(chatEntryPrefab, instructionUIParent.transform);
         instructionBody.Add(chatEntryGO);
 
         ChatEntry chatEntry = chatEntryGO.GetComponent<ChatEntry>();
@@ -70,7 +70,7 @@ public class InstructionStepUIManager : WindowManager
     {
         if (imageTextures.Count > 0)
         {
-            GameObject responseImageListGO = Instantiate(responseImageListPrefab, chatEntriesParent.transform);
+            GameObject responseImageListGO = Instantiate(responseImageListPrefab, instructionUIParent.transform);
             responseImageListGO.GetComponent<GridLayoutGroup>().enabled = true;
             responseImageListGO.GetComponent<RAGResponseImageListManager>().enabled = true;
 
@@ -87,7 +87,7 @@ public class InstructionStepUIManager : WindowManager
     {
         if (page_numbers.Count > 0)
         {
-            GameObject responsePageNumberListGO = Instantiate(responsePageNumberListPrefab, chatEntriesParent.transform);
+            GameObject responsePageNumberListGO = Instantiate(responsePageNumberListPrefab, instructionUIParent.transform);
             responsePageNumberListGO.GetComponent<GridLayoutGroup>().enabled = true;
             responsePageNumberListGO.GetComponent<RAGResponsePageNumberListManager>().enabled = true;
 
@@ -150,9 +150,9 @@ public class InstructionStepUIManager : WindowManager
         scrollRect.verticalNormalizedPosition = 1f;
     }
 
-    public void ClearText()
+    public void ClearInstructionContent()
     {
-        foreach (Transform child in chatEntriesParent.transform)
+        foreach (Transform child in instructionUIParent.transform)
             Destroy(child.gameObject);
     }
 }

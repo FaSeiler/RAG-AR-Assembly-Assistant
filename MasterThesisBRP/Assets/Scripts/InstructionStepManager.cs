@@ -98,6 +98,11 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
     /// </summary>
     private void SetCurrentInstructionStep()
     {
+        if (createdInstructionSteps == null)
+        {
+            return;
+        }
+
         currentInstructionStep = createdInstructionSteps[currentInstructionStepIndex];
         instructionStepUIManager.UpdateInstructionUI(currentInstructionStep, currentInstructionStepIndex + 1, totalInstructionStepCount);
 
@@ -197,5 +202,13 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
         WarningUI.instance.HideWarning();
 
         SetCurrentInstructionStep();
+    }
+
+    void OnDestroy()
+    {
+        if (this != null)
+        {
+            Destroy(gameObject);
+        }
     }
 }
