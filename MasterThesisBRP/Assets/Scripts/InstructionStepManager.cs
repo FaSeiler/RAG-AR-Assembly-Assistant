@@ -27,8 +27,15 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
 
     private void Start()
     {
+        InstructionGenerator.instance.OnNewAssemblyInstructionGeneratedOrLoaded.AddListener(OnNewAssemblyInstructionGenerated);
         List<ComponentSIMATIC> components = ComponentDatabase.instance.GetAllComponents();
         StartCoroutine(CreateInstructionStepsForAllComponents(components));
+    }
+
+    private void OnNewAssemblyInstructionGenerated(Instruction newInstruction)
+    {
+        // Update the UI with the current instruction step so that the total amount of steps is updated
+        instructionStepUIManager.UpdateInstructionUI(currentInstructionStep, currentInstructionStepIndex + 1, totalInstructionStepCount);
     }
 
     /// <summary>
@@ -91,6 +98,14 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
 
         createdInstructionSteps.Add(instructionStepAnimation);
         totalInstructionStepCount = createdInstructionSteps.Count;
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            instructionStepUIManager.UpdateInstructionUI(currentInstructionStep, currentInstructionStepIndex + 1, totalInstructionStepCount);
+        }
     }
 
     /// <summary>
