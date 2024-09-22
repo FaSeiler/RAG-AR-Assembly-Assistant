@@ -66,7 +66,11 @@ public class InstructionStepScan : InstructionStep
     {
         yield return new WaitUntil(() => initialized);
 
-        previewComponent.SetActivePreview(scanModelTargetPreviewGO);
+        // Workaround: We only want to show the scan preview if the current instruction step is the scan instruction step
+        if (component == InstructionStepManager.instance.currentInstructionStep.component)
+        {
+            previewComponent.SetActivePreview(scanModelTargetPreviewGO);
+        }
     }
 
     public void HideScanPreview()
