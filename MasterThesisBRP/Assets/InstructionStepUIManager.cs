@@ -14,6 +14,8 @@ public class InstructionStepUIManager : WindowManager
     public GameObject chatPlaceHolderPrefab;
     public GameObject instructionStepHeaderPrefab;
     public ScrollRect scrollRect;
+    public Button nextButton;
+    public Button previousButton;
 
     private List<GameObject> instructionBody = new List<GameObject>(); // Everything that is part of the instruction except the header
     private GameObject chatPlaceHolderInstance;
@@ -21,9 +23,10 @@ public class InstructionStepUIManager : WindowManager
     public void UpdateInstructionUI(InstructionStep instructionStep, int instructionStepIndex, int totalInstuctionStepCount)
     {
         ClearInstructionContent();
-        AddInstructionStepHeader(instructionStep, instructionStepIndex, totalInstuctionStepCount);
+        AddInstructionStepHeader(instructionStep, instructionStepIndex + 1, totalInstuctionStepCount);
         AddPlaceHolder();
         SetInstructionContent(instructionStep.instruction.text, instructionStep.instruction.images, instructionStep.instruction.pageNumbers);
+        UpdateStepControlButtons(instructionStepIndex, totalInstuctionStepCount);
     }
 
     private void AddInstructionStepHeader(InstructionStep instructionStep, int currentInstructionStepIndex, int totalInstuctionSepCount)
@@ -105,19 +108,6 @@ public class InstructionStepUIManager : WindowManager
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            EnableInstructionBody();
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            DisableInstructionBody();
-        }
-    }
-
     public void EnableInstructionBody()
     {
         foreach (GameObject instructionBodyGO in instructionBody)
@@ -154,5 +144,47 @@ public class InstructionStepUIManager : WindowManager
     {
         foreach (Transform child in instructionUIParent.transform)
             Destroy(child.gameObject);
+    }
+
+    internal void UpdateStepControlButtons(int currentInstructionStepIndex, int totalInstructionStepCount)
+    {
+        if (currentInstructionStepIndex == 0)
+        {
+            HidePreviousButton();
+        }
+        else
+        {
+            ShowPreviousButton();
+        }
+
+        if (currentInstructionStepIndex == totalInstructionStepCount - 1)
+        {
+            HideNextButton();
+        }
+        else
+        {
+            ShowNextButton();
+        }
+    }
+
+
+    public void ShowNextButton()
+    {
+        nextButton.gameObject.SetActive(true);
+    }
+
+    public void ShowPreviousButton()
+    {
+        previousButton.gameObject.SetActive(true);
+    }
+
+    public void HideNextButton()
+    {
+        nextButton.gameObject.SetActive(false);
+    }
+
+    public void HidePreviousButton()
+    {
+        previousButton.gameObject.SetActive(false);
     }
 }

@@ -153,6 +153,8 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
                 instructionStep.gameObject.SetActive(false);
             }
         }
+
+        instructionStepUIManager.UpdateInstructionUI(currentInstructionStep, currentInstructionStepIndex, totalInstructionStepCount);
     }
 
     /// <summary>
