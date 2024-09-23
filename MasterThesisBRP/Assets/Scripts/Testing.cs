@@ -13,37 +13,13 @@ using System.IO;
 
 public class Testing : MonoBehaviour
 {
-    // Reference to the "reference" object
-    public GameObject reference;
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            InstructionSerializer.instance.RemoveInstruction(ComponentTypes.ComponentType.ServerModule);
+            Debug.Log("REMOVED INSTRUCTION FOR SERVER MODULE");
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.U))
-    //    {
-    //        TrackingManager.instance.UpdateReferenceTransform(reference.transform);
-           
-    //    }
-    //    if (Input.GetKeyDown(KeyCode.S))
-    //    {
-    //        foreach (InstructionStep instructionStep in InstructionStepManager.instance.createdInstructionSteps)
-    //        {
-    //            if (instructionStep is InstructionStepAnimation)
-    //            {
-    //                InstructionStepAnimation instructionStepAnimation = (InstructionStepAnimation)instructionStep;
-    //                instructionStepAnimation.StartAnimation();
-    //            }
-    //        }
-    //    }
-    //    if (Input.GetKeyDown(KeyCode.D))
-    //    {
-    //        foreach (InstructionStep instructionStep in InstructionStepManager.instance.createdInstructionSteps)
-    //        {
-    //            if (instructionStep is InstructionStepAnimation)
-    //            {
-    //                InstructionStepAnimation instructionStepAnimation = (InstructionStepAnimation)instructionStep;
-    //                instructionStepAnimation.StopAnimation();
-    //            }
-    //        }
-    //    }
-    //}
+        }
+    }
 }

@@ -87,7 +87,6 @@ public class InstructionSerializer : Singleton<InstructionSerializer>
             text = instruction.text,
             imagePaths = new List<string>(),
             pageNumbers = instruction.pageNumbers,
-            //animationClipName = instruction.animationClip != null ? instruction.animationClip.name : null
         };
 
         for (int i = 0; i < instruction.images.Count; i++)
@@ -139,5 +138,29 @@ public class InstructionSerializer : Singleton<InstructionSerializer>
 
         // Recreate the imageDirectory
         InitializeFilePathsAndDirectories();
+    }
+
+    // Remove one instruction from the saved instructions based on the component type
+    // Make sure when this is called no other instruction is being loaded or generated
+    public void RemoveInstruction(ComponentTypes.ComponentType componentType)
+    {
+        // Read the existing JSON file
+        string json = File.ReadAllText(filePath);
+
+        // Deserialize the JSON into a dictionary
+        Dictionary<ComponentTypes.ComponentType, SerializableInstruction> instructions =
+            JsonConvert.DeserializeObject<Dictionary<ComponentTypes.ComponentType, SerializableInstruction>>(json);
+
+        // Remove the entry if it exists
+        if (instructions.ContainsKey(componentType))
+        {
+            instructions.Remove(componentType);
+
+            // Serialize the updated dictionary back to JSON
+            string updatedJson = JsonConvert.SerializeObject(instructions, Formatting.Indented);
+
+            // Write the updated JSON back to the file
+            File.WriteAllText(filePath, updatedJson);
+        }
     }
 }
