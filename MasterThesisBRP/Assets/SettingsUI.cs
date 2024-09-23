@@ -8,12 +8,61 @@ using UnityEngine.UI;
 public class SettingsUI : WindowManager
 {
     [Header("Settings UI")]
+    [Header("IP")]
     public TMP_InputField ipInputField;
     public Toggle localhostToggle;
-    
     private string lastIPAdress; // Save this to switch between localhost and the last IP adress
 
+    [Header("Visualizations")]
+    public Toggle toggleAssembledComponents;
+    public Toggle toggleScanPreviews;
+    public GameObject scanPreviewsParent;
+
+    [Header("Regenerate Instructions")]
+    public Button regenerateInstructionsButton;
+
+
     private void Start()
+    {
+        InitIpUI();
+        InitVisualizationsUI();
+        InitInstructionRegenerationUI();
+    }
+
+    #region VISUALIZATIONS
+    private void InitVisualizationsUI()
+    {
+        toggleAssembledComponents.onValueChanged.AddListener(OnAssembledComponentsToggleChanged);
+        toggleScanPreviews.onValueChanged.AddListener(OnScanPreviewsToggleChanged);
+    }
+
+    private void OnScanPreviewsToggleChanged(bool value)
+    {
+        if (value)
+        {
+            scanPreviewsParent.SetActive(true);
+        }
+        else
+        {
+            scanPreviewsParent.SetActive(false);
+        }
+    }
+
+    private void OnAssembledComponentsToggleChanged(bool value)
+    {
+        if (value)
+        {
+            TrackingManager.instance.ShowLoggedInComponents();
+        }
+        else
+        {
+            TrackingManager.instance.HideLoggedInComponents();
+        }
+    }
+    #endregion
+
+    #region IP_ADRESS
+    private void InitIpUI()
     {
         ipInputField.text = ClientRAG.instance.BASE_URL;
         lastIPAdress = ipInputField.text;
@@ -39,4 +88,17 @@ public class SettingsUI : WindowManager
         ipInputField.text = newIPAdress;
         ClientRAG.instance.BASE_URL = newIPAdress;
     }
+    #endregion
+
+    #region REGENERATE_INSTRUCTIONS
+    private void InitInstructionRegenerationUI()
+    {
+        regenerateInstructionsButton.onClick.AddListener(OnRegenerateInstructionsButtonClicked);
+    }
+
+    private void OnRegenerateInstructionsButtonClicked()
+    {
+        InstructionGenerator.instance.ReGenerateAssemblyInstructions();
+    }
+    #endregion
 }

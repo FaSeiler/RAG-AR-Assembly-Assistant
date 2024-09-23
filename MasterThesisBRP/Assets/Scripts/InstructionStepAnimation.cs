@@ -45,6 +45,7 @@ public class InstructionStepAnimation : InstructionStep
     private void UpdatePosition()
     {
         Transform placeTransform = TrackingManager.instance.GetTransformNextToReferenceComponent(componentSIMATIC.offsetOnRail);
+        placeTransform.Rotate(-90f, 0f, 0f);
         transform.position = placeTransform.position;
         transform.rotation = placeTransform.rotation;
     }

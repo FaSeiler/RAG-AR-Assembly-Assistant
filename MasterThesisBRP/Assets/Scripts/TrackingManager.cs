@@ -13,7 +13,8 @@ public class TrackingManager : Singleton<TrackingManager> //DefaultObserverEvent
 
     [Space(10)]
     public ModelTargetBehaviour activeModelTarget;
-    public Transform referenceTransform; // This is the reference for all other components (usually the first component)
+    public Transform referenceTransformInit; // Static reference transform for first component (stays unchanged)
+    private Transform referenceTransform; // Reference transform that is update throughout the assembly process
 
     public struct LoggedInComponent
     {
@@ -21,12 +22,15 @@ public class TrackingManager : Singleton<TrackingManager> //DefaultObserverEvent
         public GameObject loggedInComponentVisualizer;
     }
 
+    public GameObject parentLoggedInComponents; // This is just to group all logged in component visualizer GO in the scene
     public Material loggedInComponentMaterial;
     public List<LoggedInComponent> loggedInComponents = new List<LoggedInComponent>();
     public static UnityEvent OnReferencePointChanged = new UnityEvent();
 
     private void Start()
     {
+        referenceTransform = referenceTransformInit;
+
         imageTarget.OnTargetStatusChanged += OnImageTargetStatusChanged;
 
         foreach (ModelTargetBehaviour modelTarget in modelTargets)
@@ -51,6 +55,7 @@ public class TrackingManager : Singleton<TrackingManager> //DefaultObserverEvent
             if (referenceTransform != null)
             {
                 overrideReferenceTransform = GetTransformNextToReferenceComponent(componentSIMATIC.offsetOnRail);
+                overrideReferenceTransform.Rotate(-90f, 0f, 0f); // Correct the rotation of the model
             }
             else
             {
@@ -78,39 +83,34 @@ public class TrackingManager : Singleton<TrackingManager> //DefaultObserverEvent
 
                 return loggedInComponentVisualizer;
             }
-            else
-            {
-                // Instantiate the model with the transform of the model target
-                loggedInComponentVisualizer = Instantiate(componentSIMATIC.modelPrefab, transformAtInstantiate);
-                loggedInComponentVisualizer.transform.Rotate(90f, 0f, 0f); // Correct the rotation of the model
-                loggedInComponentVisualizer.name = componentSIMATIC.componentName + "_LoggedInComponentVisualizer";
-                componentSIMATIC.SetMaterials(loggedInComponentVisualizer, loggedInComponentMaterial);
-
-                // Attach the reference point to the image marker for stable tracking after the model target is lost
-                loggedInComponentVisualizer.transform.parent = imageTarget.gameObject.transform;
-
-
-                // Add the component to the list of logged in components
-                LoggedInComponent newloggedInComponent = new LoggedInComponent
-                {
-                    componentSIMATIC = componentSIMATIC,
-                    loggedInComponentVisualizer = loggedInComponentVisualizer
-                };
-
-                loggedInComponents.Add(newloggedInComponent);
-                
-                // If this is the first component, set the reference point
-                if (loggedInComponents.Count == 1)
-                {
-                    UpdateReferenceTransform(loggedInComponentVisualizer.transform);
-                }
-
-                return loggedInComponentVisualizer;
-            }
         }
 
-        Debug.LogError("Could not instantiate the logged in component visualizer");
-        return null; 
+        // Instantiate the model with the transform of the model target
+        loggedInComponentVisualizer = Instantiate(componentSIMATIC.modelPrefab, transformAtInstantiate);
+        loggedInComponentVisualizer.transform.Rotate(90f, 0f, 0f); // Correct the rotation of the model
+        loggedInComponentVisualizer.name = componentSIMATIC.componentName + "_LoggedInComponentVisualizer";
+        componentSIMATIC.SetMaterials(loggedInComponentVisualizer, loggedInComponentMaterial);
+
+        // Attach the reference point to the image marker for stable tracking after the model target is lost
+        loggedInComponentVisualizer.transform.parent = parentLoggedInComponents.transform;
+
+
+        // Add the component to the list of logged in components
+        LoggedInComponent newloggedInComponent = new LoggedInComponent
+        {
+            componentSIMATIC = componentSIMATIC,
+            loggedInComponentVisualizer = loggedInComponentVisualizer
+        };
+
+        loggedInComponents.Add(newloggedInComponent);
+
+        // If this is the first component, set the reference point
+        if (loggedInComponents.Count == 1)
+        {
+            UpdateReferenceTransform(loggedInComponentVisualizer.transform);
+        }
+
+        return loggedInComponentVisualizer;
     }
 
     public void UpdateReferenceTransform(Transform newReferenceTransform)
@@ -131,27 +131,47 @@ public class TrackingManager : Singleton<TrackingManager> //DefaultObserverEvent
         }
     }
 
+    public void RemoveLoggedInComponent(ComponentSIMATIC componentSIMATIC)
+    {
+        foreach (LoggedInComponent loggedInComponent in loggedInComponents)
+        {
+            if (loggedInComponent.componentSIMATIC == componentSIMATIC)
+            {
+                Destroy(loggedInComponent.loggedInComponentVisualizer);
+                loggedInComponents.Remove(loggedInComponent);
+
+                if (loggedInComponents.Count == 0)
+                {
+                    // If there are no more logged in components, reset the reference point to the initial reference point (in scene)
+                    referenceTransform = referenceTransformInit;
+                }
+                break;
+            }
+        }
+    }
+
     /// <summary>
     /// Returns a transform next to the reference component with the given offset
     /// </summary>
     public Transform GetTransformNextToReferenceComponent(Vector3 offsetOnRail)
     {
-        // Invert the X component of the offset to account for the axis flip issue
+        // Adjust the axis of the offset to fix the orientation of the model
         Vector3 adjustedOffset = new Vector3(
-            -offsetOnRail.x, offsetOnRail.y, offsetOnRail.z);
+            -offsetOnRail.x, offsetOnRail.z, -offsetOnRail.y);
 
         // Apply the adjusted offset relative to the reference object's rotation and position
         Vector3 worldOffset = referenceTransform.position + referenceTransform.rotation * adjustedOffset;
 
         GameObject place = new GameObject();
         Transform placeTransform = place.transform;
+        Destroy(place);
 
         // Set the position of the "place" object
         placeTransform.position = worldOffset;
 
         // Set the rotation of the "place" object to match the "reference" object's rotation
         placeTransform.rotation = referenceTransform.rotation;
-
+        
         return placeTransform;
     }
 
@@ -206,5 +226,15 @@ public class TrackingManager : Singleton<TrackingManager> //DefaultObserverEvent
             // We lost tracking of the model target, so we need to go back to the scan step 
             //InstructionStepManager.instance.PreviousInstructionStep();
         }
+    }
+
+    public void ShowLoggedInComponents()
+    {
+        parentLoggedInComponents.SetActive(true);
+    }
+
+    public void HideLoggedInComponents()
+    {
+        parentLoggedInComponents.SetActive(false);
     }
 }
