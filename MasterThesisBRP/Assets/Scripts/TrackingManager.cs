@@ -89,8 +89,8 @@ public class TrackingManager : Singleton<TrackingManager> //DefaultObserverEvent
         loggedInComponentVisualizer = Instantiate(componentSIMATIC.modelPrefab, transformAtInstantiate);
         loggedInComponentVisualizer.transform.Rotate(90f, 0f, 0f); // Correct the rotation of the model
         loggedInComponentVisualizer.name = componentSIMATIC.componentName + "_LoggedInComponentVisualizer";
-        componentSIMATIC.SetMaterials(loggedInComponentVisualizer, loggedInComponentMaterial);
-
+        componentSIMATIC.SetMaterials(loggedInComponentVisualizer, loggedInComponentMaterial); // Green material
+        
         // Attach the reference point to the image marker for stable tracking after the model target is lost
         loggedInComponentVisualizer.transform.parent = parentLoggedInComponents.transform;
 
