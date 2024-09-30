@@ -19,7 +19,8 @@ public class ComponentSIMATIC : MonoBehaviour
     public Vector3 offsetOnRail; // Static: The offset of the component on the rail in respect to the first component
 
     [Header("Dynamic Properties")] // Properties that are set dynamically
-    public GameObject modelTargetPreviewGO; // Dynamic: Comes from the ModelDatabase (in future it should come from a Siemens database)
+    public GameObject modelTargetPreviewHologramGO; // Dynamic: Comes from the ModelDatabase (in future it should come from a Siemens database)
+    public GameObject modelTargetPreviewTexturedGO; // Dynamic: Comes from the ModelDatabase (in future it should come from a Siemens database)
     public Dictionary<string, string> properties = new Dictionary<string, string>(); // Dynamic: Comes from WebScraper (Siemens Industry Mall)
 
     public Instruction scanInstruction; // Dynamic: Comes from InstructionGenerator. Every component has one scan instruction
@@ -77,10 +78,13 @@ public class ComponentSIMATIC : MonoBehaviour
     /// </summary>
     private void CreateModelTargetPreview()
     {
-        modelTargetPreviewGO = Instantiate(modelPrefab, transform);
-        modelTargetPreviewGO.SetActive(false);
+        modelTargetPreviewHologramGO = Instantiate(modelPrefab, transform);
+        modelTargetPreviewHologramGO.SetActive(false);
 
-        SetMaterials(modelTargetPreviewGO, materialHologram);
+        SetMaterials(modelTargetPreviewHologramGO, materialHologram);
+
+        modelTargetPreviewTexturedGO = Instantiate(modelPrefab, transform);
+        modelTargetPreviewTexturedGO.SetActive(false);
     }
 
     #region HELPERS

@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class InstructionStepScan : InstructionStep
 {
-    public GameObject scanModelTargetPreviewGO; // The instance of the model target preview GameObject
+    public GameObject scanModelTargetPreviewHologramGO; // The instance of the model target preview GameObject
+    public GameObject scanModelTargetPreviewTexturedGO; // The instance of the model target preview GameObject
 
     private RotatingPreviewComponent previewComponent;
 
@@ -21,8 +22,11 @@ public class InstructionStepScan : InstructionStep
 
     private void SetPreviewModel(ComponentSIMATIC componentSIMATIC)
     {
-        scanModelTargetPreviewGO = componentSIMATIC.modelTargetPreviewGO;
-        scanModelTargetPreviewGO.transform.SetParent(transform);
+        scanModelTargetPreviewTexturedGO = componentSIMATIC.modelTargetPreviewTexturedGO;
+        scanModelTargetPreviewTexturedGO.transform.SetParent(transform);
+            
+        scanModelTargetPreviewHologramGO = componentSIMATIC.modelTargetPreviewHologramGO;
+        scanModelTargetPreviewHologramGO.transform.SetParent(transform);
     }
 
     /// <summary>
@@ -62,6 +66,13 @@ public class InstructionStepScan : InstructionStep
         HideScanPreview();
     }
 
+    // If the preview model texture mode is switched, update the scan preview
+    public void UpdateScanPreview()
+    {
+        HideScanPreview();
+        StartCoroutine(ShowScanPreview());
+    }
+
     public IEnumerator ShowScanPreview()
     {
         yield return new WaitUntil(() => initialized);
@@ -69,7 +80,14 @@ public class InstructionStepScan : InstructionStep
         // Workaround: We only want to show the scan preview if the current instruction step is the scan instruction step
         if (component == InstructionStepManager.instance.currentInstructionStep.component)
         {
-            previewComponent.SetActivePreview(scanModelTargetPreviewGO);
+            if (PreviewModelTextureSwitch.instance.useTexturedPreview)
+            {
+                previewComponent.SetActivePreview(scanModelTargetPreviewTexturedGO);
+            }
+            else
+            {
+                previewComponent.SetActivePreview(scanModelTargetPreviewHologramGO);
+            }
         }
     }
 
