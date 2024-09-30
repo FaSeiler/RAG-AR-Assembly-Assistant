@@ -12,7 +12,7 @@ public class InstructionGenerator : Singleton<InstructionGenerator>
     private string instructionTemplateAssembly =  // Template for RAG query on how the instruction should be generated
         "How do I {0} the {1}? Answer in short concise steps! Dont' add any other additional information.";
     private static string instructionTemplateScan = // Template for the scan instruction
-        "Point the tablet camera at the component to scan it. It can take a few seconds to detect the component.";
+        "Point the tablet camera at the component to scan it. (It may take a few seconds for the component to be detected.)";
 
     public int generatedInstructionCount = 0;
 
