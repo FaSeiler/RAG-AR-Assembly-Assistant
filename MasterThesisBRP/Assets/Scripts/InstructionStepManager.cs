@@ -167,7 +167,7 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
             return;
         }
 
-//#if !UNITY_EDITOR
+#if !UNITY_EDITOR
         // If we are at index 1 we are setting the reference point to the first component
         // NOTE: We can't use other components as reference points, since they can't be tracked using model tracking
         // as soon as they are installed on the rail
@@ -197,7 +197,7 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
             // Log in all other components. We don't need to override the transform, as they are instantiated in reference to the first component
             TrackingManager.instance.CreateLoggedInComponent(currentInstructionStep.component);
         }
-//#endif
+#endif
 
         currentInstructionStepIndex++;
         WarningUI.instance.HideWarning();
