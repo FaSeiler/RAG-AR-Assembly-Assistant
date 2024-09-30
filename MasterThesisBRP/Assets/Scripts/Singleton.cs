@@ -19,13 +19,13 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                 {
 
                     _instance = GameObject.FindAnyObjectByType<T>();
-                    if (_instance == null)
-                    {
-                        GameObject go = new GameObject(typeof(T).ToString());
-                        _instance = go.AddComponent<T>();
+                    //if (_instance == null)
+                    //{
+                    //    GameObject go = new GameObject(typeof(T).ToString());
+                    //    _instance = go.AddComponent<T>();
 
-                        //DontDestroyOnLoad(_instance.gameObject);
-                    }
+                    //    //DontDestroyOnLoad(_instance.gameObject);
+                    //}
                 }
 
                 return _instance;

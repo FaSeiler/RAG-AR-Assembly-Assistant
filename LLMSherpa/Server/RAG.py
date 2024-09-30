@@ -14,6 +14,7 @@ from Utility import *
 # from PDFImageParser import *
 from LLMDataExtractor import PageNumberExtractor
 from ImageExtractorPDF import *
+from ResponseTextOptimizer import ResponseOptimizer
 
 def InitializeLlamaIndex():
     llm = Ollama(model="llama3.1", request_timeout=120.0) #, output_parser=output_parser)
@@ -47,11 +48,11 @@ def GetFormattedJSONQueryResponse(response, image_dict, pdf_file_name, print_con
     text = response.response
     # page_numbers = ExtractPageNumbers(text) # Keyword matching for page number extraction
     page_numbers = PageNumberExtractor(text) # LLM model for page number extraction
-
+    optimizedText = ResponseOptimizer(text) # Optimize the response text
     # Initialize parsed_dict
     parsed_dict = {}
     
-    parsed_dict["text"] = text
+    parsed_dict["text"] = optimizedText
     parsed_dict["page_numbers"] = page_numbers
     pdf_name = os.path.splitext(pdf_file_name)[0]
     image_file_paths = []

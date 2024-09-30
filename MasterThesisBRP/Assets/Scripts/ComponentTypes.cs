@@ -32,6 +32,22 @@ public class ComponentTypes : MonoBehaviour
         { ComponentType.PowerSupply, "Power Supply" }
     };
 
+    public static Dictionary<ComponentType, string> componentTypeKeywordDictionary = new Dictionary<ComponentType, string>()
+    {
+        { ComponentType.None, "None" },
+        { ComponentType.CPU_InterfaceModule, "mount/install" },
+        { ComponentType.BaseUnitForIOModules, "mount/install" },
+        { ComponentType.ServerModule, "install" },
+        { ComponentType.BusAdapterForCPU_InterfaceModule, "mount/install" },
+        { ComponentType.MemoryCardForCPU, "insert" },
+        { ComponentType.IOModulesAndBUCovers, "plug in" },
+        { ComponentType.PowerSupply, "mount/install" }
+    };
+
+    // Keywords: Mount, install, plug in, connect, insert, remove, replace, attach,
+    // disassemble, dismount, disconnect, configure, set up,
+    // assemble, dismantle, uninstall, unplug, detach
+
     [SerializeField]
     private List<string> componentTypes = new List<string>(); // This is just to show the list in the inspector
 
