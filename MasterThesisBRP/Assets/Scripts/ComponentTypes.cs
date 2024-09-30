@@ -36,7 +36,7 @@ public class ComponentTypes : MonoBehaviour
     {
         { ComponentType.None, "None" },
         { ComponentType.CPU_InterfaceModule, "mount/install" },
-        { ComponentType.BaseUnitForIOModules, "mount/install" },
+        { ComponentType.BaseUnitForIOModules, "install" },
         { ComponentType.ServerModule, "install" },
         { ComponentType.BusAdapterForCPU_InterfaceModule, "mount/install" },
         { ComponentType.MemoryCardForCPU, "insert" },

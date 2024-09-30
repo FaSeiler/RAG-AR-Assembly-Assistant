@@ -10,7 +10,7 @@ public class InstructionGenerator : Singleton<InstructionGenerator>
         new Dictionary<ComponentTypes.ComponentType, Instruction>();
     public UnityEvent<Instruction> OnNewAssemblyInstructionGeneratedOrLoaded = new UnityEvent<Instruction>();
     private string instructionTemplateAssembly =  // Template for RAG query on how the instruction should be generated
-        "How do I {0} in the {1}? Answer in short concise steps! Dont' add any other additional information.";
+        "How do I {0} the {1}? Answer in short concise steps! Dont' add any other additional information.";
     private static string instructionTemplateScan = // Template for the scan instruction
         "Point the tablet camera at the component to scan it. It can take a few seconds to detect the component.";
 
