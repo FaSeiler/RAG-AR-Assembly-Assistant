@@ -8,7 +8,7 @@ public class TextMeshProLinkClickDetector : MonoBehaviour, IPointerClickHandler
 {
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Click");
+        //Debug.Log("Click");
         int linkIndex = TMP_TextUtilities.FindIntersectingLink(GetComponent<TextMeshProUGUI>(), Input.mousePosition, null);
         if (linkIndex != -1)
         {
