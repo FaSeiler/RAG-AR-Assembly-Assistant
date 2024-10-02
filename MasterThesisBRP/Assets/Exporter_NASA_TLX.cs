@@ -7,7 +7,8 @@ namespace NASA_TLX
     [System.Serializable]
     public class Exporter_NASA_TLX : MonoBehaviour
     {
-        [HideInInspector] public int subjectID;
+        [HideInInspector] public string subjectID;
+        [HideInInspector] public string szenario;
 
         [HideInInspector] public int value_MentalDemand;
         [HideInInspector] public int value_PhysicalDemand;

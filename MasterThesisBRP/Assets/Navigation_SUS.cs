@@ -4,9 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace NASA_TLX
+namespace SUS
 {
-    public class Navigation_NASA_TLX : MonoBehaviour
+    public class Navigation_SUS : MonoBehaviour
     {
         public Button buttonNext;
         public Button buttonPrevious;
@@ -68,6 +68,7 @@ namespace NASA_TLX
                 buttonPrevious.gameObject.SetActive(true);
             }
         }
+
 
         private void ShowWindow(int index)
         {

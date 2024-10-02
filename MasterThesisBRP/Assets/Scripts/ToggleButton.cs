@@ -69,7 +69,7 @@ public class ToggleButton : MonoBehaviour
     [SerializeField]
     private Image iconComponent;
 
-    private bool isToggled = false;
+    public bool isToggled = false;
     private bool isInitialized = false;
 
     private void Awake()

@@ -8,8 +8,11 @@ namespace NASA_TLX
 {
     public class Data_NASA_TLX : MonoBehaviour
     {
+        [Header("Scenario")]
+        public Szenario_Evaluation scenario;
+
         [Header("Subject")]
-        public int subjectID;
+        public string subjectID;
 
         [Header("Values")]
         public int value_MentalDemand;
@@ -61,10 +64,13 @@ namespace NASA_TLX
         public WeightPair_NASA_TLX weightPair_Performance_Effort;
         public WeightPair_NASA_TLX weightPair_Frustration_Effort;
 
+        [Header("Finish Button")]
+        public Button finishButton;
+
         public void Start()
         {
             // Subject
-            subjectID = -1;
+            subjectID = Settings_Evaluation.instance.subjectID;
 
             // Values
             value_MentalDemand = -1;
@@ -91,36 +97,62 @@ namespace NASA_TLX
             pair_Performance_Effort = -1;
             pair_Frustration_Effort = -1;
 
-            sliderMentalDemand.onValueChanged.AddListener(delegate { value_MentalDemand = (int)sliderMentalDemand.value; });
-            sliderPhysicalDemand.onValueChanged.AddListener(delegate { value_PhysicalDemand = (int)sliderPhysicalDemand.value; });
-            sliderTemporalDemand.onValueChanged.AddListener(delegate { value_TemporalDemand = (int)sliderTemporalDemand.value; });
-            sliderPerformance.onValueChanged.AddListener(delegate { value_Performance = (int)sliderPerformance.value; });
-            sliderEffort.onValueChanged.AddListener(delegate { value_Effort = (int)sliderEffort.value; });
-            sliderFrustration.onValueChanged.AddListener(delegate { value_Frustration = (int)sliderFrustration.value; });
+            sliderMentalDemand.onValueChanged.AddListener(delegate { value_MentalDemand = (int)sliderMentalDemand.value; CheckIfAllFilledOut(); });
+            sliderPhysicalDemand.onValueChanged.AddListener(delegate { value_PhysicalDemand = (int)sliderPhysicalDemand.value; CheckIfAllFilledOut(); });
+            sliderTemporalDemand.onValueChanged.AddListener(delegate { value_TemporalDemand = (int)sliderTemporalDemand.value; CheckIfAllFilledOut(); });
+            sliderPerformance.onValueChanged.AddListener(delegate { value_Performance = (int)sliderPerformance.value; CheckIfAllFilledOut(); });
+            sliderEffort.onValueChanged.AddListener(delegate { value_Effort = (int)sliderEffort.value; CheckIfAllFilledOut(); });
+            sliderFrustration.onValueChanged.AddListener(delegate { value_Frustration = (int)sliderFrustration.value; CheckIfAllFilledOut(); });
 
-            weightPair_Mental_Physical.OnSelectionChanged.AddListener((int pairValue) => { pair_Mental_Physical = pairValue; });
-            weightPair_Mental_Temporal.OnSelectionChanged.AddListener((int pairValue) => { pair_Mental_Temporal = pairValue; });
-            weightPair_Mental_Performance.OnSelectionChanged.AddListener((int pairValue) => { pair_Mental_Performance = pairValue; });
-            weightPair_Mental_Effort.OnSelectionChanged.AddListener((int pairValue) => { pair_Mental_Effort = pairValue; });
-            weightPair_Mental_Frustration.OnSelectionChanged.AddListener((int pairValue) => { pair_Mental_Frustration = pairValue; });
-            weightPair_Physical_Temporal.OnSelectionChanged.AddListener((int pairValue) => { pair_Physical_Temporal = pairValue; });
-            weightPair_Physical_Performance.OnSelectionChanged.AddListener((int pairValue) => { pair_Physical_Performance = pairValue; });
-            weightPair_Physical_Effort.OnSelectionChanged.AddListener((int pairValue) => { pair_Physical_Effort = pairValue; });
-            weightPair_Physical_Frustration.OnSelectionChanged.AddListener((int pairValue) => { pair_Physical_Frustration = pairValue; });
-            weightPair_Temporal_Performance.OnSelectionChanged.AddListener((int pairValue) => { pair_Temporal_Performance = pairValue; });
-            weightPair_Temporal_Frustration.OnSelectionChanged.AddListener((int pairValue) => { pair_Temporal_Frustration = pairValue; });
-            weightPair_Temporal_Effort.OnSelectionChanged.AddListener((int pairValue) => { pair_Temporal_Effort = pairValue; });
-            weightPair_Performance_Frustration.OnSelectionChanged.AddListener((int pairValue) => { pair_Performance_Frustration = pairValue; });
-            weightPair_Performance_Effort.OnSelectionChanged.AddListener((int pairValue) => { pair_Performance_Effort = pairValue; });
-            weightPair_Frustration_Effort.OnSelectionChanged.AddListener((int pairValue) => { pair_Frustration_Effort = pairValue; });
+            weightPair_Mental_Physical.OnSelectionChanged.AddListener((int pairValue) => { pair_Mental_Physical = pairValue; CheckIfAllFilledOut(); });
+            weightPair_Mental_Temporal.OnSelectionChanged.AddListener((int pairValue) => { pair_Mental_Temporal = pairValue; CheckIfAllFilledOut(); });
+            weightPair_Mental_Performance.OnSelectionChanged.AddListener((int pairValue) => { pair_Mental_Performance = pairValue; CheckIfAllFilledOut(); });
+            weightPair_Mental_Effort.OnSelectionChanged.AddListener((int pairValue) => { pair_Mental_Effort = pairValue; CheckIfAllFilledOut(); });
+            weightPair_Mental_Frustration.OnSelectionChanged.AddListener((int pairValue) => { pair_Mental_Frustration = pairValue; CheckIfAllFilledOut(); });
+            weightPair_Physical_Temporal.OnSelectionChanged.AddListener((int pairValue) => { pair_Physical_Temporal = pairValue; CheckIfAllFilledOut(); });
+            weightPair_Physical_Performance.OnSelectionChanged.AddListener((int pairValue) => { pair_Physical_Performance = pairValue; CheckIfAllFilledOut(); });
+            weightPair_Physical_Effort.OnSelectionChanged.AddListener((int pairValue) => { pair_Physical_Effort = pairValue; CheckIfAllFilledOut(); });
+            weightPair_Physical_Frustration.OnSelectionChanged.AddListener((int pairValue) => { pair_Physical_Frustration = pairValue; CheckIfAllFilledOut(); });
+            weightPair_Temporal_Performance.OnSelectionChanged.AddListener((int pairValue) => { pair_Temporal_Performance = pairValue; CheckIfAllFilledOut(); });
+            weightPair_Temporal_Frustration.OnSelectionChanged.AddListener((int pairValue) => { pair_Temporal_Frustration = pairValue; CheckIfAllFilledOut(); });
+            weightPair_Temporal_Effort.OnSelectionChanged.AddListener((int pairValue) => { pair_Temporal_Effort = pairValue; CheckIfAllFilledOut(); });
+            weightPair_Performance_Frustration.OnSelectionChanged.AddListener((int pairValue) => { pair_Performance_Frustration = pairValue; CheckIfAllFilledOut(); });
+            weightPair_Performance_Effort.OnSelectionChanged.AddListener((int pairValue) => { pair_Performance_Effort = pairValue; CheckIfAllFilledOut(); });
+            weightPair_Frustration_Effort.OnSelectionChanged.AddListener((int pairValue) => { pair_Frustration_Effort = pairValue; CheckIfAllFilledOut(); });
+
+            CheckIfAllFilledOut();
         }
 
-        private void Update()
+        private void CheckIfAllFilledOut()
         {
-            if (Input.GetKeyDown(KeyCode.S))
+            if (subjectID != "-1" &&
+                value_MentalDemand != -1 &&
+                value_PhysicalDemand != -1 &&
+                value_TemporalDemand != -1 &&
+                value_Performance != -1 &&
+                value_Effort != -1 &&
+                value_Frustration != -1 &&
+                pair_Mental_Physical != -1 &&
+                pair_Mental_Temporal != -1 &&
+                pair_Mental_Performance != -1 &&
+                pair_Mental_Effort != -1 &&
+                pair_Mental_Frustration != -1 &&
+                pair_Physical_Temporal != -1 &&
+                pair_Physical_Performance != -1 &&
+                pair_Physical_Effort != -1 &&
+                pair_Physical_Frustration != -1 &&
+                pair_Temporal_Performance != -1 &&
+                pair_Temporal_Frustration != -1 &&
+                pair_Temporal_Effort != -1 &&
+                pair_Performance_Frustration != -1 &&
+                pair_Performance_Effort != -1 &&
+                pair_Frustration_Effort != -1)
             {
-                //ExportToJSON("NASA_TLX_Data");
-                ExportData();
+                finishButton.interactable = true;
+            }
+            else
+            {
+                finishButton.interactable = false;
             }
         }
 
@@ -129,6 +161,7 @@ namespace NASA_TLX
             Exporter_NASA_TLX exportData = new Exporter_NASA_TLX
             {
                 subjectID = subjectID,
+                szenario = scenario.szenario,
 
                 value_MentalDemand = value_MentalDemand,
                 value_PhysicalDemand = value_PhysicalDemand,
@@ -156,12 +189,32 @@ namespace NASA_TLX
 
             // Serialize the data to JSON
             string jsonData = JsonUtility.ToJson(exportData, true);
-
             string timeStamp = System.DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss");
 
-            string fileName = subjectID + "_NASA-TLX_" + timeStamp;
+            string directoryPath_Results = Path.Combine(Application.persistentDataPath, "Results");
+            string directoryPath_SubjectID = Path.Combine(directoryPath_Results, subjectID.ToString());
+            string directoryPath_Scenario = Path.Combine(directoryPath_SubjectID, scenario.szenario);
 
-            string path = Path.Combine(Application.persistentDataPath, fileName + ".json");
+            // Check if the directory exists
+            if (!Directory.Exists(directoryPath_Results))
+            {
+                // Create the directory if it doesn't exist
+                Directory.CreateDirectory(directoryPath_Results);
+            }
+            if (!Directory.Exists(directoryPath_SubjectID))
+            {
+                // Create the directory if it doesn't exist
+                Directory.CreateDirectory(directoryPath_SubjectID);
+            }
+            if (!Directory.Exists(directoryPath_Scenario))
+            {
+                // Create the directory if it doesn't exist
+                Directory.CreateDirectory(directoryPath_Scenario);
+            }
+
+            string fileName = subjectID + "_" + scenario.szenario + "_NASA-TLX_" + timeStamp;
+
+            string path = Path.Combine(directoryPath_Scenario, fileName + ".json");
 
             File.WriteAllText(path, jsonData);
             Debug.Log("Data exported to: " + path);
