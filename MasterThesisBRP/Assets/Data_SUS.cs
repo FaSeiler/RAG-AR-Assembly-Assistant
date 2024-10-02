@@ -15,6 +15,9 @@ namespace SUS
         [Header("Subject")]
         public string subjectID;
 
+        [Header("SUS Score")]
+        public float sus_score;
+
         [Header("Values")]
         public int value_1;
         public int value_2;
@@ -96,12 +99,16 @@ namespace SUS
             }
         }
 
-        public void ExportData()
+        public void ExportDataJSON()
         {
+            CalculateSUSScore();
+
             Exporter_SUS exportData = new Exporter_SUS
             {
                 subjectID = subjectID,
                 szenario = scenario.szenario,
+
+                sus_score = sus_score,
 
                 value_1 = value_1,
                 value_2 = value_2,
@@ -146,6 +153,56 @@ namespace SUS
 
             File.WriteAllText(path, jsonData);
             Debug.Log("Data exported to: " + path);
+        }
+
+        public void ExportDataCSV()
+        {
+            CalculateSUSScore();
+
+            // Create a string for the CSV header
+            string header = "SubjectID,Szenario,SUS_Score,Value_1,Value_2,Value_3,Value_4,Value_5,Value_6,Value_7,Value_8,Value_9,Value_10";
+
+            // Create a string for the CSV data
+            string csvData = $"{subjectID},{scenario.szenario},{sus_score},{value_1},{value_2},{value_3},{value_4},{value_5},{value_6},{value_7},{value_8},{value_9},{value_10}";
+
+            string timeStamp = System.DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss");
+
+            string directoryPath_Results = Path.Combine(Application.persistentDataPath, "Results");
+            string directoryPath_SubjectID = Path.Combine(directoryPath_Results, subjectID.ToString());
+            string directoryPath_Scenario = Path.Combine(directoryPath_SubjectID, scenario.szenario);
+
+            // Check if the directory exists
+            if (!Directory.Exists(directoryPath_Results))
+            {
+                // Create the directory if it doesn't exist
+                Directory.CreateDirectory(directoryPath_Results);
+            }
+            if (!Directory.Exists(directoryPath_SubjectID))
+            {
+                // Create the directory if it doesn't exist
+                Directory.CreateDirectory(directoryPath_SubjectID);
+            }
+            if (!Directory.Exists(directoryPath_Scenario))
+            {
+                // Create the directory if it doesn't exist
+                Directory.CreateDirectory(directoryPath_Scenario);
+            }
+
+            string fileName = subjectID + "_" + scenario.szenario + "_SUS_" + timeStamp;
+
+            string path = Path.Combine(directoryPath_Scenario, fileName + ".csv");
+
+            // Write the header and data to the CSV file
+            File.WriteAllText(path, header + "\n" + csvData);
+            Debug.Log("Data exported to: " + path);
+        }
+
+
+        private void CalculateSUSScore()
+        {
+            int X = (value_1 + value_3 + value_5 + value_7 + value_9) - 5;
+            int Y = 25 - (value_2 + value_4 + value_6 + value_8 + value_10);
+            sus_score = 2.5f * (X + Y);
         }
     }
 }

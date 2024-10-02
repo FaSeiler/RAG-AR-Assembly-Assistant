@@ -33,11 +33,21 @@ public class Demographic_Evaluation : MonoBehaviour
         gender = dropdown_gender.options[dropdown_gender.value].text;
         education = dropdown_education.options[dropdown_education.value].text;
 
-        inputField_age.onValueChanged.AddListener(delegate { age = int.Parse(inputField_age.text); CheckIfAllFilledOut(); });
+        inputField_age.onValueChanged.AddListener(delegate { try { age = int.Parse(inputField_age.text); CheckIfAllFilledOut(); } catch (System.Exception) { } });
         dropdown_education.onValueChanged.AddListener(delegate { education = dropdown_education.options[dropdown_education.value].text; CheckIfAllFilledOut(); });
         slider_experienceAR.onValueChanged.AddListener(delegate { experienceAR = (int)slider_experienceAR.value; CheckIfAllFilledOut(); });
         slider_experienceAI.onValueChanged.AddListener(delegate { experienceAI = (int)slider_experienceAI.value; CheckIfAllFilledOut(); });
         slider_experienceSIMATIC.onValueChanged.AddListener(delegate { experienceSIMATIC = (int)slider_experienceSIMATIC.value; CheckIfAllFilledOut(); });
+
+        try
+        {
+
+        }
+        catch (System.Exception)
+        {
+
+            throw;
+        }
 
         CheckIfAllFilledOut();
     }

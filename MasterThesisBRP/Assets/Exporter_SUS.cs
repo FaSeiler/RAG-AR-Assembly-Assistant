@@ -10,6 +10,8 @@ namespace SUS
         [HideInInspector] public string subjectID;
         [HideInInspector] public string szenario;
 
+        [HideInInspector] public float sus_score;
+
         [HideInInspector] public int value_1;
         [HideInInspector] public int value_2;
         [HideInInspector] public int value_3;

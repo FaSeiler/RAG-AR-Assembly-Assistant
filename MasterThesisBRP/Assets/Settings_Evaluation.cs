@@ -44,7 +44,6 @@ public class Settings_Evaluation : Singleton<Settings_Evaluation>
 
     public void SetScenario(bool val)
     {
-        Debug.Log("Set Szenario: " + val);
         if (val)
         {
             szenario1.SetScenario("PDF Szenario");
