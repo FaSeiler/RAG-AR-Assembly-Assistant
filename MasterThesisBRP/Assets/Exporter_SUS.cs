@@ -7,8 +7,15 @@ namespace SUS
     [System.Serializable]
     public class Exporter_SUS : MonoBehaviour
     {
+
         [HideInInspector] public string subjectID;
-        [HideInInspector] public string szenario;
+        [HideInInspector] public string scenario;
+        [HideInInspector] public int age;
+        [HideInInspector] public string gender;
+        [HideInInspector] public string education;
+        [HideInInspector] public int experienceAR;
+        [HideInInspector] public int experienceAI;
+        [HideInInspector] public int experienceSIMATIC;
 
         [HideInInspector] public float sus_score;
 

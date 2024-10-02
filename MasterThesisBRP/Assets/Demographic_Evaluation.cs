@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Demographic_Evaluation : MonoBehaviour
+public class Demographic_Evaluation : Singleton<Demographic_Evaluation>
 {
     public string subjectID;
     public int age;
@@ -51,6 +52,41 @@ public class Demographic_Evaluation : MonoBehaviour
 
         CheckIfAllFilledOut();
     }
+
+    public void ExportDataCSV()
+    {
+        // Create a string for the CSV header
+        string header = "SubjectID,Age,Gender,Education,Experience_AR,Experience_AI,Experience_SIMATIC";
+
+        // Create a string for the CSV data
+        string csvData = $"{subjectID},{age},{gender},{education},{experienceAR},{experienceAI},{experienceSIMATIC}";
+
+        string timeStamp = System.DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss");
+
+        string directoryPath_Results = Path.Combine(Application.persistentDataPath, "Results");
+        string directoryPath_SubjectID = Path.Combine(directoryPath_Results, subjectID.ToString());
+
+        // Check if the directory exists
+        if (!Directory.Exists(directoryPath_Results))
+        {
+            // Create the directory if it doesn't exist
+            Directory.CreateDirectory(directoryPath_Results);
+        }
+        if (!Directory.Exists(directoryPath_SubjectID))
+        {
+            // Create the directory if it doesn't exist
+            Directory.CreateDirectory(directoryPath_SubjectID);
+        }
+
+        string fileName = subjectID + "_Demographic_" + timeStamp;
+
+        string path = Path.Combine(directoryPath_SubjectID, fileName + ".csv");
+
+        // Write the header and data to the CSV file
+        File.WriteAllText(path, header + "\n" + csvData);
+        Debug.Log("Demographic exported to: " + path);
+    }
+
 
     public void CheckIfAllFilledOut()
     {

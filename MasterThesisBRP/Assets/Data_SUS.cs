@@ -12,6 +12,9 @@ namespace SUS
         [Header("Scenario")]
         public Szenario_Evaluation scenario;
 
+        [Header("Demographic")]
+        public Demographic_Evaluation demographic;
+
         [Header("Subject")]
         public string subjectID;
 
@@ -106,7 +109,7 @@ namespace SUS
             Exporter_SUS exportData = new Exporter_SUS
             {
                 subjectID = subjectID,
-                szenario = scenario.szenario,
+                scenario = scenario.scenario,
 
                 sus_score = sus_score,
 
@@ -128,7 +131,7 @@ namespace SUS
 
             string directoryPath_Results = Path.Combine(Application.persistentDataPath, "Results");
             string directoryPath_SubjectID = Path.Combine(directoryPath_Results, subjectID.ToString());
-            string directoryPath_Scenario = Path.Combine(directoryPath_SubjectID, scenario.szenario);
+            string directoryPath_Scenario = Path.Combine(directoryPath_SubjectID, scenario.scenario);
 
             // Check if the directory exists
             if(!Directory.Exists(directoryPath_Results))
@@ -147,7 +150,7 @@ namespace SUS
                 Directory.CreateDirectory(directoryPath_Scenario);
             }
 
-            string fileName = subjectID + "_" + scenario.szenario + "_SUS_" + timeStamp;
+            string fileName = subjectID + "_" + scenario.scenario + "_SUS_" + timeStamp;
 
             string path = Path.Combine(directoryPath_Scenario, fileName + ".json");
 
@@ -160,16 +163,16 @@ namespace SUS
             CalculateSUSScore();
 
             // Create a string for the CSV header
-            string header = "SubjectID,Szenario,SUS_Score,Value_1,Value_2,Value_3,Value_4,Value_5,Value_6,Value_7,Value_8,Value_9,Value_10";
+            string header = "SubjectID,Scenario,Age,Gender,Education,Experience_AR,Experience_AI,Experience_SIMATIC,SUS_Score,Value_1,Value_2,Value_3,Value_4,Value_5,Value_6,Value_7,Value_8,Value_9,Value_10";
 
             // Create a string for the CSV data
-            string csvData = $"{subjectID},{scenario.szenario},{sus_score},{value_1},{value_2},{value_3},{value_4},{value_5},{value_6},{value_7},{value_8},{value_9},{value_10}";
+            string csvData = $"{subjectID},{scenario.scenario},{demographic.age},{demographic.gender},{demographic.education},{demographic.experienceAR},{demographic.experienceAI},{demographic.experienceSIMATIC},{sus_score},{value_1},{value_2},{value_3},{value_4},{value_5},{value_6},{value_7},{value_8},{value_9},{value_10}";
 
             string timeStamp = System.DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss");
 
             string directoryPath_Results = Path.Combine(Application.persistentDataPath, "Results");
             string directoryPath_SubjectID = Path.Combine(directoryPath_Results, subjectID.ToString());
-            string directoryPath_Scenario = Path.Combine(directoryPath_SubjectID, scenario.szenario);
+            string directoryPath_Scenario = Path.Combine(directoryPath_SubjectID, scenario.scenario);
 
             // Check if the directory exists
             if (!Directory.Exists(directoryPath_Results))
@@ -188,7 +191,7 @@ namespace SUS
                 Directory.CreateDirectory(directoryPath_Scenario);
             }
 
-            string fileName = subjectID + "_" + scenario.szenario + "_SUS_" + timeStamp;
+            string fileName = subjectID + "_" + scenario.scenario + "_SUS_" + timeStamp;
 
             string path = Path.Combine(directoryPath_Scenario, fileName + ".csv");
 

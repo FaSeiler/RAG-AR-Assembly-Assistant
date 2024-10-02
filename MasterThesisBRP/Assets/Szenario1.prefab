@@ -3757,7 +3757,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3529349250041130421}
         m_TargetAssemblyTypeName: SUS.Data_SUS, Assembly-CSharp
-        m_MethodName: ExportData
+        m_MethodName: ExportDataCSV
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4455,7 +4455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90de3011b3da32348baac3b9038dd896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  szenario: 
+  scenario: 
   szenarioText: {fileID: 269409102414167406}
 --- !u!1 &2308376160083027219
 GameObject:
@@ -5471,7 +5471,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7924587412296912516}
         m_TargetAssemblyTypeName: Evaluation.Data_Questions, Assembly-CSharp
-        m_MethodName: ExportData
+        m_MethodName: ExportDataCSV
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10656,6 +10656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scenario: {fileID: 2929583128048601141}
+  demographic: {fileID: 0}
   subjectID: 
   answer_1: 
   answer_2: 
@@ -13855,7 +13856,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scenario: {fileID: 2929583128048601141}
+  demographic: {fileID: 0}
   subjectID: 
+  sus_score: 0
   value_1: 0
   value_2: 0
   value_3: 0
@@ -13890,7 +13893,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subjectID: 
-  szenario: 
+  scenario: 
+  age: 0
+  gender: 
+  education: 
+  experienceAR: 0
+  experienceAI: 0
+  experienceSIMATIC: 0
+  sus_score: 0
   value_1: 0
   value_2: 0
   value_3: 0
@@ -15983,6 +15993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scenario: {fileID: 2929583128048601141}
+  demographic: {fileID: 0}
   subjectID: 
   value_MentalDemand: 0
   value_PhysicalDemand: 0

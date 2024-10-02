@@ -12,6 +12,9 @@ namespace NASA_TLX
         [Header("Scenario")]
         public Szenario_Evaluation scenario;
 
+        [Header("Demographic")]
+        public Demographic_Evaluation demographic;
+
         [Header("Subject")]
         public string subjectID;
 
@@ -188,7 +191,7 @@ namespace NASA_TLX
             Exporter_NASA_TLX exportData = new Exporter_NASA_TLX
             {
                 subjectID = subjectID,
-                szenario = scenario.szenario,
+                szenario = scenario.scenario,
 
                 total_un_weighted_score = total_un_weighted_score,
                 sum_of_weighted_scores = sum_of_weighted_scores,
@@ -238,7 +241,7 @@ namespace NASA_TLX
 
             string directoryPath_Results = Path.Combine(Application.persistentDataPath, "Results");
             string directoryPath_SubjectID = Path.Combine(directoryPath_Results, subjectID.ToString());
-            string directoryPath_Scenario = Path.Combine(directoryPath_SubjectID, scenario.szenario);
+            string directoryPath_Scenario = Path.Combine(directoryPath_SubjectID, scenario.scenario);
 
             // Check if the directory exists
             if (!Directory.Exists(directoryPath_Results))
@@ -257,7 +260,7 @@ namespace NASA_TLX
                 Directory.CreateDirectory(directoryPath_Scenario);
             }
 
-            string fileName = subjectID + "_" + scenario.szenario + "_NASA-TLX_" + timeStamp;
+            string fileName = subjectID + "_" + scenario.scenario + "_NASA-TLX_" + timeStamp;
 
             string path = Path.Combine(directoryPath_Scenario, fileName + ".json");
 
@@ -273,7 +276,7 @@ namespace NASA_TLX
             StringBuilder csvData = new StringBuilder();
 
             // Add the header line (column names)
-            csvData.AppendLine("SubjectID,Scenario,Total_Un_Weighted_Score,Sum_Of_Weighted_Scores,Total_Weighted_Score," +
+            csvData.AppendLine("SubjectID,Scenario,Age,Gender,Education,Experience_AR,Experience_AI,Experience_SIMATIC,Total_Un_Weighted_Score,Sum_Of_Weighted_Scores,Total_Weighted_Score," +
                                 "Mental_Demand,Physical_Demand,Temporal_Demand,Performance,Effort,Frustration," +
                                 "Weighted_Mental_Demand,Weighted_Physical_Demand,Weighted_Temporal_Demand," +
                                 "Weighted_Performance,Weighted_Effort,Weighted_Frustration," +
@@ -286,7 +289,7 @@ namespace NASA_TLX
                                 "Pair_Performance_Frustration,Pair_Performance_Effort,Pair_Effort_Frustration");
 
             // Add the actual data
-            csvData.AppendLine($"{subjectID},{scenario.szenario},{total_un_weighted_score},{sum_of_weighted_scores}," +
+            csvData.AppendLine($"{subjectID},{scenario.scenario},{demographic.age},{demographic.gender},{demographic.education},{demographic.experienceAR},{demographic.experienceAI},{demographic.experienceSIMATIC},{total_un_weighted_score},{sum_of_weighted_scores}," +
                                $"{total_weighted_score},{value_MentalDemand},{value_PhysicalDemand}," +
                                $"{value_TemporalDemand},{value_Performance},{value_Effort},{value_Frustration}," +
                                $"{weighted_MentalDemand},{weighted_PhysicalDemand},{weighted_TemporalDemand}," +
@@ -303,7 +306,7 @@ namespace NASA_TLX
 
             string directoryPath_Results = Path.Combine(Application.persistentDataPath, "Results");
             string directoryPath_SubjectID = Path.Combine(directoryPath_Results, subjectID.ToString());
-            string directoryPath_Scenario = Path.Combine(directoryPath_SubjectID, scenario.szenario);
+            string directoryPath_Scenario = Path.Combine(directoryPath_SubjectID, scenario.scenario);
 
             // Check if the directory exists and create it if necessary
             if (!Directory.Exists(directoryPath_Results))
@@ -319,7 +322,7 @@ namespace NASA_TLX
                 Directory.CreateDirectory(directoryPath_Scenario);
             }
 
-            string fileName = $"{subjectID}_{scenario.szenario}_NASA-TLX_{timeStamp}";
+            string fileName = $"{subjectID}_{scenario.scenario}_NASA-TLX_{timeStamp}";
 
             string path = Path.Combine(directoryPath_Scenario, fileName + ".csv");
 
