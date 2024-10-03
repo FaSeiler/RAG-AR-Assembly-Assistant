@@ -107,3 +107,5 @@ Evaluation/Build/
 Evaluation/Library/
 Evaluation/Temp/
 Evaluation/Logs/
+Evaluation/.utmp/
+Evaluation/obj/
