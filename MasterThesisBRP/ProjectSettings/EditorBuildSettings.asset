@@ -29,5 +29,8 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/ARScene_Model_Target.unity
     guid: fed6f54a7dfd8e94fbf3e1bbc970b139
+  - enabled: 0
+    path: Assets/Scenes/Evaluation.unity
+    guid: 982f4e4192f17eb4aad936f583bd986d
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

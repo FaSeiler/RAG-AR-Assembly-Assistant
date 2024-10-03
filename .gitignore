@@ -102,3 +102,8 @@ TikzExtractor/Output/
 TikzExtractor/__pycache__/
 TikzExtractor/split_pdfs/
 TikzExtractor/Input/
+Evaluation/.vsconfig
+Evaluation/Build/
+Evaluation/Library/
+Evaluation/Temp/
+Evaluation/Logs/
