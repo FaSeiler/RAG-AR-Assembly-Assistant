@@ -1682,8 +1682,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: For each of the pairs listed below, circle the scale title that represents
-    the more important contributor to workload in the display.
+  m_text: For each of the pairs listed below, select the Scale Title that represents
+    the more important contributor to workload for the specific task you performed
+    in this experiment
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f6e742fc8a0846e409d94414c316ce8a, type: 2}
   m_sharedMaterial: {fileID: 1608292245544200662, guid: f6e742fc8a0846e409d94414c316ce8a, type: 2}
@@ -2056,8 +2057,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: For each of the pairs listed below, circle the scale title that represents
-    the more important contributor to workload in the display.
+  m_text: For each of the pairs listed below, select the Scale Title that represents
+    the more important contributor to workload for the specific task you performed
+    in this experiment.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f6e742fc8a0846e409d94414c316ce8a, type: 2}
   m_sharedMaterial: {fileID: 1608292245544200662, guid: f6e742fc8a0846e409d94414c316ce8a, type: 2}
