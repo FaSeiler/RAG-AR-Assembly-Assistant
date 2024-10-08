@@ -1,6 +1,7 @@
 from spire.pdf.common import *
 from spire.pdf import *
 
+
 def convert_pdf_to_html(pdf_file_path):
     # Get the file name string without extension
     pdf_file_name = pdf_file_path.split("/")[-1].split(".")[0]
@@ -26,4 +27,3 @@ def convert_pdf_to_html(pdf_file_path):
 
     # Return the output file path
     return output_file_path
-

@@ -11,7 +11,9 @@ from llama_index.core import get_response_synthesizer
 # response_mode = "refine"
 # response_mode = "tree_summarize"
 
-def GetResponseSynthesizer(response_mode: str = "compact"):
-    response_synthesizer = get_response_synthesizer(response_mode=response_mode, streaming=False)
-    return response_synthesizer
 
+def GetResponseSynthesizer(response_mode: str = "compact"):
+    response_synthesizer = get_response_synthesizer(
+        response_mode=response_mode, streaming=False
+    )
+    return response_synthesizer

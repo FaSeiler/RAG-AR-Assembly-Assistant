@@ -13,32 +13,33 @@ pageExtractorPrompt = """<|begin_of_text|><|start_header_id|>system<|end_header_
     Answer: <|eot_id|>
     <|start_header_id|>assistant<|end_header_id|>"""
 
+
 def CSVStringToList(csv_str):
     # Remove leading/trailing quotation marks and spaces from the whole string
     csv_str = csv_str.strip().strip('"').strip("'")
-    
+
     # Check if the string is empty after stripping
     if not csv_str:
         return []
-    
+
     # Split the string by commas
-    parts = csv_str.split(',')
+    parts = csv_str.split(",")
     numbers = []
-    
+
     for part in parts:
         part = part.strip()  # Remove leading/trailing spaces
-        if '-' in part:
+        if "-" in part:
             # Validate the hyphenated part
-            if re.match(r'^\s*\d+\s*-\s*\d+\s*$', part):
+            if re.match(r"^\s*\d+\s*-\s*\d+\s*$", part):
                 # Split by hyphen and convert to integers
-                start, end = map(lambda x: int(x.strip()), part.split('-'))
+                start, end = map(lambda x: int(x.strip()), part.split("-"))
                 numbers.extend([start, end])
             else:
                 # Invalid format, return empty list
                 return []
         else:
             # Handle standalone number
-            if re.match(r'^\d+$', part):
+            if re.match(r"^\d+$", part):
                 numbers.append(int(part))
             else:
                 # Invalid format, return empty list
@@ -48,10 +49,12 @@ def CSVStringToList(csv_str):
 
 
 def PageNumberExtractor(text):
-    formatted_template = pageExtractorPrompt.format(text_str=text)  # Format the template with text_str
+    formatted_template = pageExtractorPrompt.format(
+        text_str=text
+    )  # Format the template with text_str
     print(formatted_template)  # Print the formatted template
 
-    print("="*100)
+    print("=" * 100)
 
     model = Ollama(model="llama3.1")
     csvString = model.invoke(formatted_template)
@@ -60,6 +63,7 @@ def PageNumberExtractor(text):
     values = CSVStringToList(csvString)
 
     return values
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -70,4 +74,3 @@ if __name__ == "__main__":
         print(values)
         sum_values = sum(values)
         print("Sum of values:", sum_values)
-        

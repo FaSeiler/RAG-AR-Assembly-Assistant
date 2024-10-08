@@ -50,6 +50,7 @@ from llama_index.core import PromptTemplate
 # Answer: <|eot_id|>
 # <|start_header_id|>assistant<|end_header_id|>"""
 
+
 def GetPromptTemplateQA():
     templateQA = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
@@ -64,6 +65,7 @@ def GetPromptTemplateQA():
     qa_template = PromptTemplate(templateQA)
     return qa_template
 
+
 def GetPromptTemplateSummary():
     templateSummary = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
@@ -76,6 +78,7 @@ def GetPromptTemplateSummary():
     <|start_header_id|>assistant<|end_header_id|>"""
     summary_template = PromptTemplate(templateSummary)
     return summary_template
+
 
 def GetPromptTemplateRefine():
     templateRefine = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
@@ -92,21 +95,27 @@ def GetPromptTemplateRefine():
     refine_template = PromptTemplate(templateRefine)
     return refine_template
 
+
 def PrintPromptTemplate():
     # you can create text prompt (for completion API)
     qa_template = GetPromptTemplateQA()
-    prompt = qa_template.format(query_str=..., context_str=...) #, existing_answer=...)
+    prompt = qa_template.format(
+        query_str=..., context_str=...
+    )  # , existing_answer=...)
     print("Prompt:")
     print(prompt)
 
     print()
-    print("="*100)
+    print("=" * 100)
     print()
 
     # or easily convert to message prompts (for chat API)
-    messages = qa_template.format_messages(query_str=..., context_str=...) #, existing_answer=...)
+    messages = qa_template.format_messages(
+        query_str=..., context_str=...
+    )  # , existing_answer=...)
     print("Messages:")
     print(messages)
+
 
 # Helper function to view the prompt format
 def DisplayPromptDict(query_engine):
@@ -125,4 +134,3 @@ def DisplayPromptDict(query_engine):
         text_md = f"**Prompt Key**: {k} -> " f"**Text:**"
         print(text_md)
         print(p.get_template())
-

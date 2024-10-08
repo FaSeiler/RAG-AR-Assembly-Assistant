@@ -15,16 +15,21 @@ optimizerPrompt = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
 
 def ResponseOptimizer(text):
-    formatted_template = optimizerPrompt.format(text_str=text)  # Format the template with text_str
+    formatted_template = optimizerPrompt.format(
+        text_str=text
+    )  # Format the template with text_str
     print(formatted_template)  # Print the formatted template
 
-    print("="*100)
+    print("=" * 100)
 
     model = Ollama(model="llama3.1")
     optimizedText = model.invoke(formatted_template)
-    print("After removing sections and page numbers:\n", optimizedText)  # Print the formatted template
+    print(
+        "After removing sections and page numbers:\n", optimizedText
+    )  # Print the formatted template
 
     return optimizedText
+
 
 # if __name__ == "__main__":
 #     if len(sys.argv) < 2:
@@ -35,4 +40,3 @@ def ResponseOptimizer(text):
 #         print(values)
 #         sum_values = sum(values)
 #         print("Sum of values:", sum_values)
-        

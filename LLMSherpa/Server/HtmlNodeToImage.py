@@ -5,6 +5,7 @@ import os
 
 data_dir = "../data/"
 
+
 async def capture_screenshot(input_file, remove_original_after=True):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
@@ -32,19 +33,21 @@ async def capture_screenshot(input_file, remove_original_after=True):
         await page.evaluate(f"document.body.style.zoom = '{zoom_level}'")
 
         # Calculate the dimensions considering the zoom level
-        scaled_width = bounding_box['width'] * zoom_level
-        scaled_height = bounding_box['height'] * zoom_level
+        scaled_width = bounding_box["width"] * zoom_level
+        scaled_height = bounding_box["height"] * zoom_level
 
         # Set the viewport size to be large enough to capture the entire zoomed element
         viewport_width = int(scaled_width)
         viewport_height = int(scaled_height)
-        await page.set_viewport_size({"width": viewport_width, "height": viewport_height})
+        await page.set_viewport_size(
+            {"width": viewport_width, "height": viewport_height}
+        )
 
         # Ensure the element is scrolled into view
         await element.scroll_into_view_if_needed()
 
         # Capture the screenshot of the entire page (to avoid cutting off the element)
-        screenshot_path = 'Screenshot.png'
+        screenshot_path = "Screenshot.png"
         await page.screenshot(path=screenshot_path)
 
         # Open the screenshot using Pillow
@@ -53,27 +56,31 @@ async def capture_screenshot(input_file, remove_original_after=True):
         # Open the image
         # image.show()
         file_name = os.path.splitext(os.path.basename(input_file))[0]
-        
+
         # File name e.g. "myPdf_page_8_3" -> <pdfName>_page_<pageNumber>_<imageIndex>
         # Split by underscores
-        parts = file_name.split('_')
+        parts = file_name.split("_")
 
         # Extract the page_number and image_index from the end
         page_number = int(parts[-2])
         image_index = int(parts[-1])
 
         # Join the remaining parts to form the pdf_name
-        pdf_name = '_'.join(parts[:-3])
-        
+        pdf_name = "_".join(parts[:-3])
+
         # Save the image
         # Create a new directory if it does not yet exist
-        thisImageDir = f"{data_dir}/Images/{pdf_name}/" # Example: "../data/Images/myPdf/"
+        thisImageDir = (
+            f"{data_dir}/Images/{pdf_name}/"  # Example: "../data/Images/myPdf/"
+        )
         if not os.path.exists(thisImageDir):
             os.makedirs(thisImageDir)
 
-        image_path = thisImageDir + file_name + ".png" # Example: "../data/Images/myPdf/myPdf_page_8_3.png"
+        image_path = (
+            thisImageDir + file_name + ".png"
+        )  # Example: "../data/Images/myPdf/myPdf_page_8_3.png"
         image.save(image_path)
-        
+
         os.remove("Screenshot.png")
         if remove_original_after:
             os.remove(input_file)

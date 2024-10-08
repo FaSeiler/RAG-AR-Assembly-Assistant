@@ -5,7 +5,9 @@ from IPython.core.display import display, HTML
 # directory_path = "/Users/fabia/Desktop/testapi"
 # sys.path.insert(0, directory_path)
 
-llmsherpa_api_url = "http://localhost:5001/api/parseDocument?renderFormat=all&useNewIndentParser=true"
+llmsherpa_api_url = (
+    "http://localhost:5001/api/parseDocument?renderFormat=all&useNewIndentParser=true"
+)
 
 
 def ParsePDF(pdf_url):
@@ -25,6 +27,7 @@ def ParsePDF(pdf_url):
 
     return doc
 
+
 def WriteHTMLDocToFile(doc, filename="output.html"):
     """
     Writes an HTML document to a file.
@@ -41,24 +44,28 @@ def WriteHTMLDocToFile(doc, filename="output.html"):
         file.write(html)
     print(f"HTML document saved as {filename}")
 
+
 def PrintChunks(doc):
     for chunk in doc.chunks():
         print(chunk.to_context_text())
-        print("-"*80)
+        print("-" * 80)
+
 
 def PrintSection(doc, section):
     for chunk in doc.chunks():
         if chunk.parent.title == section:
             print(chunk.to_context_text())
             print()
-            print("-"*80)
+            print("-" * 80)
+
 
 def PrintTables(doc):
     for table in doc.tables():
         print(table.to_text())
-        print("-"*80)
+        print("-" * 80)
+
 
 def PrintSections(doc):
     for section in doc.sections():
         print(section.to_text())
-        print("-"*80)
+        print("-" * 80)
