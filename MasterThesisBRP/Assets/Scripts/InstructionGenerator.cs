@@ -26,6 +26,7 @@ public class InstructionGenerator : Singleton<InstructionGenerator>
     {
         StopAllCoroutines();
         InstructionSerializer.instance.DeleteAllSerializedInstructions(); // Delete the saved instructions
+        
         // Get current scene index
         int activeSceneIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
         UnityEngine.SceneManagement.SceneManager.LoadScene(activeSceneIndex); // Reload the scene

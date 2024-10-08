@@ -89,12 +89,15 @@ public class InstructionSerializer : Singleton<InstructionSerializer>
             pageNumbers = instruction.pageNumbers,
         };
 
-        for (int i = 0; i < instruction.images.Count; i++)
+        if (instruction.images != null)
         {
-            Texture2D image = instruction.images[i];
-            string imagePath = Path.Combine(imageDirectory, instruction.componentType.ToString() + "_" + i + ".png");
-            File.WriteAllBytes(imagePath, image.EncodeToPNG());
-            serializableInstruction.imagePaths.Add(imagePath);
+            for (int i = 0; i < instruction.images.Count; i++)
+            {
+                Texture2D image = instruction.images[i];
+                string imagePath = Path.Combine(imageDirectory, instruction.componentType.ToString() + "_" + i + ".png");
+                File.WriteAllBytes(imagePath, image.EncodeToPNG());
+                serializableInstruction.imagePaths.Add(imagePath);
+            }
         }
 
         return serializableInstruction;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -83,10 +84,22 @@ public class SettingsUI : WindowManager
         }
     }
 
+    private void OnEnable()
+    {
+        if (ClientRAG.instance.BASE_URL != ipInputField.text)
+        {
+            ipInputField.text = ClientRAG.instance.BASE_URL;
+        }
+    }
+
     private void UpdateIP(string newIPAdress)
     {
         ipInputField.text = newIPAdress;
         ClientRAG.instance.BASE_URL = newIPAdress;
+        
+        PlayerPrefs.SetString("ServerIP", ClientRAG.instance.BASE_URL);
+        PlayerPrefs.Save();
+
     }
     #endregion
 
