@@ -29,7 +29,8 @@ def send_query(query, pdf_file_name):
 
 if __name__ == "__main__":
     pdf_file_name = "et200sp_system_manual_en-US_en-US_stripped.pdf"
-    query = "What is the general number of I/O modules in an ET 200SP System?"
+    query = "How many I/O modules can be used in a single ET 200SP System?"
+
 
     if len(sys.argv) >= 2:
         query = sys.argv[1]
