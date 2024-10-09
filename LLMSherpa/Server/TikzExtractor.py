@@ -111,8 +111,10 @@ def extract_all_svg_filePath(file_path, remove_original_after=True):
     # Now, move the contents of the second <g> to the first <g> position
     for tag in second_level_g.find_all(recursive=False):
         if tag.name == 'g':
-            if tag.find(True): # Check if the tag has at least one child
-                current_inner_gs.append(tag)
+            if tag.find(True):  # Check if the tag has at least one child
+                # Check if the tag does not only have children tags of type <text>
+                if not all(child.name == 'text' for child in tag.find_all(recursive=False)):
+                    current_inner_gs.append(tag)
         else:
             # If an interrupting tag is found, save the current content and reset
             write_to_file()

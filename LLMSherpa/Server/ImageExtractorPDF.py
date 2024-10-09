@@ -16,7 +16,7 @@ def extract_all_images_from_PDF(input_pdf):
     for counter, pdf in enumerate(split_pdfs):
         htmlFilePath = convert_pdf_to_html(pdf, False) # Convertes the pdf to html
         print(counter, " / HTML file Path", htmlFilePath)
-        html_page_filePaths = extract_pages_filePaths(htmlFilePath, counter, False) # Extracts the individual pages from the 10 page long html file
+        html_page_filePaths = extract_pages_filePaths(htmlFilePath, counter, True) # Extracts the individual pages from the 10 page long html file
         html_page_filePaths_all.extend(html_page_filePaths)
 
     # Print count of html_page_filePaths
@@ -25,7 +25,7 @@ def extract_all_images_from_PDF(input_pdf):
     all_extracted_svg_html_filePaths = []
     for html_page_filePath in html_page_filePaths_all:
         extracted_svg_html_filePaths = extract_all_svg_filePath(
-            html_page_filePath, False
+            html_page_filePath, True
         )
         for extracted_svg_html_filePath in extracted_svg_html_filePaths:
             all_extracted_svg_html_filePaths.append(extracted_svg_html_filePath)
@@ -38,7 +38,7 @@ def extract_all_images_from_PDF(input_pdf):
     image_dict = {}
     for svg_html_filePath in all_extracted_svg_html_filePaths:
         pdf_name, page_number, image_path = asyncio.run(
-            capture_screenshot(svg_html_filePath, False)
+            capture_screenshot(svg_html_filePath, True)
         )
 
         if not pdf_name or not page_number or not image_path:
@@ -120,7 +120,7 @@ def GetBase64Image(image_path):
     
 
 if __name__ == "__main__":
-    image_dict = extract_all_images_from_PDF("../data/test_new.pdf")
+    image_dict = extract_all_images_from_PDF("../data/PowerSupplyManual.pdf")
     # image_dict = extract_all_images_from_PDF("../data/test.pdf")
     print("Image dict:")
     PrintImageDict(image_dict)
