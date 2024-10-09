@@ -5,24 +5,35 @@ import base64
 from PdfToHtml import convert_pdf_to_html
 from TikzExtractor import extract_all_svg_filePath, extract_pages_filePaths
 from HtmlNodeToImage import capture_screenshot
+from PdfSplitter import split_pdf
+import sys
 
 
 def extract_all_images_from_PDF(input_pdf):
-    htmlFilePath = convert_pdf_to_html(input_pdf)
+    split_pdfs = split_pdf(input_pdf)
 
-    html_page_filePaths = extract_pages_filePaths(htmlFilePath, False)
+    html_page_filePaths_all = []
+    for counter, pdf in enumerate(split_pdfs):
+        htmlFilePath = convert_pdf_to_html(pdf, False) # Convertes the pdf to html
+        print(counter, " / HTML file Path", htmlFilePath)
+        html_page_filePaths = extract_pages_filePaths(htmlFilePath, counter, False) # Extracts the individual pages from the 10 page long html file
+        html_page_filePaths_all.extend(html_page_filePaths)
 
     # Print count of html_page_filePaths
-    print(f"Found html pages count: {len(html_page_filePaths)}")
+    print(f"Found html pages count: {len(html_page_filePaths_all)}")
 
     all_extracted_svg_html_filePaths = []
-    for html_page_filePath in html_page_filePaths:
+    for html_page_filePath in html_page_filePaths_all:
         extracted_svg_html_filePaths = extract_all_svg_filePath(
             html_page_filePath, False
         )
-
         for extracted_svg_html_filePath in extracted_svg_html_filePaths:
             all_extracted_svg_html_filePaths.append(extracted_svg_html_filePath)
+
+    print("Found SVG pages count: ", len(all_extracted_svg_html_filePaths))
+    for counter, i in enumerate(all_extracted_svg_html_filePaths):
+        print(counter, " / ", i)
+
 
     image_dict = {}
     for svg_html_filePath in all_extracted_svg_html_filePaths:
@@ -30,8 +41,11 @@ def extract_all_images_from_PDF(input_pdf):
             capture_screenshot(svg_html_filePath, False)
         )
 
+        if not pdf_name or not page_number or not image_path:
+            continue
+
         image_key = pdf_name + "_" + str(page_number)
-        # print("Key: ", image_key, "\nValue:", image_path)
+        print("Saving image: ", image_path)
 
         if image_key in image_dict:
             image_dict[image_key].append(image_path)
@@ -71,14 +85,7 @@ def LoadImagesFromDirectory(pdf_url):
                 print(f"Unexpected filename format: {image_file_name}")
                 continue
 
-            # print("§§§§§§§§§§§§§§§§§ PDF file name: ", pdf_file_name)
-            # print("§§§§§§§§§§§§§§§§§ Pdf name: ", pdf_name)
-            # print("§§§§§§§§§§§§§§§§§ Page number: ", page_number)
-            # print("§§§§§§§§§§§§§§§§§ Image file path: ", image_file_path)
-
             image_key = pdf_name + "_" + str(page_number)
-            # print("§§§§§§§§§§§§§§§§§§§§§ Image key: ", image_key)
-            # print("Key: ", image_key, "\nValue:", image_path)
 
             if image_key in image_dict:
                 image_dict[image_key].append(image_file_path)
@@ -110,3 +117,14 @@ def GetBase64Image(image_path):
     """Encode an image to base64."""
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode("utf-8")
+    
+
+if __name__ == "__main__":
+    image_dict = extract_all_images_from_PDF("../data/test_new.pdf")
+    # image_dict = extract_all_images_from_PDF("../data/test.pdf")
+    print("Image dict:")
+    PrintImageDict(image_dict)
+    # image_dict = LoadImagesFromDirectory("../data/test.pdf")
+    # for key, value in image_dict.items():
+    #     print(key, value)
+    #     print("-" * 80)

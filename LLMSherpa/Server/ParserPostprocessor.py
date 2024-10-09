@@ -67,16 +67,36 @@ def MergeChunks(doc):
     return final_chunks
 
 
-def PrintCustomChunk(chunk):
-    print("Page Nr: ", chunk["page_nr"])
-    print("Parent Section: ", chunk["parent_section"])
-    print("Parent Section Hierarchy: ", chunk["parent_section_hierarchy"])
-    print("Level in the hierarchy: ", chunk["level"])
-    print()
-    print("Text:", chunk["text"])
-    print()
-    print("-" * 100)
+def GetCustomChunkString(chunk):
+    output = []
+    
+    output.append(f"Page Nr: {chunk['page_nr']}")
+    output.append(f"Parent Section: {chunk['parent_section']}")
+    output.append(f"Parent Section Hierarchy: {chunk['parent_section_hierarchy']}")
+    output.append(f"Level in the hierarchy: {chunk['level']}")
+    output.append("")
+    output.append(f"Text: {chunk['text']}")
+    output.append("")
+    output.append("-" * 100)
+    
+    # Join the list with newline characters
+    return "\n".join(output)
 
+def SaveCustomChunksToFile(custom_chunks, file_path):
+    all_chunks_string = []  # List to collect all customChunkStrings
+    
+    # Loop through each chunk, generate its string, and append to the list
+    for chunk in custom_chunks:
+        customChunkString = GetCustomChunkString(chunk)
+        print(customChunkString)  # Optionally print each customChunkString
+        all_chunks_string.append(customChunkString)  # Append to list
+    
+    # Join all strings with newlines separating them
+    full_output = "\n".join(all_chunks_string)
+    
+    # Write the full output to a text file
+    with open(file_path, 'w', encoding='utf-8') as file:
+        file.write(full_output)
 
 # chunk = final_chunks[10]
 # print_custom_chunk(chunk)

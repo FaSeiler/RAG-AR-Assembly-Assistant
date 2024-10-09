@@ -29,6 +29,7 @@ def InitializeLlamaIndex():
     # embed_model = HuggingFaceEmbedding(model_name="Salesforce/SFR-Embedding-Mistral") # Too slow
     embed_model = HuggingFaceEmbedding(
         model_name="Alibaba-NLP/gte-large-en-v1.5", trust_remote_code=True
+        # model_name="dunzhang/stella_en_400M_v5", trust_remote_code=True
     )
     Settings.embed_model = embed_model
 
@@ -129,8 +130,14 @@ def InitPDFData(pdf_url, load_index=False):
         doc = ParsePDF(pdf_url=pdf_url)
         # PrintChunks(doc)
         custom_chunks = MergeChunks(doc)
+        customChunkStrings = []
         for chunk in custom_chunks:
-            PrintCustomChunk(chunk)
+            customChunkString = GetCustomChunkString(chunk)
+            print(customChunkString)
+            customChunkStrings.append(customChunkString)
+            
+        SaveCustomChunksToFile(custom_chunks, "custom_chunks.txt")
+        
         index = CreateIndex(pdf_name, custom_chunks)
 
         print(f"Index for {pdf_url} created.")

@@ -21,8 +21,20 @@ async def capture_screenshot(input_file, remove_original_after=True):
 
         element_selector = "#capture"
 
-        # Ensure the element is visible
-        await page.wait_for_selector(element_selector)
+        try:
+            # Wait for the element to be visible with a specified timeout
+            await page.wait_for_selector(element_selector, timeout=3000)  # Adjust timeout as needed
+        # Proceed with capturing the screenshot if the element is visible
+        # Your screenshot logic here
+        except Exception as e:
+            print(f"Error: {e}")
+            
+            await browser.close()
+            
+            if remove_original_after:
+                os.remove(input_file)
+            
+            return "", "", ""
 
         # Get the bounding box of the element
         element = page.locator(element_selector)

@@ -28,7 +28,7 @@ def extract_all_images_from_PDF(input_pdf):
             asyncio.run(capture_screenshot(svg_html_filePath, False))
 
 def main():
-    input_pdf = "./Input/Doku.pdf"
+    input_pdf = "./Input/et200sp_system_manual_en-US_en-US_stripped.pdf"
     extract_all_images_from_PDF(input_pdf)
 
 
