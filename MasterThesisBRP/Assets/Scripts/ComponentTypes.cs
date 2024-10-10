@@ -29,7 +29,7 @@ public class ComponentTypes : MonoBehaviour
         { ComponentType.BusAdapterForCPU_InterfaceModule, "BusAdapter for the CPU/interface module" },
         { ComponentType.MemoryCardForCPU, "Memory Card for the CPU" },
         { ComponentType.IOModulesAndBUCovers, "I/O modules and BU covers" },
-        { ComponentType.PowerSupply, "Power Supply" }
+        { ComponentType.PowerSupply, "ET200SP PS" }
     };
 
     public static Dictionary<ComponentType, string> componentTypeKeywordDictionary = new Dictionary<ComponentType, string>()
@@ -41,7 +41,7 @@ public class ComponentTypes : MonoBehaviour
         { ComponentType.BusAdapterForCPU_InterfaceModule, "mount/install" },
         { ComponentType.MemoryCardForCPU, "insert" },
         { ComponentType.IOModulesAndBUCovers, "plug in" },
-        { ComponentType.PowerSupply, "mount/install" }
+        { ComponentType.PowerSupply, "mount" }
     };
 
     // Keywords: Mount, install, plug in, connect, insert, remove, replace, attach,

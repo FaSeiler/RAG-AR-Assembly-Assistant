@@ -11,9 +11,7 @@ public class ClientRAG : Singleton<ClientRAG>
 {
     public string BASE_URL;
     public bool isBusy = false;
-    //string query = "What are the steps for installing/mounting a BaseUnit? Include the page_numbers but no introductory sentences.";
     string pdfFileName = "et200sp_system_manual_en-US_en-US_stripped.pdf";
-
 
     public Transform imageContainer; // Reference to the container for the images
 
