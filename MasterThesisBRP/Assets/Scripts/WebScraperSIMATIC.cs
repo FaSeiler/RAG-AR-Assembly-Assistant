@@ -123,7 +123,7 @@ public class WebScraperSIMATIC : Singleton<WebScraperSIMATIC>
         }
         else
         {
-            Debug.LogError("Failed to find the Product or Price data section.");
+            Debug.LogWarning("Failed to find the Product or Price data section.");
             //DebugUI.AddLog("Failed to find the Product or Price data section.");
 
             return new Dictionary<string, string> { { "Error", "Failed to find the Product or Price data section." } };

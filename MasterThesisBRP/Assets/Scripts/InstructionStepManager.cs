@@ -80,6 +80,11 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
 
     private void CreateAndSetScanInstructionStep(ComponentSIMATIC componentSIMATIC)
     {
+        if (componentSIMATIC.componentType == ComponentTypes.ComponentType.MemoryCardForCPU)
+        {
+            return;
+        }
+
         GameObject scanInstructionStepGO = new GameObject("ScanInstructionStep_" + componentSIMATIC.name); // Create a new GameObject 
         scanInstructionStepGO.transform.SetParent(parentScanInstructions); // Set the parent of the new GameObject to the parentScanInstructions
         InstructionStepScan instructionStepScan = scanInstructionStepGO.AddComponent<InstructionStepScan>(); // Add the InstructionStepScan component 
