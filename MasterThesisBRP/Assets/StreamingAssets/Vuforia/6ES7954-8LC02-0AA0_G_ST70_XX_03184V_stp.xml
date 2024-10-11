@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <QCARConfig>
     <Tracking>
-        <ModelTarget name="6ES7954-8LC02-0AA0_G_ST70_XX_03184V_stp" trackingMode="car" motionHint="static" upVector="0.0 1.0 0.0" optimizeTrackingFor="low_feature_objects"></ModelTarget>
+        <ModelTarget name="6ES7954-8LC02-0AA0_G_ST70_XX_03184V_stp" trackingMode="car" motionHint="adaptive" upVector="0.0 1.0 0.0" optimizeTrackingFor="default"></ModelTarget>
     </Tracking>
-    <Assembly name="6ES7954-8LC02-0AA0_G_ST70_XX_03184V_stp" assemblyId="628e818d3df149a29796f92f6a99d143">
+    <Assembly name="6ES7954-8LC02-0AA0_G_ST70_XX_03184V_stp" assemblyId="f4ca51f4b190485b956727dc44c29d31">
         <Part name="6ES7954-8LC02-0AA0_G_ST70_XX_03184V_stp" translation="0 0 0" rotation="AD: 0 0 1 0"></Part>
         <EntryPoint name="(none)" trained="yes"></EntryPoint>
     </Assembly>

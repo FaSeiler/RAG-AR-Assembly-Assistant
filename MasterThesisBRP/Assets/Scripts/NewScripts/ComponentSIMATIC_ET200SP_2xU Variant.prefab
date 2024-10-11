@@ -36,10 +36,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
         type: 3}
+      propertyPath: offsetOnRail.x
+      value: 0.1302
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: offsetOnRail.y
+      value: 0.045
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: offsetOnRail.z
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
       propertyPath: modelTargetBehaviour
       value: 
-      objectReference: {fileID: 2162873730695061825, guid: c7b793950a460a74e9b9854c13bd6367,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
         type: 3}
       propertyPath: positionAnimationModel.x
