@@ -74,3 +74,5 @@ if __name__ == "__main__":
         print(values)
         sum_values = sum(values)
         print("Sum of values:", sum_values)
+
+        # Example text: "The information can be found on pages 5-10 and 15, 20, 25-30."
