@@ -4,7 +4,7 @@ from RAG import SendQueryForPDF, Init
 app = Flask(__name__)
 
 # Initialize load_index and pdf_data on startup
-load_index = True
+load_index = False
 pdf_data = Init(load_index)
 
 
@@ -34,4 +34,3 @@ def handle_query():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
-    # app.run(host='192.168.137.1', port=5000)

@@ -1,8 +1,7 @@
 from spire.pdf.common import *
 from spire.pdf import *
 
-
-def convert_pdf_to_html(pdf_file_path, remove_original_after=False):
+def ConvertPdfToHTML(pdf_file_path, remove_original_after=False):
     # Get the file name string without extension
     pdf_file_name = pdf_file_path.split("/")[-1].split(".")[0]
 

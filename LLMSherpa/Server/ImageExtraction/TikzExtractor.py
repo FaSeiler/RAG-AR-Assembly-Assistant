@@ -3,7 +3,7 @@ import datetime
 import os
 
 
-def extract_pages_filePaths(html_file_path, counter, remove_original_after=True):
+def ExtractPagesFilePaths(html_file_path, counter, remove_original_after=True):
     # Read the HTML file
     with open(html_file_path, 'r', encoding='utf-8') as file:
         content = file.read()
@@ -43,7 +43,7 @@ def extract_pages_filePaths(html_file_path, counter, remove_original_after=True)
 
     return html_page_filePaths
 
-def extract_all_svg_filePath(file_path, remove_original_after=True):
+def ExtractAllSvgFilePath(file_path, remove_original_after=True):
     # Get the file name string without extension
     html_file_name = file_path.split("/")[-1].split(".")[0]
 
@@ -90,7 +90,7 @@ def extract_all_svg_filePath(file_path, remove_original_after=True):
     created_files = []  # List to store paths of created files
 
     # Function to write out the current content to a file
-    def write_to_file():
+    def WriteToFile():
         nonlocal file_index, current_inner_gs
         if current_inner_gs:
             # Append the current inner_gs to first_level_g
@@ -117,12 +117,12 @@ def extract_all_svg_filePath(file_path, remove_original_after=True):
                     current_inner_gs.append(tag)
         else:
             # If an interrupting tag is found, save the current content and reset
-            write_to_file()
+            WriteToFile()
             first_level_g.clear()  # Clear the first_level_g for the next set
             current_inner_gs = []
 
     # After the loop, make sure to write any remaining content
-    write_to_file()
+    WriteToFile()
 
     print("HTML processing complete.")
 

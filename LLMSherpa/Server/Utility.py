@@ -8,7 +8,6 @@ import re
 def PrettyPrint(dataFrame):
     return display(HTML(dataFrame.to_html().replace("\\n", "<br>")))
 
-
 # Sample:
 # visualize_retrieved_nodes(get_retrieved_nodes(index, "Tell me all the basic components of the et 200 sp?", vector_top_k=20, reranker_top_n=10, with_reranker=True))
 def VisualizeRetrievedNodes(nodes) -> None:

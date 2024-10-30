@@ -11,12 +11,9 @@ from ParserPostprocessor import *
 from VectorStoreChromaDB import CreateIndex, LoadIndex
 from RetrieverPostprocessor import *
 from Utility import *
-
-# from PDFImageParser import *
 from LLMDataExtractor import PageNumberExtractor
-from ImageExtractorPDF import *
 from ResponseTextOptimizer import ResponseOptimizer
-
+from ImageExtraction.ImageExtractorPDF import ExtractAllImagesFromPDF, GetImageFilePaths
 
 def InitializeLlamaIndex():
     llm = Ollama(
@@ -129,7 +126,7 @@ def InitPDFData(pdf_url, load_index=False):
         # image_dict = ExtractImagesFromPDF(pdf_url)
         # New image implementation (works with embedded vector graphics like SVG)
         print("Start extract all images from pdf")
-        image_dict = extract_all_images_from_PDF(pdf_url)
+        image_dict = ExtractAllImagesFromPDF(pdf_url)
 
         doc = ParsePDF(pdf_url=pdf_url)
         # PrintChunks(doc)

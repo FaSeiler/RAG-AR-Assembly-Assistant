@@ -2,21 +2,20 @@ import asyncio
 import os
 import glob
 import base64
-from PdfToHtml import convert_pdf_to_html
-from TikzExtractor import extract_all_svg_filePath, extract_pages_filePaths
-from HtmlNodeToImage import capture_screenshot
-from PdfSplitter import split_pdf
-import sys
+from ImageExtraction.PdfToHtml import ConvertPdfToHTML
+from ImageExtraction.TikzExtractor import ExtractAllSvgFilePath, ExtractPagesFilePaths
+from ImageExtraction.HtmlNodeToImage import CaptureScreenshot
+from ImageExtraction.PdfSplitter import SplitPdf
 
 
-def extract_all_images_from_PDF(input_pdf):
-    split_pdfs = split_pdf(input_pdf)
+def ExtractAllImagesFromPDF(input_pdf):
+    split_pdfs = SplitPdf(input_pdf)
 
     html_page_filePaths_all = []
     for counter, pdf in enumerate(split_pdfs):
-        htmlFilePath = convert_pdf_to_html(pdf, False) # Convertes the pdf to html
+        htmlFilePath = ConvertPdfToHTML(pdf, False) # Convertes the pdf to html
         print(counter, " / HTML file Path", htmlFilePath)
-        html_page_filePaths = extract_pages_filePaths(htmlFilePath, counter, True) # Extracts the individual pages from the 10 page long html file
+        html_page_filePaths = ExtractPagesFilePaths(htmlFilePath, counter, True) # Extracts the individual pages from the 10 page long html file
         html_page_filePaths_all.extend(html_page_filePaths)
 
     # Print count of html_page_filePaths
@@ -24,7 +23,7 @@ def extract_all_images_from_PDF(input_pdf):
 
     all_extracted_svg_html_filePaths = []
     for html_page_filePath in html_page_filePaths_all:
-        extracted_svg_html_filePaths = extract_all_svg_filePath(
+        extracted_svg_html_filePaths = ExtractAllSvgFilePath(
             html_page_filePath, True
         )
         for extracted_svg_html_filePath in extracted_svg_html_filePaths:
@@ -38,7 +37,7 @@ def extract_all_images_from_PDF(input_pdf):
     image_dict = {}
     for svg_html_filePath in all_extracted_svg_html_filePaths:
         pdf_name, page_number, image_path = asyncio.run(
-            capture_screenshot(svg_html_filePath, True)
+            CaptureScreenshot(svg_html_filePath, True)
         )
 
         if not pdf_name or not page_number or not image_path:
@@ -120,8 +119,8 @@ def GetBase64Image(image_path):
     
 
 # if __name__ == "__main__":
-#     image_dict = extract_all_images_from_PDF("../data/PowerSupplyManual.pdf")
-#     # image_dict = extract_all_images_from_PDF("../data/test.pdf")
+#     image_dict = ExtractAllImagesFromPDF("../data/PowerSupplyManual.pdf")
+#     # image_dict = ExtractAllImagesFromPDF("../data/test.pdf")
 #     print("Image dict:")
 #     PrintImageDict(image_dict)
 #     # image_dict = LoadImagesFromDirectory("../data/test.pdf")

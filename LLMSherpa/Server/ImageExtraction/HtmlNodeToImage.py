@@ -5,8 +5,7 @@ import os
 
 data_dir = "../data/"
 
-
-async def capture_screenshot(input_file, remove_original_after=True):
+async def CaptureScreenshot(input_file, remove_original_after=True):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page()

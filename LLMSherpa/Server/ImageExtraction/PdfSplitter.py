@@ -1,7 +1,7 @@
 import PyPDF2
 import os
 
-def split_pdf(filepath, remove_original_after=False):
+def SplitPdf(filepath, remove_original_after=False):
     # Create a PdfReader object
     pdf_reader = PyPDF2.PdfReader(filepath)
     total_pages = len(pdf_reader.pages)
@@ -37,5 +37,3 @@ def split_pdf(filepath, remove_original_after=False):
         os.remove(filepath)
 
     return split_files
-
-# split_pdf("./Input/sample.pdf")

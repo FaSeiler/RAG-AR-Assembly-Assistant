@@ -5,7 +5,6 @@ from llama_index.core.postprocessor import SentenceTransformerRerank
 
 top_k_reranked = 10  # Number of nodes to return after reranking
 
-
 # Not used
 def CreateMetadataFilters():
     """
