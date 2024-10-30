@@ -6,7 +6,8 @@ from IPython.core.display import display, HTML
 # sys.path.insert(0, directory_path)
 
 llmsherpa_api_url = (
-    "http://localhost:5001/api/parseDocument?renderFormat=all&useNewIndentParser=true"
+    "http://localhost:5010/api/parseDocument?renderFormat=all&useNewIndentParser=true"
+    # "http://localhost:5010/api/parseDocument?renderFormat=all&useNewIndentParser=true&applyOcr=yes"
 )
 
 
@@ -20,7 +21,7 @@ def ParsePDF(pdf_url):
     global llmsherpa_api_url
     do_ocr = True
     if do_ocr:
-        llmsherpa_api_url = llmsherpa_api_url + "&applyOcr=yes"
+        llmsherpa_api_url = llmsherpa_api_url #+ "&applyOcr=yes"
 
     pdf_reader = LayoutPDFReader(llmsherpa_api_url)
     doc = pdf_reader.read_pdf(pdf_url)

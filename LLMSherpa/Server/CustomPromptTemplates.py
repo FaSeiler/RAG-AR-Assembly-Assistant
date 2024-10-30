@@ -69,7 +69,7 @@ def GetPromptTemplateQA():
 def GetPromptTemplateSummary():
     templateSummary = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
-    Context information from multiple sources is below. Given the information from multiple sources and not prior knowledge, answer the query.<|eot_id|>
+    Context information from multiple sources is below. Given the information from multiple sources and no prior knowledge, answer the query.<|eot_id|>
     <|start_header_id|>user<|end_header_id|>
 
     Question: {query_str}

@@ -98,4 +98,83 @@ def LoadIndex(pdf_name):
         vector_store=CreateVectorStore(pdf_name),
         storage_context=CreateStorageContext(pdf_name),
     )
+
+    # print(f"Index for {pdf_name} loaded.")
+    # visualize_retrieved_nodes(get_retrieved_nodes("Tell me all the basic components of the et 200 sp?",
+    #                                            vector_top_k=20, index=index, reranker_top_n=10, with_reranker=False))
+
     return index
+
+
+#================================================================================================= TEST
+from llama_index.core import QueryBundle
+from llama_index.core.retrievers import VectorIndexRetriever
+from llama_index.core.postprocessor import SimilarityPostprocessor,KeywordNodePostprocessor, MetadataReplacementPostProcessor, SentenceTransformerRerank
+
+
+def get_retrieved_nodes(
+    query_str, index, vector_top_k=10, reranker_top_n=5, with_reranker=False
+):
+    query_bundle = QueryBundle(query_str)
+    # configure retriever
+    retriever = VectorIndexRetriever(
+        index=index,
+        similarity_top_k=vector_top_k,
+    )
+    retrieved_nodes = retriever.retrieve(query_bundle)
+
+    if with_reranker:
+        # configure reranker
+        postprocessor = SentenceTransformerRerank(model="cross-encoder/ms-marco-MiniLM-L-2-v2", top_n=reranker_top_n)       
+        retrieved_nodes = postprocessor.postprocess_nodes(
+            retrieved_nodes, query_bundle
+        )
+
+    return retrieved_nodes
+
+import pandas as pd
+from IPython.core.display import display, HTML
+
+def pretty_print(df):
+    return display(HTML(df.to_html().replace("\\n", "<br>")))
+
+
+def visualize_retrieved_nodes(nodes) -> None:
+    result_dicts = []
+    for node in nodes:
+        result_dict = {"Score": node.score, "Text": node.node.get_text(), "Metadata": node.metadata}
+        result_dicts.append(result_dict)
+
+    pretty_print(pd.DataFrame(result_dicts))
+
+
+    # Convert to DataFrame
+    df = pd.DataFrame(result_dicts)
+     # Generate HTML string
+    html_content = df.to_html(index=False, escape=False, classes='dataframe')
+    output_file = "debugging_nodes.html"
+
+
+    # Save HTML to file for external viewing
+    with open(output_file, "w", encoding="utf-8") as file:
+        file.write("""
+        <html>
+        <head>
+            <style>
+                body { font-family: Arial, sans-serif; }
+                .dataframe { width: 100%; border-collapse: collapse; }
+                .dataframe th, .dataframe td { padding: 8px; border: 1px solid #ddd; }
+                .dataframe th { background-color: #f2f2f2; }
+            </style>
+        </head>
+        <body>
+            <h2>Retrieved Nodes</h2>
+        """)
+        file.write(html_content)
+        file.write("""
+        </body>
+        </html>
+        """)
+    
+    print(f"HTML file '{output_file}' has been created.")
+

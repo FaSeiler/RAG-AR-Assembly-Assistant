@@ -42,12 +42,16 @@ def GetQueryEngine(index):
         # output_cls=ManualExcerpt,
     )
 
+    print("%" * 150)
+    print("PROMPT TEMPLATES: \n")
+    DisplayPromptDict(query_engine)
+
     # Update RetrieverQueryEngine prompt template to match LLAMA3 format
     query_engine.update_prompts(
         {
             "response_synthesizer:text_qa_template": GetPromptTemplateQA(),
-            "response_synthesizer:summary_template": GetPromptTemplateSummary(),
-            "response_synthesizer:refine_template": GetPromptTemplateRefine(),
+            # "response_synthesizer:summary_template": GetPromptTemplateSummary(),
+            # "response_synthesizer:refine_template": GetPromptTemplateRefine(),
         }
     )
 
@@ -110,7 +114,7 @@ def InitPDFData(pdf_url, load_index=False):
     pdf_file_name = os.path.basename(pdf_url)
     pdf_name = os.path.splitext(pdf_file_name)[0]
 
-    image_dict = {}  # TODO: Remove
+    image_dict = {}
     if load_index:
         # Old image implementation (does not work with embedded vector graphics like SVG)
         # image_dict = LoadImagesFromDirectory(pdf_url)
@@ -186,6 +190,9 @@ def SendQueryForPDF(query, pdf_file_name, pdf_data):
     if pdf_url in pdf_data:
         query_engine = pdf_data[pdf_url]["query_engine"]
         image_dict = pdf_data[pdf_url]["image_dict"]
+
+        # print("%" * 150)
+        # print(query_engine)
 
         if query_engine is None:
             print("Query engine does not exist.")

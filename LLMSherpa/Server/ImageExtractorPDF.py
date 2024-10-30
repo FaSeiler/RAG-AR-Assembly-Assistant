@@ -119,12 +119,12 @@ def GetBase64Image(image_path):
         return base64.b64encode(image_file.read()).decode("utf-8")
     
 
-if __name__ == "__main__":
-    image_dict = extract_all_images_from_PDF("../data/PowerSupplyManual.pdf")
-    # image_dict = extract_all_images_from_PDF("../data/test.pdf")
-    print("Image dict:")
-    PrintImageDict(image_dict)
-    # image_dict = LoadImagesFromDirectory("../data/test.pdf")
-    # for key, value in image_dict.items():
-    #     print(key, value)
-    #     print("-" * 80)
+# if __name__ == "__main__":
+#     image_dict = extract_all_images_from_PDF("../data/PowerSupplyManual.pdf")
+#     # image_dict = extract_all_images_from_PDF("../data/test.pdf")
+#     print("Image dict:")
+#     PrintImageDict(image_dict)
+#     # image_dict = LoadImagesFromDirectory("../data/test.pdf")
+#     # for key, value in image_dict.items():
+#     #     print(key, value)
+#     #     print("-" * 80)
