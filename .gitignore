@@ -132,3 +132,10 @@ LLMSherpa/Scripts/split_pdfs/
 LLMSherpa/Scripts/Logs/
 LLMSherpa/Scripts/ImageExtraction/__pycache__/
 LLMSherpa/Scripts/__pycache__/
+RAG/__pycache__/
+RAG/chroma_db_et200sp_system_manual_en-US_en-US_stripped/
+RAG/data/
+RAG/Scripts/__pycache__/
+RAG/Scripts/chroma_db_et200sp_system_manual_en-US_en-US_stripped/
+RAG/Scripts/ImageExtraction/__pycache__/
+RAG/Scripts/Logs/
