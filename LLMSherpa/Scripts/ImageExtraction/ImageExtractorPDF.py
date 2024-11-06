@@ -13,7 +13,7 @@ def ExtractAllImagesFromPDF(input_pdf):
 
     html_page_filePaths_all = []
     for counter, pdf in enumerate(split_pdfs):
-        htmlFilePath = ConvertPdfToHTML(pdf, False) # Convertes the pdf to html
+        htmlFilePath = ConvertPdfToHTML(pdf, True) # Convertes the pdf to html
         print(counter, " / HTML file Path", htmlFilePath)
         html_page_filePaths = ExtractPagesFilePaths(htmlFilePath, counter, True) # Extracts the individual pages from the 10 page long html file
         html_page_filePaths_all.extend(html_page_filePaths)

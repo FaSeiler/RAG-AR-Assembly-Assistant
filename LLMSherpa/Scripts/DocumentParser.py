@@ -2,12 +2,8 @@ import os, sys
 from llmsherpa.readers import LayoutPDFReader
 from IPython.core.display import display, HTML
 
-# directory_path = "/Users/fabia/Desktop/testapi"
-# sys.path.insert(0, directory_path)
-
 llmsherpa_api_url = (
     "http://localhost:5010/api/parseDocument?renderFormat=all&useNewIndentParser=true"
-    # "http://localhost:5010/api/parseDocument?renderFormat=all&useNewIndentParser=true&applyOcr=yes"
 )
 
 

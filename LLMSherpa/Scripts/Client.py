@@ -29,10 +29,7 @@ def send_query(query, pdf_file_name):
 
 if __name__ == "__main__":
     pdf_file_name = "et200sp_system_manual_en-US_en-US_stripped.pdf"
-    # pdf_file_name = "Lebenslauf_Fabian_Seiler.pdf"
-
     query = "What is the difference between a white and a grey base unit?"
-
 
     if len(sys.argv) >= 2:
         query = sys.argv[1]

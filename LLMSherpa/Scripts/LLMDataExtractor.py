@@ -3,7 +3,6 @@ import sys
 import re
 
 # Takes in a text and extracts data from it.
-
 pageExtractorPrompt = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
     Find all mentioned page numbers in the following text/metadata and return them in csv format (e.g "31, 55, 22", or ""). If there is a range of page numbers (e.g 55-58) include the whole range (i.e. "55, 56, 57, 58"). No additional text or explanation should be included.<|eot_id|>

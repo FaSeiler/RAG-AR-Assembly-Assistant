@@ -1,56 +1,5 @@
 from llama_index.core import PromptTemplate
 
-# templateQA = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-
-# Given the context below answer the question without any introductory sentences. \
-# Format your answer as a JSON object with three attributes: response (a string containing the answer), section_hierarchy (a string containing the section hierarchy)\
-#       and page_nrs (a list of integers that represent the page numbers where this information was found)."<|eot_id|>
-# <|start_header_id|>user<|end_header_id|>
-
-# Question: {query_str}
-# Context: {context_str}
-# Answer: <|eot_id|>
-# <|start_header_id|>assistant<|end_header_id|>"""
-
-# templateQA = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-
-# Given the context below answer the question. \
-# The output should be a single json formated in the following schema: \
-# {{ \
-#   'response' // A string containing the answer \
-#   'section_hierarchy' // A string conatining the section hierarchy where the answer can be found\
-#   'page_nrs' // A list of int with all the page number(s) where the answer can be found \
-# }}<|eot_id|>
-# <|start_header_id|>user<|end_header_id|>
-
-# # Question: {query_str}
-# # Context: {context_str}
-# # Answer: <|eot_id|>
-# # <|start_header_id|>assistant<|end_header_id|>"""
-
-# templateQA_instruction_generation = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-
-# You are a helper in creating assembly instructions based on a technical manual. Use the following pieces of retrieved context from the manual and the question to produce instructions. \
-# If you don't know the answer, just say that you don't know. Be as detailed as possible.<|eot_id|>
-# <|start_header_id|>user<|end_header_id|>
-
-# Question: {query_str}
-# Context: {context_str}
-# Answer: <|eot_id|>
-# <|start_header_id|>assistant<|end_header_id|>"""
-
-# templateQA = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-
-# You are an assistant for creating assembly instructions for electrical components based on a technical manual. Only use the retrieved context from the manual and the question to produce instructions. \
-# Always include an Introduction, the Requirement, the Required Tools, the steps for mounting/installing the component and the parent_section.<|eot_id|>
-# <|start_header_id|>user<|end_header_id|>
-
-# Question: {query_str}
-# Context: {context_str}
-# Answer: <|eot_id|>
-# <|start_header_id|>assistant<|end_header_id|>"""
-
-
 def GetPromptTemplateQA():
     templateQA = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
 

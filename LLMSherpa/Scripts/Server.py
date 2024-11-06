@@ -7,9 +7,6 @@ app = Flask(__name__)
 
 # Initialize load_index and pdf_data on startup
 load_index = False
-# run_docker()
-# run_ollama()
-# time.sleep(5) # Wait for the server to start
 pdf_data = Init(load_index)
 
 

@@ -15,18 +15,16 @@ from LLMDataExtractor import PageNumberExtractor
 from ResponseTextOptimizer import ResponseOptimizer
 from ImageExtraction.ImageExtractorPDF import ExtractAllImagesFromPDF, GetImageFilePaths, GetBase64Image, LoadImagesFromDirectory
 
+data_dir = "../data/"
+
 def InitializeLlamaIndex():
     llm = Ollama(
         model="llama3.1", request_timeout=120.0
     )  # , output_parser=output_parser)
     Settings.llm = llm
 
-    # embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
-    # embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-base-en-v1.5")
-    # embed_model = HuggingFaceEmbedding(model_name="Salesforce/SFR-Embedding-Mistral") # Too slow
     embed_model = HuggingFaceEmbedding(
         model_name="Alibaba-NLP/gte-large-en-v1.5", trust_remote_code=True
-        # model_name="dunzhang/stella_en_400M_v5", trust_remote_code=True
     )
     Settings.embed_model = embed_model
 
@@ -62,7 +60,7 @@ def GetFormattedJSONQueryResponse(
     text = response.response
     # page_numbers = ExtractPageNumbers(text) # Keyword matching for page number extraction
     page_numbers = PageNumberExtractor(text)  # LLM model for page number extraction
-    optimizedText = ResponseOptimizer(text)  # Optimize the response text
+    optimizedText = ResponseOptimizer(text)  # Optimize the response text by removing page numbers and section headers
     # Initialize parsed_dict
     parsed_dict = {}
 
@@ -100,12 +98,6 @@ def GetFormattedJSONQueryResponse(
     #     visualize_retrieved_nodes(response.source_nodes)
 
     return json_object
-
-
-# =================================================================================================
-
-data_dir = "../data/"
-
 
 def InitPDFData(pdf_url, load_index=False):
     pdf_file_name = os.path.basename(pdf_url)
@@ -146,7 +138,6 @@ def InitPDFData(pdf_url, load_index=False):
 
     query_engine = GetQueryEngine(index)
 
-    # TODO: Remove
     # Print image_dict
     print("Image Dictionary:")
     for key, value in image_dict.items():
