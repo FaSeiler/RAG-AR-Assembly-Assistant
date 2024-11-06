@@ -126,3 +126,9 @@ LLMSherpa/Server/split_pdfs/
 TikzExtractor_Spire/Screenshot.png
 LLMSherpa/Server/RESPONSE.json
 Evaluation/UserSettings/Layouts/
+LLMSherpa/__pycache__/
+LLMSherpa/split_pdfs/
+LLMSherpa/Scripts/split_pdfs/
+LLMSherpa/Scripts/Logs/
+LLMSherpa/Scripts/ImageExtraction/__pycache__/
+LLMSherpa/Scripts/__pycache__/
