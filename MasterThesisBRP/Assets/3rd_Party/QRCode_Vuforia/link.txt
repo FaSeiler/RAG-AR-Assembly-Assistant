@@ -1,1 +1,0 @@
-https://github.com/kevalpatel2106/vuforia-barcode-scanner
