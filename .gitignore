@@ -97,3 +97,15 @@ LLMSherpa/chroma_db/
 LLMSherpa/data/Images/
 LLMSherpa/Server/chroma_db_Lebenslauf_Fabian_Seiler/
 LLMSherpa/Server/chroma_db_et200sp_system_manual_en-US_en-US_stripped/
+AssemblyAssistant/Library/
+RAG/Scripts/Logs/
+RAG/Scripts/ImageExtraction/__pycache__/
+RAG/Scripts/chroma_db_et200sp_system_manual_en-US_en-US_stripped/
+RAG/Scripts/__pycache__/
+RAG/data/Images/et200sp_system_manual_en-US_en-US_stripped/
+RAG/data/Backup/
+RAG/chroma_db_et200sp_system_manual_en-US_en-US_stripped/
+RAG/__pycache__/
+AssemblyAssistant/Temp/
+AssemblyAssistant/Logs/
+AssemblyAssistant/UserSettings/
