@@ -1,0 +1,153 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5263858692534540504
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8577116483158630510}
+  - component: {fileID: 6462662443124795381}
+  - component: {fileID: 5748583645714078220}
+  m_Layer: 0
+  m_Name: AnimationDatabase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8577116483158630510
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5263858692534540504}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6462662443124795381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5263858692534540504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fa3b7750dc487346a3109671d6a0b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowSpawner: {fileID: 5748583645714078220}
+  componentAnimationDatas:
+  - componentType: 1
+    animatorController: {fileID: 9100000, guid: 9e69ae7f66703d5418f3b07589b72125,
+      type: 2}
+    arrowDatas:
+    - face: 0
+      position: 0
+      name: arrow
+      enabled: 0
+    - face: 2
+      position: 4
+      name: arrow (1)
+      enabled: 0
+  - componentType: 2
+    animatorController: {fileID: 9100000, guid: 311767ba121560e4eaf9d340355090ac,
+      type: 2}
+    arrowDatas:
+    - face: 0
+      position: 0
+      name: arrow
+      enabled: 0
+    - face: 2
+      position: 4
+      name: arrow (1)
+      enabled: 0
+    - face: 4
+      position: 0
+      name: arrow (2)
+      enabled: 0
+  - componentType: 3
+    animatorController: {fileID: 9100000, guid: 311767ba121560e4eaf9d340355090ac,
+      type: 2}
+    arrowDatas:
+    - face: 0
+      position: 0
+      name: arrow
+      enabled: 0
+    - face: 2
+      position: 4
+      name: arrow (1)
+      enabled: 0
+    - face: 4
+      position: 0
+      name: arrow (2)
+      enabled: 0
+  - componentType: 4
+    animatorController: {fileID: 9100000, guid: de6b39796af770e4381a47880f2e3812,
+      type: 2}
+    arrowDatas:
+    - face: 2
+      position: 0
+      name: arrow
+      enabled: 0
+  - componentType: 5
+    animatorController: {fileID: 9100000, guid: fab9d8312a52e604fb9811e0acddd0e3,
+      type: 2}
+    arrowDatas:
+    - face: 2
+      position: 0
+      name: arrow
+      enabled: 0
+  - componentType: 6
+    animatorController: {fileID: 9100000, guid: 7d0f12f7f138d3347a71fd1f7bcbdfd8,
+      type: 2}
+    arrowDatas:
+    - face: 2
+      position: 0
+      name: arrow
+      enabled: 0
+  - componentType: 7
+    animatorController: {fileID: 9100000, guid: 9e69ae7f66703d5418f3b07589b72125,
+      type: 2}
+    arrowDatas:
+    - face: 0
+      position: 0
+      name: arrow
+      enabled: 0
+    - face: 2
+      position: 4
+      name: arrow (1)
+      enabled: 0
+--- !u!114 &5748583645714078220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5263858692534540504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 089de1d82c699ac4a90249d8c02ea676, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowPositions: []
+  arrowPrefab: {fileID: 8388037726048045781, guid: 68d774d043aec224ca7a1cd3764006d8,
+    type: 3}
+  spherePrefab: {fileID: 8525865815937587408, guid: cebb50d3212181e4692c5cc53fab644b,
+    type: 3}
+  targetObject: {fileID: 0}
+  frontFaceColor: {r: 1, g: 0, b: 0, a: 1}
+  backFaceColor: {r: 0, g: 0, b: 1, a: 1}
+  topFaceColor: {r: 0, g: 1, b: 0, a: 1}
+  bottomFaceColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  leftFaceColor: {r: 1, g: 0, b: 1, a: 1}
+  rightFaceColor: {r: 0, g: 1, b: 1, a: 1}

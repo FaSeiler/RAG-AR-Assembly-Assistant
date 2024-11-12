@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2374426332747549538
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2493491215494486173, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_Name
+      value: ComponentSIMATIC_ET200_PowerSupply Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: modelPrefab
+      value: 
+      objectReference: {fileID: 919132149155446097, guid: a570e6aeb40f2824eab73a73713fdf7d,
+        type: 3}
+    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: articleNumber
+      value: 6EP7133-6AE00-0BN0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: componentName
+      value: SIMATIC ET 200SP PS1AC24VDC10A
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: componentType
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: modelTargetBehaviour
+      value: 
+      objectReference: {fileID: 3813165994268360909, guid: 225e4062cf5d62d4198c6fadd4d18c9e,
+        type: 3}
+    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: positionAnimationModel.x
+      value: -0.3158
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 456806aa3af678c4ab7b75bf7d0c12bc, type: 3}

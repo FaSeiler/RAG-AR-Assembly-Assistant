@@ -1,0 +1,79 @@
+{
+  "CPU_InterfaceModule": {
+    "componentType": 1,
+    "text": "To mount/install the CPU_InterfaceModule, follow these steps:\n\n1. Install the CPU/interface module on the mounting rail. (page_number: 59, parent_section_hierarchy: 7.3 Mounting the CPU/interface module > Mounting the CPU/interface module)\n2. Swivel the CPU/interface module towards the back until you hear the mounting rail release button click into place. (page_number: 59, parent_section_hierarchy: 7.3 Mounting the CPU/interface module > Mounting the CPU/interface module)",
+    "imagePaths": [
+      "C:/Users/fabia/AppData/LocalLow/DefaultCompany/MasterThesisBRP\\Images\\CPU_InterfaceModule_0.png"
+    ],
+    "pageNumbers": [
+      59,
+      59
+    ]
+  },
+  "BaseUnitForIOModules": {
+    "componentType": 2,
+    "text": "To mount/install the BaseUnitForIOModules, follow these steps:\n\n1. Hook the BaseUnit into the DIN rail from above (page_number: 66, parent_section_hierarchy: Mounting a BaseUnit).\n2. Swing the BaseUnit to the rear until the BaseUnit audibly engages (page_number: 66, parent_section_hierarchy: Mounting a BaseUnit).\n3. Slide the individual BaseUnits to the left to the previous BaseUnit until they audibly engage (page_number: 66, parent_section_hierarchy: Mounting a BaseUnit).\n\nNote: The BaseUnits for motor starters can be plugged together with the BaseUnits for I/O modules (page_number: 66, parent_section_hierarchy: Mounting a BaseUnit).",
+    "imagePaths": [
+      "C:/Users/fabia/AppData/LocalLow/DefaultCompany/MasterThesisBRP\\Images\\BaseUnitForIOModules_0.png"
+    ],
+    "pageNumbers": [
+      66,
+      66,
+      66,
+      66
+    ]
+  },
+  "IOModulesAndBUCovers": {
+    "componentType": 6,
+    "text": "To mount/install the IOModulesAndBUCovers, follow these steps:\n\n1. Insert the mechanical bracket into the opening at the bottom of the BaseUnit.\n2. Hook the BaseUnit into the mounting rail.\n3. Insert the mechanical bracket into the BaseUnit.\n4. Screw the mechanical bracket securely onto the mounting panel using an M4 screw and a suitable washer.\n\n(page_number: 70-72, parent_section_hierarchy: Procedure)",
+    "imagePaths": [
+      "C:/Users/fabia/AppData/LocalLow/DefaultCompany/MasterThesisBRP\\Images\\IOModulesAndBUCovers_0.png",
+      "C:/Users/fabia/AppData/LocalLow/DefaultCompany/MasterThesisBRP\\Images\\IOModulesAndBUCovers_1.png",
+      "C:/Users/fabia/AppData/LocalLow/DefaultCompany/MasterThesisBRP\\Images\\IOModulesAndBUCovers_2.png",
+      "C:/Users/fabia/AppData/LocalLow/DefaultCompany/MasterThesisBRP\\Images\\IOModulesAndBUCovers_3.png"
+    ],
+    "pageNumbers": [
+      70,
+      71,
+      72
+    ]
+  },
+  "ServerModule": {
+    "componentType": 3,
+    "text": "1. Hook the server module onto the mounting rail to the right of the last BaseUnit (page_number: 68, parent_section_hierarchy: 7.9 Installing the server module > Installing the server module)\n2. Swivel the server module backwards on the mounting rail (page_number: 68, parent_section_hierarchy: 7.9 Installing the server module > Installing the server module)\n3. Move the server module parallel to the left until you hear it latch onto the last BaseUnit that precedes it (page_number: 68, parent_section_hierarchy: 7.9 Installing the server module > Installing the server module)",
+    "imagePaths": [
+      "C:/Users/fabia/AppData/LocalLow/DefaultCompany/MasterThesisBRP\\Images\\ServerModule_0.png"
+    ],
+    "pageNumbers": [
+      68
+    ]
+  },
+  "BusAdapterForCPU_InterfaceModule": {
+    "componentType": 4,
+    "text": "To mount/install the BusAdapterForCPU_InterfaceModule:\n\n1. Install the CPU/interface module on the mounting rail (page_number: 59, parent_section_hierarchy: 7.3 Mounting the CPU/interface module)\n2. Swivel the CPU/interface module towards the back until you hear the mounting rail release button click into place.\n3. Use a 3 to 3.5 mm screwdriver (page_number: 59, 60) to mount the BusAdapter securely onto the interface module.",
+    "imagePaths": [
+      "C:/Users/fabia/AppData/LocalLow/DefaultCompany/MasterThesisBRP\\Images\\BusAdapterForCPU_InterfaceModule_0.png"
+    ],
+    "pageNumbers": [
+      59,
+      60
+    ]
+  },
+  "PowerSupply": {
+    "componentType": 7,
+    "text": "To mount/install the PowerSupply, I don't know (page_number:, parent_section:).",
+    "imagePaths": [],
+    "pageNumbers": []
+  },
+  "MemoryCardForCPU": {
+    "componentType": 5,
+    "text": "To mount/install the MemoryCardForCPU:\n\n1. Ensure that the CPU is either switched off or in STOP mode (page_number: 119, parent_section: Inserting the SIMATIC memory card).\n2. Mount the ET 200SP distributed I/O system only with disconnected supply voltage (page_number: 56, parent_section: NOTE).\n\nNote: The provided context does not contain information on a specific MemoryCardForCPU. It appears to be related to inserting and removing a SIMATIC memory card for the CPU. If you meant this, then the above steps would apply. If it's something else, please provide more context.",
+    "imagePaths": [
+      "C:/Users/fabia/AppData/LocalLow/DefaultCompany/MasterThesisBRP\\Images\\MemoryCardForCPU_0.png"
+    ],
+    "pageNumbers": [
+      119,
+      56
+    ]
+  }
+}

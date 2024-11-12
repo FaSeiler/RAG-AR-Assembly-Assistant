@@ -1,0 +1,4 @@
+docker build -t pdf2svg_docker -f Dockerfile 
+
+
+docker run --rm -v /c/Users/fabia/Desktop/MasterThesisRepo/pdf2svg_docker/Input:/data mypdf2svgimage pdf2svg /data/sample.pdf /data/output.svg

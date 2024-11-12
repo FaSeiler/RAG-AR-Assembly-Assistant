@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<QCARConfig>
+    <Tracking>
+        <ModelTarget name="6ES7512-1DM03-0AB0_G_ST70_XX_04911V_OnlyEndModule_stp" trackingMode="car" motionHint="adaptive" upVector="0.0 1.0 0.0" optimizeTrackingFor="default"></ModelTarget>
+    </Tracking>
+    <Assembly name="6ES7512-1DM03-0AB0_G_ST70_XX_04911V_OnlyEndModule_stp" assemblyId="dd2f376b7e714777a7e5079590d7a28d">
+        <Part name="6ES7512-1DM03-0AB0_G_ST70_XX_04911V_OnlyEndModule_stp" translation="0 0 0" rotation="AD: 0 0 1 0"></Part>
+        <EntryPoint name="(none)" trained="yes"></EntryPoint>
+    </Assembly>
+</QCARConfig>

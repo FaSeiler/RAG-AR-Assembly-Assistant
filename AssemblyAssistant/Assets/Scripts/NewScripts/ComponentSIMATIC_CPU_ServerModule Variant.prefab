@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4347035666926402624
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2493491215494486173, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_Name
+      value: ComponentSIMATIC_CPU_ServerModule Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: modelPrefab
+      value: 
+      objectReference: {fileID: 403344529896380155, guid: fcd51a95c2bce3b4ca09d816503af384,
+        type: 3}
+    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: articleNumber
+      value: 6ES7512-1DM03-0AB0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: componentName
+      value: Server Module CPU 1512SP-1 PN, 400KB Prog., 2MB Data
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: componentType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: modelTargetBehaviour
+      value: 
+      objectReference: {fileID: 8901626816462106691, guid: c0c0341c3f8967e4184752ea6d469985,
+        type: 3}
+    - target: {fileID: 2798724886709591537, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: positionAnimationModel.x
+      value: -0.1641
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942239155739417488, guid: 456806aa3af678c4ab7b75bf7d0c12bc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 456806aa3af678c4ab7b75bf7d0c12bc, type: 3}
