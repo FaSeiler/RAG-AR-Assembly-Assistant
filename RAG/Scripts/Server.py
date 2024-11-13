@@ -2,11 +2,16 @@ from flask import Flask, request, jsonify
 from RAG import SendQueryForPDF, Init
 from Subprocesses import run_docker, run_ollama
 import time
+import sys
 
 app = Flask(__name__)
 
-# Initialize load_index and pdf_data on startup
-load_index = False
+# Read the load_index argument from the command line
+if len(sys.argv) > 1:
+    load_index = sys.argv[1].lower() in ("true", "1", "t")
+else:
+    load_index = False  # Default value if no argument is provided
+
 pdf_data = Init(load_index)
 
 
