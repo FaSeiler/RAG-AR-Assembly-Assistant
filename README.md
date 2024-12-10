@@ -51,6 +51,11 @@ This project parses PDF manuals of Siemens SIMATIC components and automatically 
   ```sh
   py Subprocesses.py
   ```
+   And start the RAG server:
+   ```sh
+  py Server.py
+  ```
+
 
  **Manual startup without Docker:**
     
@@ -62,6 +67,10 @@ This project parses PDF manuals of Siemens SIMATIC components and automatically 
      ```sh
       ollama serve
       ```
+  - And start the RAG server:
+   ```sh
+  py Server.py
+  ```
 ### Testing the RAG Server
 You can test the running server by executing the `Client.py` script with a sample request:
 ```sh
