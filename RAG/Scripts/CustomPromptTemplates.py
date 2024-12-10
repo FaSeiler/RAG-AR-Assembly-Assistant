@@ -45,6 +45,31 @@ def GetPromptTemplateRefine():
     return refine_template
 
 
+def GetPromptTemplatePageSectionRemover():
+    templatePageSectionRemover = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+        In the following text remove all information about the page_number and the parent_section_hierarchy but don't mention this in your answer. The rest of the content should remain the same.<|eot_id|>
+        <|start_header_id|>user<|end_header_id|>
+
+        Text: {text_str}
+        Answer: <|eot_id|>
+        <|start_header_id|>assistant<|end_header_id|>"""
+    
+    return templatePageSectionRemover
+
+
+def GetPromptTemplatePageNumberExtractor():
+    templatePageExtractorPrompt = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+    Find all mentioned page numbers in the following text/metadata and return them in csv format (e.g "31, 55, 22", or ""). If there is a range of page numbers (e.g 55-58) include the whole range (i.e. "55, 56, 57, 58"). No additional text or explanation should be included.<|eot_id|>
+    <|start_header_id|>user<|end_header_id|>
+
+    Text: {text_str}
+    Answer: <|eot_id|>
+    <|start_header_id|>assistant<|end_header_id|>"""
+
+    return templatePageExtractorPrompt
+
 def PrintPromptTemplate():
     # you can create text prompt (for completion API)
     qa_template = GetPromptTemplateQA()

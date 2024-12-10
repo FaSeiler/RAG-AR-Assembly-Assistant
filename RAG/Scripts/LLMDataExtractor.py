@@ -1,19 +1,10 @@
 from langchain_community.llms.ollama import Ollama
 from ModelConfig import llm_model
+from CustomPromptTemplates import GetPromptTemplatePageNumberExtractor
 import sys
 import re
 
 # Takes in a text and extracts data from it.
-pageExtractorPrompt = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-
-    Find all mentioned page numbers in the following text/metadata and return them in csv format (e.g "31, 55, 22", or ""). If there is a range of page numbers (e.g 55-58) include the whole range (i.e. "55, 56, 57, 58"). No additional text or explanation should be included.<|eot_id|>
-    <|start_header_id|>user<|end_header_id|>
-
-    Text: {text_str}
-    Answer: <|eot_id|>
-    <|start_header_id|>assistant<|end_header_id|>"""
-
-
 def CSVStringToList(csv_str):
     # Remove leading/trailing quotation marks and spaces from the whole string
     csv_str = csv_str.strip().strip('"').strip("'")
@@ -49,6 +40,7 @@ def CSVStringToList(csv_str):
 
 
 def PageNumberExtractor(text):
+    pageExtractorPrompt = GetPromptTemplatePageNumberExtractor()
     formatted_template = pageExtractorPrompt.format(
         text_str=text
     )  # Format the template with text_str
