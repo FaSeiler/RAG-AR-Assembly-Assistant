@@ -11,7 +11,7 @@ This project parses PDF manuals of Siemens SIMATIC components and automatically 
 - Open the directory RAG, where the file `requirements.txt` is located, and run the following command:
    
    ```sh
-    pip install -r requirements.txt
+    pip install --no-deps -r requirements.txt
     ```
 - Run the following command to install Chromium with Playwright:
   
@@ -21,9 +21,12 @@ This project parses PDF manuals of Siemens SIMATIC components and automatically 
     
 4. **Install the nlm-ingestor:**
    
-    The nlm-ingestor is used to parse the PDF documents used as input for the instruction generation. Install the docker container as described here: [nlm-ingestor](https://github.com/nlmatics/nlm-ingestor) 
+    The nlm-ingestor is used to parse the PDF documents used as input for the instruction generation. Install the docker container as described here: [nlm-ingestor](https://github.com/nlmatics/nlm-ingestor)
+    ```sh
+    docker pull ghcr.io/nlmatics/nlm-ingestor:latest
+    ```
    
-5. **Install Ollama and download LLama3.1:**
+6. **Install Ollama and download LLama3.1:**
 
    - Install Ollama from: [Ollama](https://ollama.com/)
 
@@ -59,8 +62,8 @@ This project parses PDF manuals of Siemens SIMATIC components and automatically 
      ```sh
       ollama serve
       ```
-
-     TODO: Testing with Client
-
-
-### 
+### Testing the RAG Server
+You can test the running server by executing the `Client.py` script with a sample request:
+```sh
+py Client.py "What is the difference between a white and a grey base unit?"
+```
