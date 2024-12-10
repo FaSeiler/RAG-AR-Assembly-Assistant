@@ -108,3 +108,42 @@ def DisplayPromptDict(query_engine):
         text_md = f"**Prompt Key**: {k} -> " f"**Text:**"
         print(text_md)
         print(p.get_template())
+
+
+# Deprecated Llama2 prompts ********************************************************************************************************************
+def GetPromptTemplateQA_Llama2():
+    templateQA = """<<SYS>>
+    You're are a helpful Assistant, and you only response to the "Assistant"
+    Remember, maintain a natural tone. Be precise, concise, and casual. Keep it short\n
+    <</SYS>>
+    [INST]
+    Context: {context_str}
+    Question: {query_str}
+    [/INST]\n
+    Assistant:"""
+    qa_template = PromptTemplate(templateQA)
+    return qa_template
+
+
+def GetPromptTemplatePageSectionRemover_Llama2():
+    templatePageSectionRemover = """<<SYS>>
+    In the following text remove all information about the page_number and the parent_section_hierarchy but don't mention this in your answer. The rest of the content should remain the same.
+    <</SYS>>
+    [INST]
+    Text: {text_str}
+    [/INST]\n
+    Assistant:"""
+    
+    return templatePageSectionRemover
+
+
+def GetPromptTemplatePageNumberExtractor_Llama2():
+    templatePageExtractorPrompt = """<<SYS>>
+    Find all mentioned page numbers in the following text/metadata and return them in csv format (e.g "31, 55, 22", or ""). If there is a range of page numbers (e.g 55-58) include the whole range (i.e. "55, 56, 57, 58"). No additional text or explanation should be included.
+    <</SYS>>
+    [INST]
+    Text: {text_str}
+    [/INST]\n
+    Assistant:"""
+
+    return templatePageExtractorPrompt
