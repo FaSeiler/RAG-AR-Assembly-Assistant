@@ -1,4 +1,5 @@
 from langchain_community.llms.ollama import Ollama
+from ModelConfig import llm_model
 import sys
 import re
 
@@ -55,7 +56,7 @@ def PageNumberExtractor(text):
 
     print("=" * 100)
 
-    model = Ollama(model="llama3.1")
+    model = Ollama(model=llm_model)
     csvString = model.invoke(formatted_template)
     print(csvString)  # Print the formatted template
 

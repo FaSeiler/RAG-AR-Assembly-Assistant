@@ -1,4 +1,5 @@
 from langchain_community.llms.ollama import Ollama
+from ModelConfig import llm_model
 import sys
 import re
 
@@ -22,7 +23,7 @@ def ResponseOptimizer(text):
 
     print("=" * 100)
 
-    model = Ollama(model="llama3.1")
+    model = Ollama(model=llm_model)
     optimizedText = model.invoke(formatted_template)
     print(
         "After removing sections and page numbers:\n", optimizedText

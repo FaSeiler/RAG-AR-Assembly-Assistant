@@ -11,6 +11,7 @@ from ParserPostprocessor import *
 from VectorStoreChromaDB import CreateIndex, LoadIndex
 from RetrieverPostprocessor import *
 from Utility import *
+from ModelConfig import llm_model, embed_model
 from LLMDataExtractor import PageNumberExtractor
 from ResponseTextOptimizer import ResponseOptimizer
 from ImageExtraction.ImageExtractorPDF import ExtractAllImagesFromPDF, GetImageFilePaths, GetBase64Image, LoadImagesFromDirectory
@@ -19,14 +20,14 @@ data_dir = "../data/"
 
 def InitializeLlamaIndex():
     llm = Ollama(
-        model="llama3.1", request_timeout=120.0
+        model=llm_model, request_timeout=120.0
     )  # , output_parser=output_parser)
     Settings.llm = llm
 
-    embed_model = HuggingFaceEmbedding(
-        model_name="Alibaba-NLP/gte-large-en-v1.5", trust_remote_code=True
+    embedding_model = HuggingFaceEmbedding(
+        model_name=embed_model, trust_remote_code=True
     )
-    Settings.embed_model = embed_model
+    Settings.embed_model = embedding_model
 
 
 def GetQueryEngine(index):
