@@ -19,6 +19,9 @@ public class SettingsUI : WindowManager
     public Toggle toggleScanPreviews;
     public GameObject scanPreviewsParent;
 
+    [Header("TrackingWarning")]
+    public Toggle toggleTrackingWarning;
+
     [Header("Regenerate Instructions")]
     public Button regenerateInstructionsButton;
 
@@ -27,6 +30,7 @@ public class SettingsUI : WindowManager
     {
         InitIpUI();
         InitVisualizationsUI();
+        InitTrackingWarningUI();
         InitInstructionRegenerationUI();
     }
 
@@ -58,6 +62,34 @@ public class SettingsUI : WindowManager
         else
         {
             TrackingManager.instance.HideLoggedInComponents();
+        }
+    }
+    #endregion
+
+    #region TRACKING_WARNING
+    private void InitTrackingWarningUI()
+    {
+        if (toggleTrackingWarning.isOn)
+        {
+            PlayerPrefs.SetInt("TrackingWarning", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("TrackingWarning", 0);
+        }
+
+        toggleTrackingWarning.onValueChanged.AddListener(OnTrackingWarningToggleChanged);
+    }
+
+    private void OnTrackingWarningToggleChanged(bool value)
+    {
+        if (value)
+        {
+            PlayerPrefs.SetInt("TrackingWarning", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("TrackingWarning", 0);
         }
     }
     #endregion

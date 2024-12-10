@@ -2,6 +2,7 @@ from llama_index.core.vector_stores.types import MetadataFilters, MetadataFilter
 from llama_index.core import QueryBundle
 from llama_index.core.retrievers import VectorIndexRetriever
 from llama_index.core.postprocessor import SentenceTransformerRerank
+from ModelConfig import rerank_model
 
 top_k_reranked = 10  # Number of nodes to return after reranking
 
@@ -56,7 +57,7 @@ def TestNodeReranking(
     if with_reranker:
         # configure reranker
         postprocessor = SentenceTransformerRerank(
-            model="cross-encoder/ms-marco-MiniLM-L-2-v2", top_n=reranker_top_n
+            model=rerank_model, top_n=reranker_top_n
         )
         retrieved_nodes = postprocessor.postprocess_nodes(retrieved_nodes, query_bundle)
 
@@ -66,7 +67,7 @@ def TestNodeReranking(
 def GetNodePostprocessors():
     return [
         SentenceTransformerRerank(
-            model="cross-encoder/ms-marco-MiniLM-L-2-v2", top_n=top_k_reranked
+            model=rerank_model, top_n=top_k_reranked
         )
         # KeywordNodePostprocessor(
         #     required_keywords=["Basic component"]#, exclude_keywords=["Italy"]

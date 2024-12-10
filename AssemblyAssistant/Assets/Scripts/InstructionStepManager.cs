@@ -172,37 +172,38 @@ public class InstructionStepManager : Singleton<InstructionStepManager>
             return;
         }
 
-#if !UNITY_EDITOR
-        // If we are at index 1 we are setting the reference point to the first component
-        // NOTE: We can't use other components as reference points, since they can't be tracked using model tracking
-        // as soon as they are installed on the rail
-        // Therefore we have to remember the position of the first component and use it as a reference point for all other components
-        if (currentInstructionStepIndex == 1)
+        if (PlayerPrefs.GetInt("TrackingWarning") == 1)
         {
-            if (TrackingManager.instance.modelTargets[0].TargetStatus.Status != Vuforia.Status.TRACKED)
+            // If we are at index 1 we are setting the reference point to the first component
+            // NOTE: We can't use other components as reference points, since they can't be tracked using model tracking
+            // as soon as they are installed on the rail
+            // Therefore we have to remember the position of the first component and use it as a reference point for all other components
+            if (currentInstructionStepIndex == 1)
             {
-                // We don't want to continue to the next instruction step if the model target is not tracked
-                // This ensures that the reference point for all further components is accurate
-                WarningUI.instance.ShowWarning("For the first component the objects needs to be scanned to continue!");
+                if (TrackingManager.instance.modelTargets[0].TargetStatus.Status != Vuforia.Status.TRACKED)
+                {
+                    // We don't want to continue to the next instruction step if the model target is not tracked
+                    // This ensures that the reference point for all further components is accurate
+                    WarningUI.instance.ShowWarning("For the first component the objects needs to be scanned to continue!");
 
-                return;
+                    return;
+                }
+                else
+                {
+                    // Log in the first component, override the transform where it is instantiated
+                    TrackingManager.instance.CreateLoggedInComponent(
+                        currentInstructionStep.component, TrackingManager.instance.modelTargets[0].transform);
+                }
+
             }
-            else
+            // We are moving from an assembly instruction step to the next scan instruction step
+            // Therefore we need to log in the position of the component, as it has been installed at a fixed position
+            else if (currentInstructionStep is InstructionStepAnimation)
             {
-                // Log in the first component, override the transform where it is instantiated
-                TrackingManager.instance.CreateLoggedInComponent(
-                    currentInstructionStep.component, TrackingManager.instance.modelTargets[0].transform);
+                // Log in all other components. We don't need to override the transform, as they are instantiated in reference to the first component
+                TrackingManager.instance.CreateLoggedInComponent(currentInstructionStep.component);
             }
-            
         }
-        // We are moving from an assembly instruction step to the next scan instruction step
-        // Therefore we need to log in the position of the component, as it has been installed at a fixed position
-        else if (currentInstructionStep is InstructionStepAnimation)
-        {
-            // Log in all other components. We don't need to override the transform, as they are instantiated in reference to the first component
-            TrackingManager.instance.CreateLoggedInComponent(currentInstructionStep.component);
-        }
-#endif
 
         currentInstructionStepIndex++;
         WarningUI.instance.HideWarning();

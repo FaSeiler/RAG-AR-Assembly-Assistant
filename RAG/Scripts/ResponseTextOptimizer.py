@@ -1,20 +1,13 @@
 from langchain_community.llms.ollama import Ollama
+from ModelConfig import llm_model
+from CustomPromptTemplates import GetPromptTemplatePageSectionRemover
 import sys
 import re
 
+
 # Takes in a text and removes the sections and page numbers
-
-optimizerPrompt = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-
-    In the following text remove all information about the page_number and the parent_section_hierarchy but don't mention this in your answer. The rest of the content should remain the same.<|eot_id|>
-    <|start_header_id|>user<|end_header_id|>
-
-    Text: {text_str}
-    Answer: <|eot_id|>
-    <|start_header_id|>assistant<|end_header_id|>"""
-
-
 def ResponseOptimizer(text):
+    optimizerPrompt = GetPromptTemplatePageSectionRemover()
     formatted_template = optimizerPrompt.format(
         text_str=text
     )  # Format the template with text_str
@@ -22,7 +15,7 @@ def ResponseOptimizer(text):
 
     print("=" * 100)
 
-    model = Ollama(model="llama3.1")
+    model = Ollama(model=llm_model)
     optimizedText = model.invoke(formatted_template)
     print(
         "After removing sections and page numbers:\n", optimizedText
