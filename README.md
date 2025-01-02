@@ -36,11 +36,6 @@ This project parses PDF manuals of Siemens SIMATIC components and automatically 
       ollama pull llama3.1
       ```
 
-8. **Open the Unity Project:**
-
-   Open the project folder `AssemblyAssistant` in Unity
-
-
 
 ## Usage
 ### Starting the RAG Server
@@ -76,3 +71,18 @@ You can test the running server by executing the `Client.py` script with a sampl
 ```sh
 py Client.py "What is the difference between a white and a grey base unit?"
 ```
+
+
+### Unity Setup
+- Open the project folder `AssemblyAssistant` in Unity
+- Open Unity and click "ignore" when asked to enter safe mode
+- Download the Vuforia SDK unity package: https://developer.vuforia.com/downloads/sdk
+- Open the Vuforia unity package and import it
+- Reference the extracted Vuforia .tgz file in the package `manifest.json`.
+  For this, you must add the file path of the file `com.ptc.vuforia.engine-10.28.4` in the package manifest. You can find the manifest in the directory `AssemblyAssistant/Packages/`.
+  The .tgz file is located in the directory `Assets/Editor/Migration/`. The referenced file path in the manifest can look like this:
+  ```json
+   "com.ptc.vuforia.engine": "file:C:/Users/User/Desktop/MasterThesisRepo/AssemblyAssistant/Assets/Editor/Migration/com.ptc.vuforia.engine-10.28.4.tgz",
+   ```
+- After that, confirm the Vuforia License agreement and add your license key
+
