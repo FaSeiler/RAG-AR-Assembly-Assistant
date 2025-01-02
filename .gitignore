@@ -79,14 +79,13 @@ ThesisApplication/obj/
 ThesisApplication/Logs/
 ThesisApplication/Builds/
 ThesisApplication/UserSettings/
-#ThesisApplication/Packages/com.ptc.vuforia.engine-10.22.5.tgz
+AssemblyAssistant/Assets/Editor/Migration/com.ptc.vuforia.engine-10.28.4.tgz
 MasterThesisBRP/.vsconfig
 MasterThesisBRP/.utmp/
 MasterThesisBRP/Library/
 MasterThesisBRP/UserSettings/
 MasterThesisBRP/QCAR/
 MasterThesisBRP/Logs/
-#MasterThesisBRP/Packages/com.ptc.vuforia.engine-10.22.5.tgz
 MasterThesisBRP/Temp/
 LLMSherpa/Server/__pycache__/
 LLMSherpa/Server/chroma_db/
@@ -140,3 +139,4 @@ RAG/Scripts/chroma_db_et200sp_system_manual_en-US_en-US_stripped/
 RAG/Scripts/ImageExtraction/__pycache__/
 RAG/Scripts/Logs/
 RAG/Scripts/RESPONSE.json
+AssemblyAssistant/Assets/Editor/Migration/com.ptc.vuforia.engine-10.28.4.tgz.meta
