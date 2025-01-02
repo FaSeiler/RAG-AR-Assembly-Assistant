@@ -12,7 +12,7 @@ def ParsePDF(pdf_url):
     Parses a PDF document and returns the parsed document.
 
     Returns:
-        doc: The parsed document.
+        doc: The parsed document. https://llmsherpa.readthedocs.io/en/latest/llmsherpa.readers.html#llmsherpa.readers.layout_reader.Document
     """
     global llmsherpa_api_url
     do_ocr = True

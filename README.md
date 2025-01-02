@@ -21,7 +21,7 @@ This project parses PDF manuals of Siemens SIMATIC components and automatically 
     
 4. **Install the nlm-ingestor:**
    
-    The nlm-ingestor is used to parse the PDF documents used as input for the instruction generation. Install the docker container as described here: [nlm-ingestor](https://github.com/nlmatics/nlm-ingestor)
+    The nlm-ingestor is used to parse the PDF documents used as input for the instruction generation. Install the docker container as described here: [nlm-ingestor](https://github.com/nlmatics/nlm-ingestor) (v0.1.9)
     ```sh
     docker pull ghcr.io/nlmatics/nlm-ingestor:latest
     ```

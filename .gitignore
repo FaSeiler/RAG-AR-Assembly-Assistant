@@ -79,14 +79,14 @@ ThesisApplication/obj/
 ThesisApplication/Logs/
 ThesisApplication/Builds/
 ThesisApplication/UserSettings/
-ThesisApplication/Packages/com.ptc.vuforia.engine-10.22.5.tgz
+#ThesisApplication/Packages/com.ptc.vuforia.engine-10.22.5.tgz
 MasterThesisBRP/.vsconfig
 MasterThesisBRP/.utmp/
 MasterThesisBRP/Library/
 MasterThesisBRP/UserSettings/
 MasterThesisBRP/QCAR/
 MasterThesisBRP/Logs/
-MasterThesisBRP/Packages/com.ptc.vuforia.engine-10.22.5.tgz
+#MasterThesisBRP/Packages/com.ptc.vuforia.engine-10.22.5.tgz
 MasterThesisBRP/Temp/
 LLMSherpa/Server/__pycache__/
 LLMSherpa/Server/chroma_db/
