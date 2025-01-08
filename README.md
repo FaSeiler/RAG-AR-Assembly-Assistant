@@ -82,7 +82,7 @@ py Client.py "What is the difference between a white and a grey base unit?"
   For this, you must add the file path of the file `com.ptc.vuforia.engine-10.28.4` in the package manifest. You can find the manifest in the directory `AssemblyAssistant/Packages/`.
   The .tgz file is located in the directory `Assets/Editor/Migration/`. The referenced file path in the manifest can look like this:
   ```json
-   "com.ptc.vuforia.engine": "file:C:/Users/User/Desktop/MasterThesisRepo/AssemblyAssistant/Assets/Editor/Migration/com.ptc.vuforia.engine-10.28.4.tgz",
+   "com.ptc.vuforia.engine": "file:C:/Users/User/Desktop/AssemblyAssistant/Assets/Editor/Migration/com.ptc.vuforia.engine-10.28.4.tgz",
    ```
 - After that, confirm the Vuforia License agreement and add your license key
 
