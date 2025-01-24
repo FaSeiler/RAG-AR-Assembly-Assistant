@@ -1,0 +1,1 @@
+The file in data folder must have this name: "et200sp_system_manual_en-US_en-US_stripped.pdf"
